@@ -11,7 +11,8 @@
 #include <signal.h>
 #include <errno.h>
 
-#define TIMEOUT 30
+#define TIMEOUT 60
+#define BUFFER_SIZE 1024
 
 int handle_error(char *message);
 void timeout_error();

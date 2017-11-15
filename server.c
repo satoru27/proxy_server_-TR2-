@@ -5,7 +5,7 @@ int run_tcp_server(long int port){
   struct sockaddr_in echoServerAddress; //local adress
   struct sockaddr_in echoClientAddress; //client address
   unsigned int clientLen; //length of client address data structure
-  char buffer[256];
+  char buffer[BUFFER_SIZE];
   int rw_flag;
   int close_flag = 0;
 
@@ -42,10 +42,10 @@ int run_tcp_server(long int port){
 
     for(;;){  //Communicate
       printf("------------------------------------\n");
-      bzero(buffer,256);//clears the message buffer
+      bzero(buffer,BUFFER_SIZE);//clears the message buffer
 
       alarm(TIMEOUT);
-      if((rw_flag = read(clientSocket,buffer,255))<0)//read message sent from the client
+      if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
         handle_error("[!] read() failed");
       printf("[*] Received the following message: %s", buffer);
       printf("[*] Sending ACK\n");
@@ -55,7 +55,7 @@ int run_tcp_server(long int port){
       close_flag = strcmp(buffer,"close()\n");
 
       alarm(TIMEOUT);
-      if((rw_flag = write(clientSocket,"[S] Got your message",21))<0)
+      if((rw_flag = write(clientSocket,"HTTP/1.1 404 Not Found\r\n",sizeof("HTTP/1.1 404 Not Found\r\n\r\n")))<0)
         handle_error("[!] write() failed");
 
       if(close_flag == 0){
