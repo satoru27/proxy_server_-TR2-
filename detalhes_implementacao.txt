@@ -1,0 +1,76 @@
+******
+Módulos common.h e common.c:
+
+	Esses módulos foram criados para definir as coisas comuns entre todos os outros módulo. Nele é definido as variaveis que definem os sockets e elas são exportadas pra cada um dos respectivos módulos (serverSocket pro servidor e clientSocket pro cliente)
+	Isso foi feito já que para todo socket que é aberto é necessário fecha-los e nem sempre o programa encerra normalmente. Então qualquer erro é tratado pela função handle_error() e ela cuida de fechar os sockets abertos em qualquer situação anormal. 
+	O define TIMEOUT serve pra definir (em segundos) quanto tempo leva pra algo tomar um timeout, pois existem funções que bloqueiam a execução
+do resto do programa, então se não tiver um timeout ele vai ficar lá eternamente (espera ocupada)
+	
+	O timeout_error serve pra informar usuario que ocorreu um timeout e fechar os sockets se necessário
+	O spinning_thing() é só uma função que eu criei pra fazer uma barrinha ficar girando no terminal, não tem a ver com o trabalho em si.
+	Como no trabalho anterior ele falou que precisava só de uma conexão por vez, só foram criados um clientSocket e um serverSocket
+
+	(TODO): criar dois sockets pro servidor : um pra fechar a comunicação TCP com o cliente e outro pra fazer o request HTTP com a página desejada
+
+******
+Módulos client.h e client.c:
+
+	Tem várias estruturas e uso das funções que são específicas dos pacotes 
+	O signal foi usado pra implementar o timeout. No signal(), indica-se que tipo de signal você vai usar( no caso um alarme SIGALRM) e qual função vai ser chamada caso o timeout ocorra (no caso o timeout_error)
+	A maioria das ações estão dentro de um if para caso de algum erro ocorre, elas sejam tratadas indicando o que aconteceu pelo handle_error
+	O primeiro passo é criar o socket do cliente usando a função socket(). SOCK_STREAM indica que você quer usar TCP. AF_INET e esse 0 eram usado em todod lugares (pegos como referência base)
+
+	
+	O server é definido como pronteiro struct hostent pra ser usada no segundo if. O gethostbyname é uma função que recebe um parametro host. Esse "host" é um parametro que é passado na main e depois (re)passado para a função do cliente. Se eu passar algo na main como
+www.google.com, ele vai pegar esse parametro e pegar o que ele precisa daquele host para fazer a conexão, mas principalmente pegar esse nome e transformar em um IP que de pra entender (ele faz a consulta com o DNS)
+	É possível fazer conexões locais, entao da para testar em dois terminais no mesmo pc usando localhost
+	O server_addr (definido como uma estrutura de sockaddr_in) é a estrutura que vai conter as informações do servidor usadas a conexão
+primeiro a estrutura é limpa usando bzero (essa função coloca uma posição de memória indicada até um certo numero de bytes como zero)
+	O campo sin_family do server_addr é colocado como AF_INET pra ficar igual ao do socket do cliente
+	O bcopy tem a seguinte estrutura:
+		void bcopy(const void *src, void *dest, size_t n); Ele faz uma cópia byte a byte, então nessa linha o que basicamente ocorre é a cópia das informações que a gente conseguiu usando o gethostbyname, 
+copiando o endereço do servidor que a gente conseguiu pelo gethostbyname (server->h_addr) e copiando no campo respectivo do server_addr
+	O tamanho do campo também fica na estrutura que a gente conseguiu no gethostbyname
+	
+	A proxima linha é adicionando a porta às informações do servidor. A porta é passada como argumento para main e depois repassada para função. 
+	Essa questão do htons é necessário usar essas funções, pois a ordem dos bytes lidas no computador é diferente daquela usada na rede
+
+	Agora já da pra ver a primeira função que bloqueia. Como o signal já ta preparado é só usar a função alarm com o TIMEOUT que a gente definiu no commons.h 
+	Primeiro a gente faz a conexão utilizando o socket do cliente e as informações do servidor que a gente quer conectar. Como os sockets são só um int, quando foram criados no commons.h, foram definidos os dois sockets como -1. Então, se a conexão nao ocorrer (por algo diferente de timeout), ele é tratado no handle_error. Se der certo o numero muda pra algo positivo e a função continua
+
+	Na função mesmo da linha 30 é porque se a função falha ela retorna um numero negativo. Depois se entra dentro de um loop infinito
+pela questão da conexão persistente do TCP
+
+
+	Se o cliente receber uma mensagem ele vai escrever no buffer e exibir o que ele mandou (o rw_flag é só pra receber o retorno da função read e write)
+	Depois de ler o que o servidor mandou:
+		Se nao teve a flag pra fechar ele fica esperando mais mensagem
+		Se teve ele sai do for e fecha o socket
+
+
+************
+Módulos server.c e server.h
+
+	Tem um campo diferente na criação do socket do servidor (no ultimo campo ao invés de 0 que nem no cliente, temos IPPROTO_TCP e tem que pegar e definir as nossas informações como servidor). A memset é só pra zerar os campos também
+	sin_family = AF_INET que nem no cliente
+	sin_addr.s_addr = htonl(INADDR_ANY). No cliente a gente fez a consulta do endereço pra preencher esse campo
+	INADDR_ANY tem a ver com a função bind() mais a frente
+	A porta do sin_port é passada pelo main também. 
+	(TODO):Esse provavelmente vai ser um dos campos que a gente vai mudar no trabalho
+
+
+	Na main você seleciona par o programa rodar em modo servidor e especifica em que porta esse servidor vai receber as coisas
+	Na função bind o que acontece basicamente é: você associa as informações do seu servidor a interface daquele socket do servidor. Aquele socket agora sabe o endereço do servidor, portas, protocolo e etc daquele servidor e entao fica aberto a comunicações
+
+	
+	Agora entramos no loop infinito
+		O servidor começa a esperar as conexões por meio do listen() e o 1 indica o número máximo de conexões naquele socket
+		O listen é bloqueante também, mas pode ser uma decisão de projeto deixar o socket esperando eternamente por uma conexão
+
+
+	Depois de formar a fila (fila de uma conexão nesse caso), ele aceita a conexão e adquire as informações do cliente montando o socket do cliente
+	Depois entra em outro loop infinito. Esse loop é a comunicação persistente TCP com o cliente
+o servidor cria um buffer para ele e fica esperando as mensagens do cliente. Tem aquele mesmo esquema do close()
+
+
+	Se nao tiver mais mensagem os sockets fecham. Uma diferença nesse processo é que o cliente só precisa fechar o socket dele. O servidor precisa fechar os dois, porque ele cria um para ele e um para o cliente
