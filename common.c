@@ -2,6 +2,7 @@
 
 int serverSocket = -1;
 int clientSocket = -1;
+int hostSocket = -1;
 
 int handle_error(char *message){
   printf("------------------------------------\n");
@@ -14,6 +15,10 @@ int handle_error(char *message){
   if(serverSocket > -1){
     close(serverSocket);
     printf("[!] Closed server socket\n");
+  }
+  if(hostSocket > -1){
+    close(hostSocket);
+    printf("[!] Closed host socket\n");
   }
   exit(1);
 }
@@ -29,6 +34,10 @@ void timeout_error(){
   if(serverSocket > -1){
     close(serverSocket);
     printf("[!] Closed server socket\n");
+  }
+  if(hostSocket > -1){
+    close(hostSocket);
+    printf("[!] Closed host socket\n");
   }
   exit(1);
 }

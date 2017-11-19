@@ -1,5 +1,44 @@
 #include "server.h"
 
+int check_end(char* buffer){
+  for(int i = 0; i < BUFFER_SIZE; i++){
+    //printf("%c",buffer[i]);
+    if(buffer[i] == '\r')
+      if(buffer[i+1] == '\n')
+        if(buffer[i+2] == '\r')
+          if(buffer[i+3] == '\n')
+            return i;
+  }
+  return -1;
+}
+
+int get_length(char* buffer){
+  char* start = strstr(buffer,"Content-Length: ");
+  char* end = strstr(start, "Server: ");
+  start[end-start-2] = '\0';
+  start += (sizeof("Content-Length: ") - 1); 
+  int size = atoi(start);
+  return size;
+}
+
+char* get_final_host(char* buffer){
+  char* hostname = strstr(buffer, "Host: ");
+  hostname += sizeof("Host: ") - 1;
+  char* end = strstr(hostname,"\r\n");
+  hostname[end-hostname] = '\0'; 
+  printf("[*] Destination host: %s\n",hostname);
+  return hostname;
+}
+
+bool close_connection(char* buffer){
+  char* end = NULL;
+  end = strstr(buffer, "Connection: close");
+  if(end != NULL)
+    return true;
+  else
+    return false;
+}
+
 int run_tcp_server(long int port){
   //clientSocket and serverSocket are defined globally on common.h
   struct sockaddr_in echoServerAddress; //local adress
@@ -9,9 +48,18 @@ int run_tcp_server(long int port){
   int rw_flag;
   int close_flag = 0;
 
+  //proxy-finalhost communication structures
+  char* destination_host = NULL;
+  struct hostent *final_host;
+  struct sockaddr_in server_addr;
+  long int host_port = 80;
+
+
   signal(SIGALRM,&timeout_error);//setting a signal for a possible timeout event
 
   printf("[.] RUNNING TCP SERVER\n");
+  
+  /*BEGIN - CONNECTIONS SETUP*/
   //creating a TCP socket
   if( (serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 )
       handle_error("[!] socket() failed");
@@ -47,15 +95,46 @@ int run_tcp_server(long int port){
       alarm(TIMEOUT);
       if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
         handle_error("[!] read() failed");
-      printf("[*] Received the following message: %s", buffer);
-      printf("[*] Sending ACK\n");
+      printf("[*] Received the following message:\n %s", buffer);
+      
+      //printf("[*] Sending to the final host\n");
+      
+      /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
+     
+      if( (hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
+        handle_error("[!] socket() failed\n");
+      printf("[*] Host socket created \n");
+
+      printf("[*] Extracting hostname\n");
+      destination_host = get_final_host(buffer);
+
+      if((final_host = gethostbyname(destination_host)) == NULL)
+        handle_error("[!] Unknown host\n");
+      printf("[*] Host found \n");
+
+      bzero((char *) &server_addr,sizeof(server_addr));
+      server_addr.sin_family = AF_INET;
+
+      bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
+
+      server_addr.sin_port = htons((unsigned short) host_port);
+
+      alarm(TIMEOUT);
+      if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
+        handle_error("[!] connect() error \n");
+      printf("[*] Connection successful\n");
+
+      /*END - OPENING CONNECTION WITH FINAL HOST*/
+      /*END - CONNECTIONS SETUP*/
+
+      
 
       //if the message sent is "close()" (with a newline that is needed to sent the message)
       //the server will begin to close the connection with the client
-      close_flag = strcmp(buffer,"close()\n");
+      //close_flag = strcmp(buffer,"close()\n");
 
       alarm(TIMEOUT);
-      if((rw_flag = write(clientSocket,"HTTP/1.1 404 Not Found\r\n",sizeof("HTTP/1.1 404 Not Found\r\n\r\n")))<0)
+      if((rw_flag = write(clientSocket,buffer,BUFFER_SIZE)<0))
         handle_error("[!] write() failed");
 
       if(close_flag == 0){
@@ -74,3 +153,6 @@ int run_tcp_server(long int port){
   return 0;
 
 }
+
+
+

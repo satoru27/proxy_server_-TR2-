@@ -11,7 +11,7 @@
  */
 
 #include "server.h"
-#include "client.h"
+//#include "client.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,5 +48,8 @@ int main(int argc, char *argv[]){
   printf("[*] Program exited with flag: %d\n",return_flag);
   return return_flag;
 
+//printf("[TEST] RUNNING TCP CLIENT CONNECTION TEST\n");
+//run_tcp_client("www.theuselessweb.com",80);
+return 0;
 //spinning_thing(1);
 }

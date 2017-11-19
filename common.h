@@ -10,6 +10,7 @@
 #include <netdb.h>
 #include <signal.h>
 #include <errno.h>
+#include <stdbool.h>
 
 #define TIMEOUT 60
 #define BUFFER_SIZE 1024
@@ -19,6 +20,7 @@ void timeout_error();
 
 extern int serverSocket;
 extern int clientSocket;
+extern int hostSocket;
 
 
 //for the lulz
