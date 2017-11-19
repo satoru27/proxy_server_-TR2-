@@ -13,7 +13,7 @@
 #include <stdbool.h>
 
 #define TIMEOUT 60
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1500 //maximum tcp packet size
 
 int handle_error(char *message);
 void timeout_error();

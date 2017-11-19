@@ -1,23 +1,22 @@
 #include "server.h"
 
-int check_end(char* buffer){
-  for(int i = 0; i < BUFFER_SIZE; i++){
-    //printf("%c",buffer[i]);
-    if(buffer[i] == '\r')
-      if(buffer[i+1] == '\n')
-        if(buffer[i+2] == '\r')
-          if(buffer[i+3] == '\n')
-            return i;
-  }
-  return -1;
+bool check_end(char* buffer){
+  char* end = NULL;
+  end = strstr(buffer,"\r\n\r\n");
+  if(end != NULL)
+    return true;
+  else
+    return false;
 }
 
 int get_length(char* buffer){
   char* start = strstr(buffer,"Content-Length: ");
-  char* end = strstr(start, "Server: ");
-  start[end-start-2] = '\0';
-  start += (sizeof("Content-Length: ") - 1); 
+  start += sizeof("Content-Length: ") - 1;
+  char* end = strstr(start, "\r\n");
+  start[end-start] = '\0';
+  printf("FUNCTION LENGTH STRING: %s\n", start);
   int size = atoi(start);
+  printf("FUNCTION LENGTH INT: %d\n", size);
   return size;
 }
 
@@ -39,21 +38,40 @@ bool close_connection(char* buffer){
     return false;
 }
 
+bool have_content(char* buffer){
+  char* content = NULL;
+  content = strstr(buffer, "Content-Type:");
+  if(content != NULL)
+    return true;
+  else
+    return false;
+}
+
+int get_header_size(char* buffer){
+
+}
+
+
 int run_tcp_server(long int port){
   //clientSocket and serverSocket are defined globally on common.h
   struct sockaddr_in echoServerAddress; //local adress
   struct sockaddr_in echoClientAddress; //client address
   unsigned int clientLen; //length of client address data structure
   char buffer[BUFFER_SIZE];
-  int rw_flag;
-  int close_flag = 0;
+  char init_message[BUFFER_SIZE];
+  int rw_flag = 0;
+  bool close_flag = false;
+  int remaining_data = 0;
+  bool first_message = true;
+  int rw_flag1 = 0;
+  int rw_flag2 = 0;
+  int header_size = 0;
 
   //proxy-finalhost communication structures
   char* destination_host = NULL;
   struct hostent *final_host;
   struct sockaddr_in server_addr;
   long int host_port = 80;
-
 
   signal(SIGALRM,&timeout_error);//setting a signal for a possible timeout event
 
@@ -91,12 +109,13 @@ int run_tcp_server(long int port){
     for(;;){  //Communicate
       printf("------------------------------------\n");
       bzero(buffer,BUFFER_SIZE);//clears the message buffer
+      bzero(init_message,BUFFER_SIZE);
 
       alarm(TIMEOUT);
       if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
         handle_error("[!] read() failed");
-      printf("[*] Received the following message:\n %s", buffer);
-      
+      printf("[S] Received the following message:\n %s", buffer);
+      memcpy(init_message,buffer,BUFFER_SIZE);
       //printf("[*] Sending to the final host\n");
       
       /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
@@ -106,7 +125,7 @@ int run_tcp_server(long int port){
       printf("[*] Host socket created \n");
 
       printf("[*] Extracting hostname\n");
-      destination_host = get_final_host(buffer);
+      destination_host = get_final_host(init_message);
 
       if((final_host = gethostbyname(destination_host)) == NULL)
         handle_error("[!] Unknown host\n");
@@ -127,21 +146,75 @@ int run_tcp_server(long int port){
       /*END - OPENING CONNECTION WITH FINAL HOST*/
       /*END - CONNECTIONS SETUP*/
 
+      first_message = true;
+      /*BEGIN - CLIENT-HOST COMMUNICATION*/
+      printf("------------------------------------\n");
       
+      do{
+        if(first_message){
+          printf("[*] Writing first request to the host\n");
+          if((send(hostSocket,buffer,rw_flag,0)<0))
+            handle_error("[!] write() failed");
+          printf("[C] Wrote: %s\n");
+          first_message = false;
+        }
+
+       // printf("*********************************\n");
+        
+        do{
+          //printf("[*] Reading host socket\n");
+          bzero(buffer,BUFFER_SIZE);
+          //if( ((rw_flag2 = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT)) < 0 ) && (rw_flag2 != (EWOULDBLOCK || EAGAIN) ))
+          //  handle_error("[!] read() error");
+          rw_flag2 = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+          //printf(".");
+
+          if(!(rw_flag2<=0)){
+            //printf("[*] Writing on client socket\n");
+            //if((write(clientSocket,buffer,rw_flag2)<0))
+            //  handle_error("[!] write() failed");
+            send(clientSocket,buffer,rw_flag2,MSG_DONTWAIT);
+            printf("[H] Wrote: %s\n");
+          }
+
+        }while(rw_flag2 > 0);
+
+        //printf("*********************************\n");
+        
+        do{
+          //printf("[*] Reading client socket\n");
+          bzero(buffer,BUFFER_SIZE);
+          //if(( (rw_flag1 = recv(clientSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT)) < 0) && (rw_flag1 != (EWOULDBLOCK || EAGAIN) ))
+          //  handle_error("[!] read() error");
+          
+          rw_flag1 = recv(clientSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+          //printf(".");
+          if(!(rw_flag1<=0)){
+            //printf("[*] Writing on host socket\n");
+            //if((write(hostSocket,buffer,rw_flag1)<0))
+            //  handle_error("[!] write() failed");
+            send(hostSocket,buffer,rw_flag1,MSG_DONTWAIT);
+            printf("[C] Wrote: %s\n");
+          }
+
+        }while(rw_flag1 > 0);
+      }while(true);
+
+      /*END - CLIENT-HOST COMMUNICATION*/
 
       //if the message sent is "close()" (with a newline that is needed to sent the message)
       //the server will begin to close the connection with the client
       //close_flag = strcmp(buffer,"close()\n");
 
-      alarm(TIMEOUT);
-      if((rw_flag = write(clientSocket,buffer,BUFFER_SIZE)<0))
-        handle_error("[!] write() failed");
+      //alarm(TIMEOUT);
+      //if((rw_flag = write(clientSocket,buffer,BUFFER_SIZE)<0))
+      //  handle_error("[!] write() failed");
 
-      if(close_flag == 0){
-        printf("[*] Ending connection with client\n");
-        break;
+      //if(close_flag == 0){
+      //  printf("[*] Ending connection with client\n");
+      //  break;
         //after connection with the client ends, return to the listening loop
-      }
+      //}
 
     }
     close(clientSocket);//close the client socket
