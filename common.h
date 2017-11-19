@@ -17,10 +17,12 @@
 
 int handle_error(char *message);
 void timeout_error();
+void gtfo();
 
 extern int serverSocket;
 extern int clientSocket;
 extern int hostSocket;
+extern bool gtfo_flag;
 
 
 //for the lulz

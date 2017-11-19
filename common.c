@@ -3,6 +3,7 @@
 int serverSocket = -1;
 int clientSocket = -1;
 int hostSocket = -1;
+bool gtfo_flag = false;
 
 int handle_error(char *message){
   printf("------------------------------------\n");
@@ -42,6 +43,10 @@ void timeout_error(){
   exit(1);
 }
 
+
+void gtfo(){
+  gtfo_flag = true;
+}
 
 //for the lulz
 
