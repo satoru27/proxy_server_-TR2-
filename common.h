@@ -19,10 +19,15 @@ int handle_error(char *message);
 void timeout_error();
 void gtfo();
 
-extern int serverSocket;
+extern int listenSocket;
 extern int clientSocket;
 extern int hostSocket;
 extern bool gtfo_flag;
+
+void listLoaders();
+extern char* blacklistPointer;
+extern char* whitelistPointer;
+extern char* bannedPointer; 
 
 
 //for the lulz
