@@ -71,6 +71,7 @@ int run_tcp_server(long int port){
         handle_error("[!] read() failed");
       printf("[S] Received the following message from client:\n %s", buffer);
       memcpy(init_message,buffer,BUFFER_SIZE);
+      //header_content(buffer);
       //printf("[*] Sending to the final host\n");
       
       /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
@@ -120,7 +121,8 @@ int run_tcp_server(long int port){
 
           if(!(rw_flag_h_c <=0)){
             send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-            printf("[H] Wrote: %s\n");
+            header_content(buffer);
+            printf("[H] Wrote: %s\n",buffer);
             alarm(5);
           }
 
@@ -132,7 +134,8 @@ int run_tcp_server(long int port){
 
           if(!(rw_flag_c_h<=0)){
             send(hostSocket,buffer,rw_flag_c_h,MSG_DONTWAIT);
-            printf("[C] Wrote: %s\n");
+            header_content(buffer);
+            printf("[C] Wrote: %s\n",buffer);
             alarm(5);
           }
         //}while(rw_flag_c_h > 0);
@@ -158,6 +161,17 @@ int run_tcp_server(long int port){
 
   return 0;
 
+}
+void header_content(char* buffer){
+  char *buffer_copy = (char*)malloc(strlen(buffer)*sizeof(char) +1);//to not lose buffer when tokenizing 
+  buffer_copy = strcpy(buffer_copy,buffer);
+  char *header_lines = strtok(buffer_copy,"\r\n");
+  while(header_lines!=NULL){
+    
+    printf("\nRead line: %s \n",header_lines);
+    header_lines = strtok(NULL,"\r\n");
+  }
+  free(buffer_copy);
 }
 
 bool check_end(char* buffer){
