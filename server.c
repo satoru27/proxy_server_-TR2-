@@ -47,7 +47,8 @@ int run_tcp_server(long int port){
     handle_error("[!] bind() failed\n");
   printf("[*] Bind successful \n");
 
-    //loop for(;;) estava aqui
+
+  for(;;){ 
     //Set socket to listen
     alarm(TIMEOUT);//alarm is set for every possible blocking call
     printf("[*] Waiting for connection... \n");
@@ -61,91 +62,75 @@ int run_tcp_server(long int port){
     printf("[*] Connection accepted \n");
     printf("[*] Client socket created \n");
 
-  
-      printf("------------------------------------\n");
-      bzero(buffer,BUFFER_SIZE);//clears the message buffer
-      bzero(init_message,BUFFER_SIZE);
+    printf("------------------------------------\n");
+    bzero(buffer,BUFFER_SIZE);//clears the message buffer
+    bzero(init_message,BUFFER_SIZE);
 
-      alarm(TIMEOUT);
-      if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
-        handle_error("[!] read() failed");
-      printf("[S] Received the following message from client:\n %s", buffer);
-      memcpy(init_message,buffer,BUFFER_SIZE);
-      //header_content(buffer);
-      //printf("[*] Sending to the final host\n");
-      
-      /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
-     
-      if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
-        handle_error("[!] socket() failed\n");
-      printf("[*] Host socket created \n");
+    alarm(TIMEOUT);
+    if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
+      handle_error("[!] read() failed");
+    printf("[S] Received the following message from client:\n %s", buffer);
+    memcpy(init_message,buffer,BUFFER_SIZE);
+    //header_content(buffer);
+    //printf("[*] Sending to the final host\n");
+    
+    /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
+   
+    if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
+      handle_error("[!] socket() failed\n");
+    printf("[*] Host socket created \n");
 
-      printf("[*] Extracting hostname\n");
-      destination_host = get_final_host(init_message);
+    printf("[*] Extracting hostname\n");
+    destination_host = get_final_host(init_message);
 
-      if((final_host = gethostbyname(destination_host)) == NULL)
-        handle_error("[!] Unknown host\n");
-      printf("[*] Host found \n");
+    if((final_host = gethostbyname(destination_host)) == NULL)
+      handle_error("[!] Unknown host\n");
+    printf("[*] Host found \n");
 
-      bzero((char *) &server_addr,sizeof(server_addr));
-      server_addr.sin_family = AF_INET;
+    bzero((char *) &server_addr,sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
 
-      bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
+    bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
 
-      server_addr.sin_port = htons((unsigned short) host_port);
+    server_addr.sin_port = htons((unsigned short) host_port);
 
-      alarm(TIMEOUT);
-      if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
-        handle_error("[!] connect() error \n");
-      printf("[*] Connection successful\n");
+    alarm(TIMEOUT);
+    if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
+      handle_error("[!] connect() error \n");
+    printf("[*] Connection successful\n");
 
-      /*END - OPENING CONNECTION WITH FINAL HOST*/
-      /*END - CONNECTIONS SETUP*/
+    /*END - OPENING CONNECTION WITH FINAL HOST*/
+    /*END - CONNECTIONS SETUP*/
 
-      //sending first message
-      printf("[*] Writing first request to the host\n");
-      if((send(hostSocket,buffer,rw_flag,0)<0))
-        handle_error("[!] write() failed");
-      printf("[C] Wrote: %s\n");
-      //first_message = true;
-      gtfo_flag = false;
-      /*BEGIN - CLIENT-HOST COMMUNICATION*/
-      printf("********************************************\n");
+    //sending first message
+    printf("[*] Writing request to the host\n");
+    if((send(hostSocket,buffer,rw_flag,0)<0))
+      handle_error("[!] write() failed");
+    printf("[C] Wrote: %s\n");
+    header_content(buffer);
+    //first_message = true;
+    gtfo_flag = false;
+    /*BEGIN - CLIENT-HOST COMMUNICATION*/
+    printf("********************************************\n");
 
-      alarm(10);
-      do{         
-        //do{
-          
-          bzero(buffer,BUFFER_SIZE);
-          rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+    alarm(10);
+    do{         
+      do{
+        bzero(buffer,BUFFER_SIZE);
+        rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
 
-          if(!(rw_flag_h_c <=0)){
-            send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-            header_content(buffer);
-            printf("[H] Wrote: %s\n",buffer);
-            alarm(5);
+        if(!(rw_flag_h_c <=0)){
+          send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
+          printf("[H] Wrote: %s\n",buffer);
+          alarm(5);
           }
+      }while(rw_flag_h_c > 0);
+    }while(!(gtfo_flag));
+    /*END - CLIENT-HOST COMMUNICATION*/
 
-        //}while(rw_flag_h_c > 0);
-
-        //do{
-          bzero(buffer,BUFFER_SIZE);   
-          rw_flag_c_h = recv(clientSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
-
-          if(!(rw_flag_c_h<=0)){
-            send(hostSocket,buffer,rw_flag_c_h,MSG_DONTWAIT);
-            header_content(buffer);
-            printf("[C] Wrote: %s\n",buffer);
-            alarm(5);
-          }
-        //}while(rw_flag_c_h > 0);
-
-      }while(!(gtfo_flag));
-
-      /*END - CLIENT-HOST COMMUNICATION*/
-      printf("[*] Communication ended\n");
-      printf("[*] Cleaning buffer\n");
-      bzero(buffer,BUFFER_SIZE); 
+    printf("[*] Communication ended\n");
+    printf("[*] Cleaning buffer\n");
+    bzero(buffer,BUFFER_SIZE); 
       
     close(clientSocket);//close the client socket
     printf("[*] Client socket closed\n");
@@ -153,10 +138,10 @@ int run_tcp_server(long int port){
     close(hostSocket);//close the host socket
     printf("[*] Host socket closed\n");
     
-
+  }
     close(listenSocket);//close the server socket
     printf("[*] Listening socket closed... Sleeping\n");
-    sleep(2);
+    //sleep(2);
   }
 
   return 0;
