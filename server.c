@@ -25,6 +25,11 @@ int run_tcp_server(long int port){
 
   signal(SIGALRM,&timeout_error);//setting a signal for a possible timeout event
   signal(SIGALRM,&gtfo);
+
+  //BEGIN TEST
+  signal(SIGPIPE,SIG_IGN);//se existir uma tetativa de escrever no socket do cliente o SIGPIPE geralmente fecha o programa, esse comando implica em ignorar esse tipo de situacao
+  //fazer um tratamento melhor, pegando esse signal e etc
+  //END TEST
   printf("[.] RUNNING TCP SERVER\n");
   
   for(;;){
@@ -87,7 +92,11 @@ int run_tcp_server(long int port){
     if((final_host = gethostbyname(destination_host)) == NULL)
       handle_error("[!] Unknown host\n");
     printf("[*] Host found \n");
-
+    //MUDAR
+    // o programa fecha se nao encontrar o host --> inconveniente
+    //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
+    //necessario usar goto?
+    
     bzero((char *) &server_addr,sizeof(server_addr));
     server_addr.sin_family = AF_INET;
 
@@ -107,7 +116,7 @@ int run_tcp_server(long int port){
     printf("[*] Writing request to the host\n");
     if((send(hostSocket,buffer,rw_flag,0)<0))
       handle_error("[!] write() failed");
-    printf("[C] Wrote: %s\n");
+    printf("\n[C] Wrote: %s\n");
     //header_content(buffer);
     //first_message = true;
     gtfo_flag = false;
@@ -115,6 +124,7 @@ int run_tcp_server(long int port){
     printf("********************************************\n");
 
     int total = 0;
+    int packet = 0;
 
     alarm(10);
     do{         
@@ -125,8 +135,11 @@ int run_tcp_server(long int port){
 
         if(!(rw_flag_h_c <=0)){
           send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-          total += rw_flag_h_c; 
-          printf("[H] Wrote %d bytes on client socket so far\n", total);
+          packet ++; 
+          total += rw_flag_h_c;
+          if(packet == 1)
+            printf("[H] First packet content:\"\n%s\"\n", buffer);
+          printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
           //printf("[H] Wrote: %s\n",buffer);
           alarm(2);
           
@@ -136,7 +149,7 @@ int run_tcp_server(long int port){
 
     }while(!(gtfo_flag));
     /*END - CLIENT-HOST COMMUNICATION*/
-    printf("----TOTAL = %d ----\n",total);
+    printf("----TOTAL = %d ----\n\n",total);
 
     printf("[*] Communication ended\n");
     printf("[*] Cleaning buffer\n");
