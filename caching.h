@@ -31,3 +31,9 @@ Estrutura para guardar o arquivos (ignorar <>):
 <--END_PCKT-->
 <--END_FILE--\0>
 */
+
+
+/*Codigo da funcao a seguir foi desenvolvido por Paul Hsieh como softaware livre e é utilizado dentro dos termos da sua licensa LGPL 2.1
+	Disponivel em http://www.azillionmonkeys.com/qed/hash.html
+*/
+uint32_t SuperFastHash (const char * data, int len);
