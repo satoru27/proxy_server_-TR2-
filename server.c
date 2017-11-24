@@ -53,7 +53,7 @@ int run_tcp_server(long int port){
     //Set socket to listen
     alarm(TIMEOUT);//alarm is set for every possible blocking call
     printf("[*] Waiting for connection... \n");
-    listen(listenSocket,1); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
+    listen(listenSocket,100); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
     clientLen = sizeof(echoClientAddress);
 
     //Accept new connection
@@ -108,26 +108,35 @@ int run_tcp_server(long int port){
     if((send(hostSocket,buffer,rw_flag,0)<0))
       handle_error("[!] write() failed");
     printf("[C] Wrote: %s\n");
-    header_content(buffer);
+    //header_content(buffer);
     //first_message = true;
     gtfo_flag = false;
     /*BEGIN - CLIENT-HOST COMMUNICATION*/
     printf("********************************************\n");
+
+    int total = 0;
 
     alarm(10);
     do{         
       do{
         bzero(buffer,BUFFER_SIZE);
         rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+        //printf("LOOP: %d \r", rw_flag_h_c);
 
         if(!(rw_flag_h_c <=0)){
           send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-          printf("[H] Wrote: %s\n",buffer);
-          alarm(5);
+          total += rw_flag_h_c; 
+          printf("[H] Wrote %d bytes on client socket so far\n", total);
+          //printf("[H] Wrote: %s\n",buffer);
+          alarm(2);
+          
           }
-      }while(rw_flag_h_c > 0);
+
+      }while((rw_flag_h_c > 0));
+
     }while(!(gtfo_flag));
     /*END - CLIENT-HOST COMMUNICATION*/
+    printf("----TOTAL = %d ----\n",total);
 
     printf("[*] Communication ended\n");
     printf("[*] Cleaning buffer\n");
@@ -138,7 +147,7 @@ int run_tcp_server(long int port){
 
     close(hostSocket);//close the host socket
     printf("[*] Host socket closed\n");
-    
+    //system("clear");
   }
     close(listenSocket);//close the server socket
     printf("[*] Listening socket closed... Sleeping\n");
