@@ -10,14 +10,24 @@
 #include <netdb.h>
 #include <signal.h>
 #include <errno.h>
+#include <stdbool.h>
 
-#define TIMEOUT 30
+#define TIMEOUT 60
+#define BUFFER_SIZE 1500 //maximum tcp packet size
 
 int handle_error(char *message);
 void timeout_error();
+void gtfo();
 
-extern int serverSocket;
+extern int listenSocket;
 extern int clientSocket;
+extern int hostSocket;
+extern bool gtfo_flag;
+
+void listLoaders();
+extern char* blacklistPointer;
+extern char* whitelistPointer;
+extern char* bannedPointer; 
 
 
 //for the lulz

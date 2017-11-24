@@ -1,7 +1,13 @@
 #include "common.h"
 
-int serverSocket = -1;
+int listenSocket = -1;
 int clientSocket = -1;
+int hostSocket = -1;
+bool gtfo_flag = false;
+
+char* blacklistPointer = NULL;
+char* whitelistPointer = NULL;
+char* bannedPointer = NULL; 
 
 int handle_error(char *message){
   printf("------------------------------------\n");
@@ -11,9 +17,13 @@ int handle_error(char *message){
     close(clientSocket);
     printf("[!] Closed client socket\n");
   }
-  if(serverSocket > -1){
-    close(serverSocket);
+  if(listenSocket > -1){
+    close(listenSocket);
     printf("[!] Closed server socket\n");
+  }
+  if(hostSocket > -1){
+    close(hostSocket);
+    printf("[!] Closed host socket\n");
   }
   exit(1);
 }
@@ -26,13 +36,21 @@ void timeout_error(){
     close(clientSocket);
     printf("[!] Closed client socket\n");
   }
-  if(serverSocket > -1){
-    close(serverSocket);
+  if(listenSocket > -1){
+    close(listenSocket);
     printf("[!] Closed server socket\n");
+  }
+  if(hostSocket > -1){
+    close(hostSocket);
+    printf("[!] Closed host socket\n");
   }
   exit(1);
 }
 
+
+void gtfo(){
+  gtfo_flag = true;
+}
 
 //for the lulz
 
@@ -52,4 +70,8 @@ printf("Welcome...\n ");
     fflush(stdout);
     sleep(sleep_time);
   }
+}
+
+void listLoaders(){
+  
 }
