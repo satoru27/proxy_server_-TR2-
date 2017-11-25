@@ -1,6 +1,7 @@
 #include "server.h"
 #include "blacklist.h"
 
+
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
   struct sockaddr_in echoServerAddress; //local adress
@@ -26,6 +27,11 @@ int run_tcp_server(long int port){
 
   signal(SIGALRM,&timeout_error);//setting a signal for a possible timeout event
   signal(SIGALRM,&gtfo);
+
+  //BEGIN TEST
+  signal(SIGPIPE,SIG_IGN);//se existir uma tetativa de escrever no socket do cliente o SIGPIPE geralmente fecha o programa, esse comando implica em ignorar esse tipo de situacao
+  //fazer um tratamento melhor, pegando esse signal e etc
+  //END TEST
   printf("[.] RUNNING TCP SERVER\n");
   
   for(;;){
@@ -54,7 +60,7 @@ int run_tcp_server(long int port){
     //Set socket to listen
     alarm(TIMEOUT);//alarm is set for every possible blocking call
     printf("[*] Waiting for connection... \n");
-    listen(listenSocket,1); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
+    listen(listenSocket,100); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
     clientLen = sizeof(echoClientAddress);
 
     //Accept new connection
@@ -92,7 +98,11 @@ int run_tcp_server(long int port){
     if((final_host = gethostbyname(destination_host)) == NULL)
       handle_error("[!] Unknown host\n");
     printf("[*] Host found \n");
-
+    //MUDAR
+    // o programa fecha se nao encontrar o host --> inconveniente
+    //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
+    //necessario usar goto?
+    
     bzero((char *) &server_addr,sizeof(server_addr));
     server_addr.sin_family = AF_INET;
 
@@ -112,27 +122,40 @@ int run_tcp_server(long int port){
     printf("[*] Writing request to the host\n");
     if((send(hostSocket,buffer,rw_flag,0)<0))
       handle_error("[!] write() failed");
-    printf("[C] Wrote: %s\n");
-    header_content(buffer);
+    printf("\n[C] Wrote: %s\n");
+    //header_content(buffer);
     //first_message = true;
     gtfo_flag = false;
     /*BEGIN - CLIENT-HOST COMMUNICATION*/
     printf("********************************************\n");
+
+    int total = 0;
+    int packet = 0;
 
     alarm(10);
     do{         
       do{
         bzero(buffer,BUFFER_SIZE);
         rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+        //printf("LOOP: %d \r", rw_flag_h_c);
 
         if(!(rw_flag_h_c <=0)){
           send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-          printf("[H] Wrote: %s\n",buffer);
-          alarm(5);
+          packet ++; 
+          total += rw_flag_h_c;
+          if(packet == 1)
+            printf("[H] First packet content:\"\n%s\"\n", buffer);
+          printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
+          //printf("[H] Wrote: %s\n",buffer);
+          alarm(2);
+          
           }
-      }while(rw_flag_h_c > 0);
+
+      }while((rw_flag_h_c > 0));
+
     }while(!(gtfo_flag));
     /*END - CLIENT-HOST COMMUNICATION*/
+    printf("----TOTAL = %d ----\n\n",total);
 
     printf("[*] Communication ended\n");
     printf("[*] Cleaning buffer\n");
@@ -143,7 +166,7 @@ int run_tcp_server(long int port){
 
     close(hostSocket);//close the host socket
     printf("[*] Host socket closed\n");
-    
+    //system("clear");
   }
     close(listenSocket);//close the server socket
     printf("[*] Listening socket closed... Sleeping\n");
