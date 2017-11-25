@@ -6,7 +6,7 @@ add_executable(proxy_server
     main.c
     common.c
     server.c
-    client.c
     blacklist.c
+    caching.c
 )
 set_property(TARGET proxy_server PROPERTY C_STANDARD 11)

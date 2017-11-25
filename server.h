@@ -1,4 +1,5 @@
 #include "common.h"
+#include "caching.h"
 
 int run_tcp_server(long int port);
 
@@ -12,6 +13,7 @@ bool close_connection(char* buffer);
 
 bool have_content(char* buffer);
 
+void header_content(char* buffer);
 //int get_header_size(char* buffer);
 
 bool is_blacklisted(char* hostname);
