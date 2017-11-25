@@ -1,4 +1,5 @@
 #include "server.h"
+#include "blacklist.h"
 
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
@@ -18,6 +19,7 @@ int run_tcp_server(long int port){
 
   //proxy-finalhost communication structures
   char* destination_host = NULL;
+  char* urlSent = NULL;
   struct hostent *final_host;
   struct sockaddr_in server_addr;
   long int host_port = 80;
@@ -70,6 +72,12 @@ int run_tcp_server(long int port){
       if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
         handle_error("[!] read() failed");
       printf("[S] Received the following message from client:\n %s", buffer);
+      //BUFFER CONTEM A REQUISICAO DO CLIENTE
+      
+      int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
+      //TODO: HANDLE IF IT'S -1
+
+
       memcpy(init_message,buffer,BUFFER_SIZE);
       //printf("[*] Sending to the final host\n");
       
@@ -105,7 +113,7 @@ int run_tcp_server(long int port){
       printf("[*] Writing first request to the host\n");
       if((send(hostSocket,buffer,rw_flag,0)<0))
         handle_error("[!] write() failed");
-      printf("[C] Wrote: %s\n");
+      printf("[C] Wrote: %s\n", buffer);
       //first_message = true;
       gtfo_flag = false;
       /*BEGIN - CLIENT-HOST COMMUNICATION*/
@@ -116,11 +124,11 @@ int run_tcp_server(long int port){
         //do{
           
           bzero(buffer,BUFFER_SIZE);
-          rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+          rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT); //retorna o numero de bytes recebido
 
           if(!(rw_flag_h_c <=0)){
-            send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-            printf("[H] Wrote: %s\n");
+            send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT); //envia para o host
+            printf("[H] Wrote: %s\n", buffer);
             alarm(5);
           }
 
