@@ -25,8 +25,8 @@ int verifyGET(const char* buffer){
 
 	FILE* fwhite;
 	FILE* fblack;
-	fwhite = fopen ("whitelist.txt", "r");
-	fblack = fopen ("blacklist.txt", "r");
+	fwhite = fopen ("./proxy_server_-TR2-/whitelist.txt", "r");
+	fblack = fopen ("./proxy_server_-TR2-/blacklist.txt", "r");
 	char line[256];
 	
 	if (fwhite == NULL) { //arquivo nao existe

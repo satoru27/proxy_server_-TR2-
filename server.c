@@ -75,8 +75,8 @@ int run_tcp_server(long int port){
       //BUFFER CONTEM A REQUISICAO DO CLIENTE
       
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
-      //TODO: HANDLE IF IT'S -1
-
+      
+      //TODO: HANDLE IF blacklistOK == -1
 
       memcpy(init_message,buffer,BUFFER_SIZE);
       //printf("[*] Sending to the final host\n");
