@@ -1,4 +1,5 @@
 #include "server.h"
+#include "blacklist.h"
 
 
 int run_tcp_server(long int port){
@@ -19,6 +20,7 @@ int run_tcp_server(long int port){
 
   //proxy-finalhost communication structures
   char* destination_host = NULL;
+  char* urlSent = NULL;
   struct hostent *final_host;
   struct sockaddr_in server_addr;
   long int host_port = 80;
@@ -68,10 +70,11 @@ int run_tcp_server(long int port){
     printf("[*] Connection accepted \n");
     printf("[*] Client socket created \n");
 
+
     printf("------------------------------------\n");
     bzero(buffer,BUFFER_SIZE);//clears the message buffer
     bzero(init_message,BUFFER_SIZE);
-
+    
     alarm(TIMEOUT);
     if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
       handle_error("[!] read() failed");
@@ -80,6 +83,9 @@ int run_tcp_server(long int port){
     //header_content(buffer);
     //printf("[*] Sending to the final host\n");
     
+    int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
+    //TODO: HANDLE IF IT'S -1
+      
     /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
    
     if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
