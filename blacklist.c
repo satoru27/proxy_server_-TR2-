@@ -3,7 +3,7 @@
 int verifyGET(const char* buffer){
 	//Retorns 1 if its not a GET message
 	//Returns 1 case in whitelist
-	//Returns -1 case in whitelist
+	//Returns -1 case in blacklist
 
 	/*Verifica primeiramente a whitelist, em seguida a blacklist*/
 	
