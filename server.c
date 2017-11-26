@@ -1,6 +1,6 @@
 #include "server.h"
 #include "blacklist.h"
-
+#define not_blacklisted 1
 
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
@@ -35,146 +35,145 @@ int run_tcp_server(long int port){
   printf("[.] RUNNING TCP SERVER\n");
   
   for(;;){
-  /*BEGIN - CONNECTIONS SETUP*/
-  //creating a TCP socket
-  if((listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 )
-      handle_error("[!] socket() failed");
-  printf("[*] Listening socket created \n");
+    /*BEGIN - CONNECTIONS SETUP*/
+    //creating a TCP socket
+    if((listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 )
+        handle_error("[!] socket() failed");
+    printf("[*] Listening socket created \n");
 
-  /*codigo de teste para tentar resolver o bind na mesma porta depois de rodar uma vez*/
-  if (setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int)) < 0)
-    handle_error("[!] setsockopt(SO_REUSEADDR) failed");
-  
-  //construct local address structure
-  memset(&echoServerAddress, 0, sizeof(echoServerAddress));
-  echoServerAddress.sin_family = AF_INET;
-  echoServerAddress.sin_addr.s_addr = htonl(INADDR_ANY);
-  echoServerAddress.sin_port = htons((unsigned short) port);
-  //Assign a port to a socket
-  if((bind(listenSocket, (struct sockaddr *) &echoServerAddress, sizeof(echoServerAddress))) < 0)
-    handle_error("[!] bind() failed\n");
-  printf("[*] Bind successful \n");
-
-
-  for(;;){ 
-    //Set socket to listen
-    alarm(TIMEOUT);//alarm is set for every possible blocking call
-    printf("[*] Waiting for connection... \n");
-    listen(listenSocket,100); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
-    clientLen = sizeof(echoClientAddress);
-
-    //Accept new connection
-    alarm(TIMEOUT);
-    if((clientSocket = accept(listenSocket,(struct sockaddr *) &echoClientAddress,&clientLen)) < 0 )
-      handle_error("[!] accept() failed");
-    printf("[*] Connection accepted \n");
-    printf("[*] Client socket created \n");
-
-    printf("------------------------------------\n");
-    bzero(buffer,BUFFER_SIZE);//clears the message buffer
-    bzero(init_message,BUFFER_SIZE);
+    /*codigo de teste para tentar resolver o bind na mesma porta depois de rodar uma vez*/
+    if (setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int)) < 0)
+      handle_error("[!] setsockopt(SO_REUSEADDR) failed");
     
-    alarm(TIMEOUT);
-    if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
-      handle_error("[!] read() failed");
-    printf("[S] Received the following message from client:\n %s", buffer);
-    memcpy(init_message,buffer,BUFFER_SIZE);
-    //header_content(buffer);
-    //printf("[*] Sending to the final host\n");
-    
-    int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
-    
-    /*
-    TODO: if (blacklistOK < 0) {
-      //REQUISICAO DE TERMO NA BLACKLIST
-    } */
+    //construct local address structure
+    memset(&echoServerAddress, 0, sizeof(echoServerAddress));
+    echoServerAddress.sin_family = AF_INET;
+    echoServerAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+    echoServerAddress.sin_port = htons((unsigned short) port);
+    //Assign a port to a socket
+    if((bind(listenSocket, (struct sockaddr *) &echoServerAddress, sizeof(echoServerAddress))) < 0)
+      handle_error("[!] bind() failed\n");
+    printf("[*] Bind successful \n");
+
+
+    for(;;){ 
+      //Set socket to listen
+      alarm(TIMEOUT);//alarm is set for every possible blocking call
+      printf("[*] Waiting for connection... \n");
+      listen(listenSocket,100); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
+      clientLen = sizeof(echoClientAddress);
+
+      //Accept new connection
+      alarm(TIMEOUT);
+      if((clientSocket = accept(listenSocket,(struct sockaddr *) &echoClientAddress,&clientLen)) < 0 )
+        handle_error("[!] accept() failed");
+      printf("[*] Connection accepted \n");
+      printf("[*] Client socket created \n");
+
+      printf("------------------------------------\n");
+      bzero(buffer,BUFFER_SIZE);//clears the message buffer
+      bzero(init_message,BUFFER_SIZE);
       
-    /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
-   
-    if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
-      handle_error("[!] socket() failed\n");
-    printf("[*] Host socket created \n");
-
-    printf("[*] Extracting hostname\n");
-    destination_host = get_final_host(init_message);
-
-    if((final_host = gethostbyname(destination_host)) == NULL)
-      handle_error("[!] Unknown host\n");
-    printf("[*] Host found \n");
-    //MUDAR
-    // o programa fecha se nao encontrar o host --> inconveniente
-    //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
-    //necessario usar goto?
-    
-    bzero((char *) &server_addr,sizeof(server_addr));
-    server_addr.sin_family = AF_INET;
-
-    bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
-
-    server_addr.sin_port = htons((unsigned short) host_port);
-
-    alarm(TIMEOUT);
-    if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
-      handle_error("[!] connect() error \n");
-    printf("[*] Connection successful\n");
-
-    /*END - OPENING CONNECTION WITH FINAL HOST*/
-    /*END - CONNECTIONS SETUP*/
-
-    //sending first message
-    printf("[*] Writing request to the host\n");
-    if((send(hostSocket,buffer,rw_flag,0)<0))
-      handle_error("[!] write() failed");
-    printf("\n[C] Wrote: %s\n");
-    //header_content(buffer);
-    //first_message = true;
-    gtfo_flag = false;
-    /*BEGIN - CLIENT-HOST COMMUNICATION*/
-    printf("********************************************\n");
-
-    int total = 0;
-    int packet = 0;
-
-    alarm(10);
-    do{         
-      do{
-        bzero(buffer,BUFFER_SIZE);
-        rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
-        //printf("LOOP: %d \r", rw_flag_h_c);
-
-        if(!(rw_flag_h_c <=0)){
-          send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-          packet ++; 
-          total += rw_flag_h_c;
-          if(packet == 1)
-            printf("[H] First packet content:\"\n%s\"\n", buffer);
-          printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
-          //printf("[H] Wrote: %s\n",buffer);
-          alarm(2);
-          
-          }
-
-      }while((rw_flag_h_c > 0));
-
-    }while(!(gtfo_flag));
-    /*END - CLIENT-HOST COMMUNICATION*/
-    printf("----TOTAL = %d ----\n\n",total);
-
-    printf("[*] Communication ended\n");
-    printf("[*] Cleaning buffer\n");
-    bzero(buffer,BUFFER_SIZE); 
+      alarm(TIMEOUT);
+      if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
+        handle_error("[!] read() failed");
+      printf("[S] Received the following message from client:\n %s", buffer);
+      memcpy(init_message,buffer,BUFFER_SIZE);
+      //header_content(buffer);
+      //printf("[*] Sending to the final host\n");
       
-    close(clientSocket);//close the client socket
-    printf("[*] Client socket closed\n");
+      int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
+      
+      if(blacklistOK==not_blacklisted){
+//only contacts final host/client if website isn't blacklisted
+        /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
+       
+        if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
+          handle_error("[!] socket() failed\n");
+        printf("[*] Host socket created \n");
 
-    close(hostSocket);//close the host socket
-    printf("[*] Host socket closed\n");
-    //system("clear");
-  }
+        printf("[*] Extracting hostname\n");
+        destination_host = get_final_host(init_message);
+
+        if((final_host = gethostbyname(destination_host)) == NULL)
+          handle_error("[!] Unknown host\n");
+        printf("[*] Host found \n");
+        //MUDAR
+        // o programa fecha se nao encontrar o host --> inconveniente
+        //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
+        //necessario usar goto?
+        
+        bzero((char *) &server_addr,sizeof(server_addr));
+        server_addr.sin_family = AF_INET;
+
+        bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
+
+        server_addr.sin_port = htons((unsigned short) host_port);
+
+        alarm(TIMEOUT);
+        if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
+          handle_error("[!] connect() error \n");
+        printf("[*] Connection successful\n");
+
+        /*END - OPENING CONNECTION WITH FINAL HOST*/
+        /*END - CONNECTIONS SETUP*/
+
+        //sending first message
+        printf("[*] Writing request to the host\n");
+        if((send(hostSocket,buffer,rw_flag,0)<0))
+          handle_error("[!] write() failed");
+        printf("\n[C] Wrote: %s\n");
+        //header_content(buffer);
+        //first_message = true;
+        gtfo_flag = false;
+        /*BEGIN - CLIENT-HOST COMMUNICATION*/
+        printf("********************************************\n");
+
+        int total = 0;
+        int packet = 0;
+
+        alarm(10);
+        do{         
+          do{
+            bzero(buffer,BUFFER_SIZE);
+            rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+            //printf("LOOP: %d \r", rw_flag_h_c);
+
+            if(!(rw_flag_h_c <=0)){
+              send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
+              packet ++; 
+              total += rw_flag_h_c;
+              if(packet == 1)
+                printf("[H] First packet content:\"\n%s\"\n", buffer);
+              printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
+              //printf("[H] Wrote: %s\n",buffer);
+              alarm(2);
+              
+              }
+
+          }while((rw_flag_h_c > 0));
+
+        }while(!(gtfo_flag));
+        /*END - CLIENT-HOST COMMUNICATION*/
+        printf("----TOTAL = %d ----\n\n",total);
+      }else{//->if(blacklistOK==not_blacklisted)
+        printf("Sorry, we do not allow access to this website\n");
+      }
+      printf("[*] Communication ended\n");
+      printf("[*] Cleaning buffer\n");
+      bzero(buffer,BUFFER_SIZE); 
+        
+      close(clientSocket);//close the client socket
+      printf("[*] Client socket closed\n");
+
+      close(hostSocket);//close the host socket
+      printf("[*] Host socket closed\n");
+      //system("clear");
+    }//for(;;) -> Set socket to listen
     close(listenSocket);//close the server socket
     printf("[*] Listening socket closed... Sleeping\n");
     //sleep(2);
-  }
+  }//for(;;)->CONNECTIONS SETUP
 
   return 0;
 

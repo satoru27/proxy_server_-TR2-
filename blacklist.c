@@ -20,6 +20,7 @@ int verifyGET(const char* buffer){
 		//printf("GET's URL: %s\n",url);
 	}
 	else {
+		printf("url==NULL and newbuffer=%s\n",newbuffer );
 		return 1;
 	}
 
