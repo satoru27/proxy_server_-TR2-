@@ -70,7 +70,6 @@ int run_tcp_server(long int port){
     printf("[*] Connection accepted \n");
     printf("[*] Client socket created \n");
 
-
     printf("------------------------------------\n");
     bzero(buffer,BUFFER_SIZE);//clears the message buffer
     bzero(init_message,BUFFER_SIZE);
@@ -84,7 +83,11 @@ int run_tcp_server(long int port){
     //printf("[*] Sending to the final host\n");
     
     int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
-    //TODO: HANDLE IF IT'S -1
+    
+    /*
+    TODO: if (blacklistOK < 0) {
+      //REQUISICAO DE TERMO NA BLACKLIST
+    } */
       
     /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
    
