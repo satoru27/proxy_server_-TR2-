@@ -17,6 +17,8 @@ int run_tcp_server(long int port){
   int rw_flag_h_c = 0;
   int header_size = 0;
 
+  //messages to be sent if there was some problem with the connection
+  char* forbidden = "HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<body>\n<div class=\"cover\"><h1>Access Denied <small>- Error 403</small></h1><p class=\"lead\">The access to the requested resource was blocked by the proxy.</p></div>\n</body>\n</html>\n";
 
   //proxy-finalhost communication structures
   char* destination_host = NULL;
@@ -154,10 +156,15 @@ int run_tcp_server(long int port){
           }while((rw_flag_h_c > 0));
 
         }while(!(gtfo_flag));
+
+        
         /*END - CLIENT-HOST COMMUNICATION*/
         printf("----TOTAL = %d ----\n\n",total);
-      }else{//->if(blacklistOK==not_blacklisted)
+      }
+      else{//->if(blacklistOK==not_blacklisted)
         printf("Sorry, we do not allow access to this website\n");
+        send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
+        printf("Error message sent to client: %s\n",forbidden);
       }
       printf("[*] Communication ended\n");
       printf("[*] Cleaning buffer\n");
