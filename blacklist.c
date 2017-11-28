@@ -61,6 +61,7 @@ int verifyGET(const char* buffer){
 				return -1;
 			}
 		}
+		fclose (fblack);
 	}
 
 	free(newbuffer);

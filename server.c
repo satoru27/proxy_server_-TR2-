@@ -123,7 +123,7 @@ int run_tcp_server(long int port){
         printf("[*] Writing request to the host\n");
         if((send(hostSocket,buffer,rw_flag,0)<0))
           handle_error("[!] write() failed");
-        printf("\n[C] Wrote: %s\n");
+        printf("\n[C] Wrote: %s\n",buffer);
         //header_content(buffer);
         //first_message = true;
         gtfo_flag = false;
@@ -141,7 +141,7 @@ int run_tcp_server(long int port){
             //printf("LOOP: %d \r", rw_flag_h_c);
 
             if(!(rw_flag_h_c <=0)) {
-
+              printf("[H] Wrote: %s\n",buffer);
               /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
               blacklistOK = verifyDenyTerms(buffer);
 
@@ -152,10 +152,10 @@ int run_tcp_server(long int port){
                 if(packet == 1)
                   printf("[H] First packet content:\"\n%s\"\n", buffer);
                 printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
-                //printf("[H] Wrote: %s\n",buffer);
                 alarm(2);
                 }
               else { //DenyTerm found
+                rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
                 printf("Sorry, this website has denied terms\n");
                 if(forbidden!=NULL){
                   send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
