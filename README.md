@@ -53,6 +53,8 @@ Checklist:
 
 	[X] Repasse - funcionando mas não é otimizado.
 	
+	[ ] Trocar o endereço de origem do header repassado para o endereço do proxy.
+	
 	[~] Blacklist, whitelist, termos banidos - em desenvolvimento.
 	
 	[~] Mensagens de resposta do servidor em caso de erro - em desenvolvimento.
