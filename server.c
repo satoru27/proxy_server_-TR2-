@@ -57,7 +57,7 @@ int run_tcp_server(long int port){
     printf("[*] Bind successful \n");
 
 
-    for(;;){ 
+    for(;;){
       //Set socket to listen
       alarm(TIMEOUT);//alarm is set for every possible blocking call
       printf("[*] Waiting for connection... \n");
@@ -86,7 +86,7 @@ int run_tcp_server(long int port){
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       
       if(blacklistOK==not_blacklisted){
-//only contacts final host/client if website isn't blacklisted
+        //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
        
         if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
@@ -140,21 +140,33 @@ int run_tcp_server(long int port){
             rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
             //printf("LOOP: %d \r", rw_flag_h_c);
 
-            if(!(rw_flag_h_c <=0)){
-              send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-              packet ++; 
-              total += rw_flag_h_c;
-              if(packet == 1)
-                printf("[H] First packet content:\"\n%s\"\n", buffer);
-              printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
-              //printf("[H] Wrote: %s\n",buffer);
-              alarm(2);
-              
+            if(!(rw_flag_h_c <=0)) {
+
+              /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
+              blacklistOK = verifyDenyTerms(buffer);
+
+              if(blacklistOK == not_blacklisted){ //DenyTerm not found
+                send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
+                packet ++; 
+                total += rw_flag_h_c;
+                if(packet == 1)
+                  printf("[H] First packet content:\"\n%s\"\n", buffer);
+                printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
+                //printf("[H] Wrote: %s\n",buffer);
+                alarm(2);
+                }
+              else { //DenyTerm found
+                printf("Sorry, this website has denied terms\n");
+                if(forbidden!=NULL){
+                  send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
+                  printf("Error message sent to client: %s\n",forbidden);  
+                }else{
+                  printf("forbidden null\n");
+                }
               }
-
-          }while((rw_flag_h_c > 0));
-
-        }while(!(gtfo_flag));
+            }
+          } while((rw_flag_h_c > 0));
+        } while(!(gtfo_flag));
 
         
         /*END - CLIENT-HOST COMMUNICATION*/

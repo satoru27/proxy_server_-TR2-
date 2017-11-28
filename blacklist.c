@@ -63,7 +63,33 @@ int verifyGET(const char* buffer){
 		}
 	}
 
-
 	free(newbuffer);
+	return 1;
+}
+
+int verifyDenyTerms(const char* buffer) {
+	/*returns -1 in case of deny term
+	  returns  1 otherwise*/
+	
+	FILE* fterms;
+	fterms = fopen ("./proxy_server_-TR2-/denyTerms.txt", "r");
+	char term[256];
+	
+	if (fterms == NULL) { //arquivo nao existe
+		printf("Deny Terms file not found\n");
+	}
+	else { //verifying whitelist
+		while (fgets(term, sizeof(term), fterms)) {
+			int size = strlen (term);
+			term[size-1] = '\0'; //apagar o \n do fgets
+			//printf("@%s@\n", term);
+			if (strstr(buffer,term)) { //TERM FOUND IN BUFFER
+				printf("Deny Term found: %s\n", term);
+				return -1;
+			}
+		}
+		fclose (fterms);
+	}
+	printf("Clean buffer: No deny terms\n");
 	return 1;
 }
