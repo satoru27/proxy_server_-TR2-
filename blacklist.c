@@ -1,4 +1,12 @@
 #include "blacklist.h"
+#include <time.h>
+
+void timestamp(FILE* fp)
+{
+    time_t ltime; /* calendar time */
+    ltime=time(NULL); /* get current cal time */
+    fprintf(fp, "%s",asctime( localtime(&ltime)));
+}
 
 int verifyGET(const char* buffer){
 	//Retorns 1 if its not a GET message
@@ -35,14 +43,15 @@ int verifyGET(const char* buffer){
 	}
 	else { //verifying whitelist
 		while (fgets(line, sizeof(line), fwhite)) {
-			int size = strlen (line);
-			line[size-1] = '\0'; //apagar o \n do fgets
-			//printf("@%s@\n", line);
-			if (strstr(url,line)) { //TERM FOUND
-				printf("Term in whitelist: %s\n", line);
-				free(newbuffer);
-				return 1;
-			}
+				int size = strlen (line);
+				line[size-1] = '\0'; //apagar o \n do fgets
+				//printf("@%s@\n", line);
+				if (strstr(url,line) && size > 0) { //TERM FOUND AND VALID
+					printf("Term in whitelist: %s\n", line);
+					writeLogWhitelist(buffer);
+					free(newbuffer);
+					return 1;
+				}
 		}
 		fclose (fwhite);
 	}
@@ -53,10 +62,15 @@ int verifyGET(const char* buffer){
 	else {
 		while (fgets(line, sizeof(line), fblack)) {
 			int size = strlen(line);
-			line[size-1] = '\0';
-			//printf("#%s\n#", line);
+			//printf("Initial blackterm #%s#\n", line);
+			while (line[size]=='\0' || line[size]=='\n') { //enquanto houver finalizador invalido
+				size--;
+			}
+			line[size+1] = '\0';
+			//printf("Final blackterm #%s#\n", line);
 			if (strstr(url, line)) {
 				printf ("Term in blacklist: %s\n", line);
+				writeLogBlacklist(buffer);
 				free(newbuffer);
 				return -1;
 			}
@@ -93,4 +107,26 @@ int verifyDenyTerms(const char* buffer) {
 	}
 	printf("Clean buffer: No deny terms\n");
 	return 1;
+}
+
+void writeLogBlacklist(const char* buffer) {
+	FILE* logBlack;
+	logBlack = fopen ("./proxy_server_-TR2-/logBlack.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
+	if (logBlack == NULL) {
+		printf("Error in logBlack file\n");
+	}
+	timestamp(logBlack);
+	fprintf(logBlack, "[C] Client tried to request blacklisted URL: %s", buffer);
+	fclose(logBlack);
+}
+
+void writeLogWhitelist(const char* buffer) {
+	FILE* logWhite;
+	logWhite = fopen ("./proxy_server_-TR2-/logWhite.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
+	if (logWhite == NULL) {
+		printf("Error in logWhite file\n");
+	}
+	timestamp(logWhite);
+	fprintf(logWhite, "[C] Client tried to request whitelisted URL: %s", buffer);
+	fclose(logWhite);
 }

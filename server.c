@@ -124,6 +124,7 @@ int run_tcp_server(long int port){
         if((send(hostSocket,buffer,rw_flag,0)<0))
           handle_error("[!] write() failed");
         printf("\n[C] Wrote: %s\n",buffer);
+
         //header_content(buffer);
         //first_message = true;
         gtfo_flag = false;
@@ -172,7 +173,7 @@ int run_tcp_server(long int port){
         /*END - CLIENT-HOST COMMUNICATION*/
         printf("----TOTAL = %d ----\n\n",total);
       }
-      else{//->if(blacklistOK==not_blacklisted)
+      else{ //requisicao em blacklist
         printf("Sorry, we do not allow access to this website\n");
         if(forbidden!=NULL){
           send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
