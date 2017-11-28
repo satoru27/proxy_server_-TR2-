@@ -215,9 +215,9 @@ char* build_header_error_message(char* html_error_code){
   //403 Forbidden or similar messages are inside html_error_code
   char KA[] = "Connection: keep-alive\r\n";//KA = keep alive status 
   char ct[] = "Content-Type: text/html\r\n";//content type field
-  char cl[] = "Content-Length: 1600\r\n";//content lenght field 
+  //char cl[] = "Content-Length: 1600\r\n";//content lenght field 
   int hl = strlen(v)+2*strlen(nf)+strlen(html_error_code)+strlen(KA)+
-           strlen(ct)+strlen(cl)+1;//total length of header string (including null terminating character)
+           strlen(ct)+1;//+strlen(cl)+1;//total length of header string (including null terminating character)
   //example of http:
 //"HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n"
   char* http_header = (char*)malloc(sizeof(char)*hl);
@@ -227,7 +227,7 @@ char* build_header_error_message(char* html_error_code){
     http_header = strcat(http_header,nf);
     http_header = strcat(http_header,KA);
     http_header = strcat(http_header,ct);
-    http_header = strcat(http_header,cl);
+  //  http_header = strcat(http_header,cl);
     http_header = strcat(http_header,nf);
   }else{
     printf("There is not enough memory to create http header\n");
