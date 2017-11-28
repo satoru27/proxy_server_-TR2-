@@ -85,7 +85,7 @@ int verifyDenyTerms(const char* buffer) {
 			term[size-1] = '\0'; //apagar o \n do fgets
 			//printf("@%s@\n", term);
 			if (strstr(buffer,term)) { //TERM FOUND IN BUFFER
-				printf("Deny Term found: %s\n", term);
+				printf("\n\n\n\nDeny Term found: %s\n\n\n", term);
 				return -1;
 			}
 		}

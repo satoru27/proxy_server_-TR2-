@@ -56,6 +56,7 @@ int run_tcp_server(long int port){
       handle_error("[!] bind() failed\n");
     printf("[*] Bind successful \n");
 
+    bool  stop_receiving_denied_pages=false;//pages that have denied terms
 
     for(;;){
       //Set socket to listen
@@ -84,7 +85,6 @@ int run_tcp_server(long int port){
       //printf("[*] Sending to the final host\n");
       
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
-      
       if(blacklistOK==not_blacklisted){
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
@@ -132,7 +132,6 @@ int run_tcp_server(long int port){
 
         int total = 0;
         int packet = 0;
-
         alarm(10);
         do{         
           do{
@@ -153,9 +152,10 @@ int run_tcp_server(long int port){
                   printf("[H] First packet content:\"\n%s\"\n", buffer);
                 printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
                 alarm(2);
-                }
-              else { //DenyTerm found
+              }else { //DenyTerm found
                 rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
+                gtfo_flag=true;
+                stop_receiving_denied_pages=true;
                 printf("Sorry, this website has denied terms\n");
                 if(forbidden!=NULL){
                   send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
@@ -168,11 +168,9 @@ int run_tcp_server(long int port){
           } while((rw_flag_h_c > 0));
         } while(!(gtfo_flag));
 
-        
         /*END - CLIENT-HOST COMMUNICATION*/
         printf("----TOTAL = %d ----\n\n",total);
-      }
-      else{//->if(blacklistOK==not_blacklisted)
+      }else{//->if(blacklistOK==not_blacklisted)
         printf("Sorry, we do not allow access to this website\n");
         if(forbidden!=NULL){
           send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
@@ -191,10 +189,13 @@ int run_tcp_server(long int port){
       close(hostSocket);//close the host socket
       printf("[*] Host socket closed\n");
       //system("clear");
+      if(stop_receiving_denied_pages)
+        break;
     }//for(;;) -> Set socket to listen
     close(listenSocket);//close the server socket
     printf("[*] Listening socket closed... Sleeping\n");
-    //sleep(2);
+    if(stop_receiving_denied_pages)
+      sleep(2);//to prevent pages from receiving the remaining pices of content 
   }//for(;;)->CONNECTIONS SETUP
   if(forbidden!=NULL){//pergunta: a funcao chega ate este ponto?
     free(forbidden);
