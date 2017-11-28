@@ -1,7 +1,6 @@
 #include "server.h"
 #include "blacklist.h"
 #define not_blacklisted 1
-
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
   struct sockaddr_in echoServerAddress; //local adress
@@ -18,8 +17,8 @@ int run_tcp_server(long int port){
   int header_size = 0;
 
   //messages to be sent if there was some problem with the connection
-  char* forbidden = "HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<body>\n<div class=\"cover\"><h1>Access Denied <small>- Error 403</small></h1><p class=\"lead\">The access to the requested resource was blocked by the proxy.</p></div>\n</body>\n</html>\n";
-
+  //char* forbidden = "HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<body>\n<div class=\"cover\"><h1>Access Denied <small>- Error 403</small></h1><p class=\"lead\">The access to the requested resource was blocked by the proxy.</p></div>\n</body>\n</html>\n";
+  char* forbidden = load_html_error_page("403 Forbidden","proxy_server_-TR2-/http_errors/403.html");
   //proxy-finalhost communication structures
   char* destination_host = NULL;
   char* urlSent = NULL;
@@ -163,8 +162,12 @@ int run_tcp_server(long int port){
       }
       else{//->if(blacklistOK==not_blacklisted)
         printf("Sorry, we do not allow access to this website\n");
-        send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
-        printf("Error message sent to client: %s\n",forbidden);
+        if(forbidden!=NULL){
+          send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
+          printf("Error message sent to client: %s\n",forbidden);  
+        }else{
+          printf("forbidden null\n");
+        }       
       }
       printf("[*] Communication ended\n");
       printf("[*] Cleaning buffer\n");
@@ -181,9 +184,78 @@ int run_tcp_server(long int port){
     printf("[*] Listening socket closed... Sleeping\n");
     //sleep(2);
   }//for(;;)->CONNECTIONS SETUP
-
+  if(forbidden!=NULL){//pergunta: a funcao chega ate este ponto?
+    free(forbidden);
+  }
   return 0;
 
+}
+//load_html_error_page(char* html_error_code,char* path_to_html_file)
+//will include html message header and data fields in order to be able
+//to load an error page. The function returns a dinamically allocated
+//pointer 
+char* load_html_error_page(char* html_error_code,char* path_to_html_file){
+  FILE* html_file = fopen(path_to_html_file,"r");
+  if(html_file!=NULL){
+    char* http_message = build_header_error_message(html_error_code);
+    if(http_message!=NULL){//only proceeds with creation of http_message if there is space for the header
+      http_message= include_html_data(http_message,html_file);
+    }
+    fclose(html_file);
+    return http_message;
+  }else{
+    printf("Path to html file not found. I cannot display the error page\n");
+    return NULL;
+  }
+}
+//return a dinamically allocated char* that contains http header
+char* build_header_error_message(char* html_error_code){
+  char v[]= "HTTP/1.1 ";//html header version 
+  char nf[]="\r\n";//next header field indicator
+  //403 Forbidden or similar messages are inside html_error_code
+  char KA[] = "Connection: keep-alive\r\n";//KA = keep alive status 
+  char ct[] = "Content-Type: text/html\r\n";//content type field
+  char cl[] = "Content-Length: 1600\r\n";//content lenght field 
+  int hl = strlen(v)+2*strlen(nf)+strlen(html_error_code)+strlen(KA)+
+           strlen(ct)+strlen(cl)+1;//total length of header string (including null terminating character)
+  //example of http:
+//"HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n"
+  char* http_header = (char*)malloc(sizeof(char)*hl);
+  if(http_header!=NULL){
+    http_header = strcpy(http_header,v);
+    http_header = strcat(http_header,html_error_code);
+    http_header = strcat(http_header,nf);
+    http_header = strcat(http_header,KA);
+    http_header = strcat(http_header,ct);
+    http_header = strcat(http_header,cl);
+    http_header = strcat(http_header,nf);
+  }else{
+    printf("There is not enough memory to create http header\n");
+  }
+  return http_header;
+}
+//include_html_data expects a http_message containing the http header
+// and a FILE* already opened 
+//include_html_data should be internally called by load_html_error_page 
+char* include_html_data(char* http_message,FILE* html_file){
+  char c = fgetc(html_file);
+  int http_message_size=strlen(http_message);//strlen reuturn will point to '\0' (and strlen()-1 will point to '\n')
+  char* large_http_message;//to handle possible realloc() failures 
+  while(c!=EOF){
+    http_message_size++;
+    large_http_message = (char*)realloc(http_message,http_message_size*sizeof(char));
+    if(large_http_message!=NULL){//realloc succesful (with space to include the null terminating character)
+      http_message = large_http_message;
+      http_message[http_message_size-1] = c;//as strlen() pointed to '\0', http_message_size-1 will continue to point to '\0' in the first round if realloc was sucessful 
+    }else{//there isn't enough memory to include the html data
+      free(http_message);
+      printf("There is not enough memory to create http  html data\n");
+      return NULL;
+    }
+    c = fgetc(html_file);
+  }
+  http_message[http_message_size-1] = '\0';
+  return http_message;
 }
 void header_content(char* buffer){
   char *buffer_copy = (char*)malloc(strlen(buffer)*sizeof(char) +1);//to not lose buffer when tokenizing 

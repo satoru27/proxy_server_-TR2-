@@ -13,6 +13,12 @@ bool close_connection(char* buffer);
 
 bool have_content(char* buffer);
 
+char* load_html_error_page(char* html_error_code,char* path_to_html_file);
+
+char* build_header_error_message(char* html_error_code);
+
+char* include_html_data(char* http_message,FILE* html_file);
+
 void header_content(char* buffer);
 //int get_header_size(char* buffer);
 
