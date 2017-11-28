@@ -47,3 +47,21 @@ Estrutura do package:
 	->Especificações_Trabalho_TR2.pdf:
 
 	->README.md: Este arquivo
+
+
+Checklist:
+
+	[X] Repasse - funcionando mas não é otimizado.
+	
+	[~] Blacklist, whitelist, termos banidos - em desenvolvimento.
+	
+	[~] Mensagens de resposta do servidor em caso de erro - em desenvolvimento.
+	
+	[ ] Cache
+	
+	[ ] Interface para a inspeção e modificação dos campos do cabeçalho HTTP
+	
+	[ ] Retirada de funções que não estão sendo utilizadas
+	
+	[ ] Modularização
+
