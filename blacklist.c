@@ -34,8 +34,8 @@ int verifyGET(const char* buffer){
 
 	FILE* fwhite;
 	FILE* fblack;
-	fwhite = fopen ("./proxy_server_-TR2-/whitelist.txt", "r");
-	fblack = fopen ("./proxy_server_-TR2-/blacklist.txt", "r");
+	fwhite = fopen ("proxy_server_-TR2-/whitelist.txt", "r");
+	fblack = fopen ("proxy_server_-TR2-/blacklist.txt", "r");
 	char line[256];
 	
 	if (fwhite == NULL) { //arquivo nao existe
@@ -81,13 +81,19 @@ int verifyGET(const char* buffer){
 	free(newbuffer);
 	return 1;
 }
-
-int verifyDenyTerms(const char* buffer) {
+char* save_deny_term_log(char* buffer){
+	char* buffer_copy = (char*)malloc(sizeof(char)*strlen(buffer));
+	if(buffer_copy!=NULL){
+		buffer_copy=strcpy(buffer_copy,buffer);
+	}
+	return buffer_copy;
+}
+int verifyDenyTerms(const char* buffer, char* log_content) {
 	/*returns -1 in case of deny term
 	  returns  1 otherwise*/
 	
 	FILE* fterms;
-	fterms = fopen ("./proxy_server_-TR2-/denyTerms.txt", "r");
+	fterms = fopen ("proxy_server_-TR2-/denyTerms.txt", "r");
 	char term[256];
 	
 	if (fterms == NULL) { //arquivo nao existe
@@ -100,6 +106,7 @@ int verifyDenyTerms(const char* buffer) {
 			//printf("@%s@\n", term);
 			if (strstr(buffer,term)) { //TERM FOUND IN BUFFER
 				printf("\n\n\n\nDeny Term found: %s\n\n\n", term);
+				writeLogDeniedTerms(log_content,term);				
 				return -1;
 			}
 		}
@@ -108,25 +115,39 @@ int verifyDenyTerms(const char* buffer) {
 	printf("Clean buffer: No deny terms\n");
 	return 1;
 }
-
+void writeLogDeniedTerms(char* log_content,char* term){
+	FILE* logDenied;
+	logDenied = fopen ("proxy_server_-TR2-/logs/logDenied.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
+	if (logDenied == NULL) {
+		printf("Error in logBlack file\n");
+	}else{
+		timestamp(logDenied);
+		fprintf(logDenied, "[C] The following request: %s", log_content);
+		fprintf(logDenied, "Contains denied term: %s\n\n",term );
+		fclose(logDenied);
+	}
+}
 void writeLogBlacklist(const char* buffer) {
 	FILE* logBlack;
-	logBlack = fopen ("./proxy_server_-TR2-/logBlack.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
+	logBlack = fopen ("proxy_server_-TR2-/logs/logBlack.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
 	if (logBlack == NULL) {
 		printf("Error in logBlack file\n");
+	}else{
+		timestamp(logBlack);
+		fprintf(logBlack, "[C] Client tried to request blacklisted URL: %s", buffer);
+		fclose(logBlack);
 	}
-	timestamp(logBlack);
-	fprintf(logBlack, "[C] Client tried to request blacklisted URL: %s", buffer);
-	fclose(logBlack);
 }
 
 void writeLogWhitelist(const char* buffer) {
 	FILE* logWhite;
-	logWhite = fopen ("./proxy_server_-TR2-/logWhite.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
+	logWhite = fopen ("./proxy_server_-TR2-/logs/logWhite.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
 	if (logWhite == NULL) {
 		printf("Error in logWhite file\n");
+	}else{
+		timestamp(logWhite);
+		fprintf(logWhite, "[C] Client tried to request whitelisted URL: %s", buffer);
+		fclose(logWhite);	
 	}
-	timestamp(logWhite);
-	fprintf(logWhite, "[C] Client tried to request whitelisted URL: %s", buffer);
-	fclose(logWhite);
+	
 }

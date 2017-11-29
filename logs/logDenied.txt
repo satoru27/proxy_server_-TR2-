@@ -1,0 +1,26 @@
+Wed Nov 29 20:56:05 2017
+[C] The following request: GET http://exchange.adtrue.com/delivery/impress?pzoneid=7106&ref=http://www.mangahere.co/&cb=3608117701&loc=http://www.mangahere.co/ HTTP/1.1
+Host: exchange.adtrue.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://www.mangahere.co/
+Cookie: __cfduid=dd6949831bd85854bd0b94ef25a64b4c91509146484; _ga=GA1.2.80510240.1509146492; _gid=GA1.2.322368891.1511993450
+Connection: keep-alive
+
+Contains denied term: document.write
+
+Wed Nov 29 20:59:46 2017
+[C] The following request: GET http://exchange.adtrue.com/delivery/impress?pzoneid=7107&ref=http://www.mangahere.co/&cb=2423304064&loc=http://www.mangahere.co/ HTTP/1.1
+Host: exchange.adtrue.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://www.mangahere.co/
+Cookie: __cfduid=dd6949831bd85854bd0b94ef25a64b4c91509146484; _ga=GA1.2.80510240.1509146492; _gid=GA1.2.322368891.1511993450
+Connection: keep-alive
+
+Contains denied term: document.write
+

@@ -13,6 +13,8 @@ bool close_connection(char* buffer);
 
 bool have_content(char* buffer);
 
+void send_denied_access_message(int type);
+
 char* load_html_error_page(char* html_error_code,char* path_to_html_file);
 
 char* build_header_error_message(char* html_error_code);

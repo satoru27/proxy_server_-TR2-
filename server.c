@@ -1,6 +1,8 @@
 #include "server.h"
 #include "blacklist.h"
 #define not_blacklisted 1
+#define blacklisted 2
+#define denied_term 3
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
   struct sockaddr_in echoServerAddress; //local adress
@@ -18,14 +20,14 @@ int run_tcp_server(long int port){
 
   //messages to be sent if there was some problem with the connection
   //char* forbidden = "HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<body>\n<div class=\"cover\"><h1>Access Denied <small>- Error 403</small></h1><p class=\"lead\">The access to the requested resource was blocked by the proxy.</p></div>\n</body>\n</html>\n";
-  char* forbidden = load_html_error_page("403 Forbidden","proxy_server_-TR2-/http_errors/403.html");
   //proxy-finalhost communication structures
   char* destination_host = NULL;
   char* urlSent = NULL;
   struct hostent *final_host;
   struct sockaddr_in server_addr;
   long int host_port = 80;
-
+  bool  stop_receiving_denied_pages;//pages that have denied terms
+  char *deny_terms_log_content=NULL;
   signal(SIGALRM,&timeout_error);//setting a signal for a possible timeout event
   signal(SIGALRM,&gtfo);
 
@@ -56,7 +58,7 @@ int run_tcp_server(long int port){
       handle_error("[!] bind() failed\n");
     printf("[*] Bind successful \n");
 
-    bool  stop_receiving_denied_pages=false;//pages that have denied terms
+    stop_receiving_denied_pages=false;
 
     for(;;){
       //Set socket to listen
@@ -118,7 +120,8 @@ int run_tcp_server(long int port){
 
         /*END - OPENING CONNECTION WITH FINAL HOST*/
         /*END - CONNECTIONS SETUP*/
-
+        deny_terms_log_content = save_deny_term_log(buffer);
+        
         //sending first message
         printf("[*] Writing request to the host\n");
         if((send(hostSocket,buffer,rw_flag,0)<0))
@@ -139,11 +142,10 @@ int run_tcp_server(long int port){
             bzero(buffer,BUFFER_SIZE);
             rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
             //printf("LOOP: %d \r", rw_flag_h_c);
-
             if(!(rw_flag_h_c <=0)) {
               printf("[H] Wrote: %s\n",buffer);
               /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
-              blacklistOK = verifyDenyTerms(buffer);
+              blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
 
               if(blacklistOK == not_blacklisted){ //DenyTerm not found
                 send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
@@ -157,28 +159,18 @@ int run_tcp_server(long int port){
                 rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
                 gtfo_flag=true;
                 stop_receiving_denied_pages=true;
-                printf("Sorry, this website has denied terms\n");
-                if(forbidden!=NULL){
-                  send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
-                  printf("Error message sent to client: %s\n",forbidden);  
-                }else{
-                  printf("forbidden null\n");
-                }
+                send_denied_access_message(denied_term);
               }
             }
           } while((rw_flag_h_c > 0));
         } while(!(gtfo_flag));
-
+        if(deny_terms_log_content!=NULL){
+          free(deny_terms_log_content);
+        }
         /*END - CLIENT-HOST COMMUNICATION*/
         printf("----TOTAL = %d ----\n\n",total);
       }else{//->if(blacklistOK==not_blacklisted)
-        printf("Sorry, we do not allow access to this website\n");
-        if(forbidden!=NULL){
-          send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro
-          printf("Error message sent to client: %s\n",forbidden);  
-        }else{
-          printf("forbidden null\n");
-        }       
+        send_denied_access_message(blacklisted);            
       }
       printf("[*] Communication ended\n");
       printf("[*] Cleaning buffer\n");
@@ -198,11 +190,30 @@ int run_tcp_server(long int port){
     if(stop_receiving_denied_pages)
       sleep(2);//to prevent pages from receiving the remaining pices of content 
   }//for(;;)->CONNECTIONS SETUP
-  if(forbidden!=NULL){//pergunta: a funcao chega ate este ponto?
-    free(forbidden);
-  }
   return 0;
-
+}
+//int type will indicate if the request was in the blacklist
+//or denied terms. As it is an integer parameter, the function 
+//send_denied_access_message may accept more types of denials
+//in the future 
+void send_denied_access_message(int type){
+//TODO: redirect client if denied term is found (current method of
+// redirection only works for blacklisted requests)
+  char* forbidden=NULL;
+  if(type==blacklisted){
+    forbidden = load_html_error_page("403 Forbidden","proxy_server_-TR2-/http_errors/blacklist.html");
+    printf("Sorry, we do not allow access to this website\n"); 
+  }else if(type==denied_term){
+    forbidden = load_html_error_page("403 Forbidden","proxy_server_-TR2-/http_errors/deny_terms.html");;
+    printf("Sorry, this website has denied terms\n");
+  }
+  if(forbidden!=NULL){
+    send(clientSocket,forbidden,strlen(forbidden),0);//atencao: usar strlen e nao sizeof, sizeof retorna o tamanho do ponteiro 
+    printf("Error message sent to client: %s\n",forbidden);  
+    free(forbidden);
+  }else{
+    printf("forbidden null\n");
+  }
 }
 //load_html_error_page(char* html_error_code,char* path_to_html_file)
 //will include html message header and data fields in order to be able
