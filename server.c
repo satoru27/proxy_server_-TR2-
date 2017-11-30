@@ -273,7 +273,8 @@ char* include_html_data(char* http_message,FILE* html_file){
       http_message = large_http_message;
       http_message[http_message_size-1] = c;//as strlen() pointed to '\0', http_message_size-1 will continue to point to '\0' in the first round if realloc was sucessful 
     }else{//there isn't enough memory to include the html data
-      free(http_message);
+      if(http_message != NULL)
+        free(http_message);
       printf("There is not enough memory to create http  html data\n");
       return NULL;
     }
@@ -291,7 +292,8 @@ void header_content(char* buffer){
     printf("\nRead line: %s \n",header_lines);
     header_lines = strtok(NULL,"\r\n");
   }
-  free(buffer_copy);
+  if(buffer_copy != NULL)
+    free(buffer_copy);
 }
 
 bool check_end(char* buffer){
