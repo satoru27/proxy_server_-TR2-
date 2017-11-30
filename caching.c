@@ -98,3 +98,21 @@ void init_cache_data(cd* cache){
     cache->next = NULL;
     return;
 }
+
+void new_cr_entry(cr* reg, char* index_name){
+    reg->index = index_name;
+    reg->data = (cd*) malloc(sizeof(cd));
+    init_cache_data(reg->data);
+    return;
+}
+
+void add_data_to_cd(cr* reg, char* content_pointer){
+    cd* position = reg->data;
+    while(position->content != NULL){//encontra a ultima posicao sem dados
+        position = position->next;
+    }
+    position->content = content_pointer;
+    position->next = (cd*) malloc(sizeof(cd));
+    init_cache_data(position->next);
+    return;
+}

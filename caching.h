@@ -1,18 +1,16 @@
 #include "common.h"
 //#include "server.h" //usado somente para testar
 
+typedef struct cr{ //cache_reg
+	char* index; //nome da pagina requisitada
+	struct cd* data; // aponta para os dados carregados em memória
+}cr;
 
 typedef struct cd{ //cached_data
 	char* content; //basicamente o buffer recebido
 	struct cd* next; //caso haja fragmentacao aponta para o proximo, assim mantem
 							 //da mesma forma que foi enviado pelo servidor de origem (simplificacao)
 }cd;
-
-typedef struct cr{ //cache_reg
-	char* index; //nome da pagina requisitada
-	struct cd* data; // aponta para os dados carregados em memória
-}cr;
-
 
 void hash_cache_index(); //faz o hash da url do arquivo
 
@@ -31,6 +29,10 @@ char* get_page_name(char* buffer, char* hostname);
 void init_cache_reg(cr* cache, int index);
 
 void init_cache_data(cd* cache);
+
+void new_cr_entry(cr* reg, char* index_name);
+
+void add_data_to_cd(cr* reg, char* content_pointer);
 
 
 /*
