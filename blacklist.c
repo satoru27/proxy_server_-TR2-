@@ -9,9 +9,9 @@ void timestamp(FILE* fp)
 }
 
 int verifyGET(const char* buffer){
-	//Retorns 1 if its not a GET message
 	//Returns 1 case in whitelist
 	//Returns -1 case in blacklist
+	//Returns 0 otherwise
 
 	/*Verifica primeiramente a whitelist, em seguida a blacklist*/
 	
@@ -29,7 +29,7 @@ int verifyGET(const char* buffer){
 	}
 	else {
 		printf("url==NULL and newbuffer=%s\n",newbuffer );
-		return 1;
+		return 0;
 	}
 
 	FILE* fwhite;
@@ -79,7 +79,7 @@ int verifyGET(const char* buffer){
 	}
 
 	free(newbuffer);
-	return 1;
+	return 0;
 }
 char* save_deny_term_log(char* buffer){
 	char* buffer_copy = (char*)malloc(sizeof(char)*strlen(buffer));
