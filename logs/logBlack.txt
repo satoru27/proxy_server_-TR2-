@@ -76,3 +76,65 @@ Cookie: _ga=GA1.3.1701352224.1511660616
 Connection: keep-alive
 Upgrade-Insecure-Requests: 1
 
+Thu Nov 30 21:26:24 2017
+[C] Client tried to request blacklisted URL: GET http://www.pudim.com.br/ HTTP/1.1
+Host: www.pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.387767449.1494508318; _gid=GA1.3.710412741.1512082114
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Thu Nov 30 21:26:25 2017
+[C] Client tried to request blacklisted URL: GET http://www.pudim.com.br/favicon.ico HTTP/1.1
+Host: www.pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.387767449.1494508318; _gid=GA1.3.710412741.1512082114
+Connection: keep-alive
+
+Thu Nov 30 21:26:25 2017
+[C] Client tried to request blacklisted URL: GET http://www.pudim.com.br/favicon.ico HTTP/1.1
+Host: www.pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.387767449.1494508318; _gid=GA1.3.710412741.1512082114
+Connection: keep-alive
+
+Thu Nov 30 21:36:34 2017
+[C] Client tried to request blacklisted URL: GET http://www.pudim.com.br/ HTTP/1.1
+Host: www.pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.387767449.1494508318; _gid=GA1.3.710412741.1512082114
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Thu Nov 30 21:36:35 2017
+[C] Client tried to request blacklisted URL: GET http://www.pudim.com.br/favicon.ico HTTP/1.1
+Host: www.pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.387767449.1494508318; _gid=GA1.3.710412741.1512082114
+Connection: keep-alive
+
+Thu Nov 30 21:36:35 2017
+[C] Client tried to request blacklisted URL: GET http://www.pudim.com.br/favicon.ico HTTP/1.1
+Host: www.pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.387767449.1494508318; _gid=GA1.3.710412741.1512082114
+Connection: keep-alive
+

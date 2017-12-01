@@ -24,3 +24,42 @@ Connection: keep-alive
 
 Contains denied term: document.write
 
+Thu Nov 30 21:37:31 2017
+[C] The following request: GET http://unb.br/images/banners/banner_professor_visitante-15.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.486344801.1477193247; _gid=GA1.2.959549444.1512054483; 3ec986f4f850e1d0bdcd00fd24b0c473=g351fiq9c17ag9dvk3gloug7p2
+Connection: keep-alive
+
+Contains denied term: jpeg
+
+Thu Nov 30 21:40:53 2017
+[C] The following request: GET http://unb.br/images/banners/banner_professor_visitante-15.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.486344801.1477193247; _gid=GA1.2.959549444.1512054483; 3ec986f4f850e1d0bdcd00fd24b0c473=g351fiq9c17ag9dvk3gloug7p2
+Connection: keep-alive
+
+Contains denied term: jpeg
+
+Thu Nov 30 21:45:47 2017
+[C] The following request: GET http://unb.br/images/banners/banner_professor_visitante-15.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.486344801.1477193247; _gid=GA1.2.959549444.1512054483; 3ec986f4f850e1d0bdcd00fd24b0c473=g351fiq9c17ag9dvk3gloug7p2
+Connection: keep-alive
+
+Contains denied term: jpeg
+

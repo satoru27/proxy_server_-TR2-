@@ -1,6 +1,7 @@
 #include "blacklist.h"
+#include "common.h"
 #include <time.h>
-
+//maybe double free is here?
 void timestamp(FILE* fp)
 {
     time_t ltime; /* calendar time */
@@ -28,8 +29,11 @@ int verifyGET(const char* buffer){
 		//printf("GET's URL: %s\n",url);
 	}
 	else {
+		if(newbuffer==NULL)
+			printf("newbuffer null!\n");
+
 		printf("url==NULL and newbuffer=%s\n",newbuffer );
-		return 0;
+		return something_else;
 	}
 
 	FILE* fwhite;
@@ -50,7 +54,7 @@ int verifyGET(const char* buffer){
 					printf("Term in whitelist: %s\n", line);
 					writeLogWhitelist(buffer);
 					free(newbuffer);
-					return 1;
+					return whitelisted;
 				}
 		}
 		fclose (fwhite);
@@ -72,17 +76,18 @@ int verifyGET(const char* buffer){
 				printf ("Term in blacklist: %s\n", line);
 				writeLogBlacklist(buffer);
 				free(newbuffer);
-				return -1;
+				return blacklisted;
 			}
 		}
 		fclose (fblack);
 	}
 
 	free(newbuffer);
-	return 0;
+	return something_else;
 }
 char* save_deny_term_log(char* buffer){
-	char* buffer_copy = (char*)malloc(sizeof(char)*strlen(buffer));
+//It looks like strcpy REALLY NEEDS to put the final '\0', so let's allocate space for that
+	char* buffer_copy = (char*)malloc(sizeof(char)*(strlen(buffer)+1) );
 	if(buffer_copy!=NULL){
 		buffer_copy=strcpy(buffer_copy,buffer);
 	}
@@ -107,13 +112,13 @@ int verifyDenyTerms(const char* buffer, char* log_content) {
 			if (strstr(buffer,term)) { //TERM FOUND IN BUFFER
 				printf("\n\n\n\nDeny Term found: %s\n\n\n", term);
 				writeLogDeniedTerms(log_content,term);				
-				return -1;
+				return denied_term;
 			}
 		}
 		fclose (fterms);
 	}
 	printf("Clean buffer: No deny terms\n");
-	return 1;
+	return something_else;
 }
 void writeLogDeniedTerms(char* log_content,char* term){
 	FILE* logDenied;

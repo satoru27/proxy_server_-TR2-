@@ -1,8 +1,6 @@
 #include "server.h"
 #include "blacklist.h"
-#define not_blacklisted 1
-#define blacklisted 2
-#define denied_term 3
+
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
   struct sockaddr_in echoServerAddress; //local adress
@@ -87,7 +85,7 @@ int run_tcp_server(long int port){
       //printf("[*] Sending to the final host\n");
       
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
-      if(blacklistOK==not_blacklisted){
+      if(blacklistOK!=blacklisted){
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
        
@@ -139,33 +137,46 @@ int run_tcp_server(long int port){
         alarm(10);
         do{         
           do{
+            //printf("before bzero\n");
             bzero(buffer,BUFFER_SIZE);
+            //printf("after bzero\n");
+            //printf("before recv\n");
             rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+            //printf("after recv\n");
+            //printf("outside if\n");
             //printf("LOOP: %d \r", rw_flag_h_c);
             if(!(rw_flag_h_c <=0)) {
+              //printf("inside if\n");
+              //if(buffer==NULL)
+              //    printf("buffer null\n");
               printf("[H] Wrote: %s\n",buffer);
               /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
-              blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
+              if(blacklistOK!=whitelisted)
+                blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
 
-              if(blacklistOK == not_blacklisted){ //DenyTerm not found
+              if(blacklistOK != denied_term){ //DenyTerm not found
                 send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
                 packet ++; 
                 total += rw_flag_h_c;
                 if(packet == 1)
                   printf("[H] First packet content:\"\n%s\"\n", buffer);
                 printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
-                alarm(2);
+                alarm(2); 
               }else { //DenyTerm found
                 rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
                 gtfo_flag=true;
                 stop_receiving_denied_pages=true;
-                send_denied_access_message(denied_term);
               }
             }
           } while((rw_flag_h_c > 0));
         } while(!(gtfo_flag));
         if(deny_terms_log_content!=NULL){
+          //printf("before free deny log\n");
+          //printf("deny log: %s\n",deny_terms_log_content);
+//it seems that the double free or corruption bug was caused because deny_terms_log_content did not have the
+//space to receive strcpy's last '\0'
           free(deny_terms_log_content);
+          //printf("after\n");
         }
         /*END - CLIENT-HOST COMMUNICATION*/
         printf("----TOTAL = %d ----\n\n",total);

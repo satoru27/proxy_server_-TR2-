@@ -15,6 +15,11 @@
 #define TIMEOUT 60
 #define BUFFER_SIZE 1500 //maximum tcp packet size
 
+#define something_else 0
+#define whitelisted 1
+#define blacklisted -1
+#define denied_term 3
+
 int handle_error(char *message);
 void timeout_error();
 void gtfo();
