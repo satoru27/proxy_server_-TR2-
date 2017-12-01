@@ -1,7 +1,7 @@
-#include "blacklist.h"
-#include "common.h"
+#include "../include/blacklist.h"
+#include "../include/common.h"
 #include <time.h>
-//maybe double free is here?
+
 void timestamp(FILE* fp)
 {
     time_t ltime; /* calendar time */

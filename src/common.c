@@ -1,4 +1,4 @@
-#include "common.h"
+#include "../include/common.h"
 
 int listenSocket = -1;
 int clientSocket = -1;

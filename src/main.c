@@ -10,7 +10,7 @@
 *
  */
 
-#include "server.h"
+#include "../include/server.h"
 //#include "client.h"
 #include <string.h>
 #include <stdio.h>
