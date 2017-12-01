@@ -36,4 +36,6 @@ void client_host_communication(char * buffer, char* deny_terms_log_content, int 
 
 void connection_setup(long int port);
 
-int client_connect(char* buffer);
+int client_connect();
+
+void host_connect(int rw_flag);

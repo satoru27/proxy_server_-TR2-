@@ -11,22 +11,14 @@ int run_tcp_server(long int port){
   bool first_message = true;
   int header_size = 0;
   int rw_flag = 0;
-  char init_message[BUFFER_SIZE];
-
-
   //messages to be sent if there was some problem with the connection
   //char* forbidden = "HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<body>\n<div class=\"cover\"><h1>Access Denied <small>- Error 403</small></h1><p class=\"lead\">The access to the requested resource was blocked by the proxy.</p></div>\n</body>\n</html>\n";
   //proxy-finalhost communication structures
-  char* destination_host = NULL;
   char* urlSent = NULL;
-  struct hostent *final_host;
-  struct sockaddr_in server_addr;
-  long int host_port = 80;
   //bool  stop_receiving_denied_pages;//pages that have denied terms
   char *deny_terms_log_content=NULL;
   signal(SIGALRM,&timeout_error);//setting a signal for a possible timeout event
   signal(SIGALRM,&gtfo);
-
   //BEGIN TEST
   signal(SIGPIPE,SIG_IGN);//se existir uma tetativa de escrever no socket do cliente o SIGPIPE geralmente fecha o programa, esse comando implica em ignorar esse tipo de situacao
   //fazer um tratamento melhor, pegando esse signal e etc
@@ -46,43 +38,16 @@ int run_tcp_server(long int port){
       listen(listenSocket,100); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
 
       //Accept new connection
-      rw_flag = client_connect(buffer); //retorna buffer
-      bzero(init_message,BUFFER_SIZE);
-      memcpy(init_message,buffer,BUFFER_SIZE);
+      rw_flag = client_connect(); //conecta com o cliente e retorna flag que vai ser usada na escrita
+
 
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       if(blacklistOK!=blacklisted){
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
 
-        if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
-          handle_error("[!] socket() failed\n");
-        printf("[*] Host socket created \n");
+        host_connect(rw_flag);
 
-        printf("[*] Extracting hostname\n");
-        destination_host = get_final_host(init_message);
-
-        if((final_host = gethostbyname(destination_host)) == NULL)
-          handle_error("[!] Unknown host\n");
-        printf("[*] Host found \n");
-        //MUDAR
-        // o programa fecha se nao encontrar o host --> inconveniente
-        //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
-        //necessario usar goto?
-        
-        bzero((char *) &server_addr,sizeof(server_addr));
-        server_addr.sin_family = AF_INET;
-
-        bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
-
-        server_addr.sin_port = htons((unsigned short) host_port);
-
-        alarm(TIMEOUT);
-        if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
-          handle_error("[!] connect() error \n");
-        printf("[*] Connection successful\n");
-
-        /*END - OPENING CONNECTION WITH FINAL HOST*/
         /*END - CONNECTIONS SETUP*/
         deny_terms_log_content = save_deny_term_log(buffer);
         
@@ -100,8 +65,8 @@ int run_tcp_server(long int port){
         if(deny_terms_log_content!=NULL){
           //printf("before free deny log\n");
           //printf("deny log: %s\n",deny_terms_log_content);
-//it seems that the double free or corruption bug was caused because deny_terms_log_content did not have the
-//space to receive strcpy's last '\0'
+          //it seems that the double free or corruption bug was caused because deny_terms_log_content did not have the
+          //space to receive strcpy's last '\0'
           free(deny_terms_log_content);
           //printf("after\n");
         }
@@ -377,7 +342,7 @@ void connection_setup(long int port){
     printf("[*] Bind successful \n");
 }
 
-int client_connect(char* buffer){
+int client_connect(){
     int rw_flag = 0;
     unsigned int clientLen; //length of client address data structure
     struct sockaddr_in echoClientAddress; //client address
@@ -401,4 +366,44 @@ int client_connect(char* buffer){
     //printf("[*] Sending to the final host\n");
 
     return rw_flag;
+}
+
+void host_connect(int rw_flag){
+    char* destination_host = NULL;
+    char init_message[BUFFER_SIZE];
+    struct hostent *final_host;
+    struct sockaddr_in server_addr;
+    long int host_port = 80;
+        
+    bzero(init_message,BUFFER_SIZE);
+    memcpy(init_message,buffer,BUFFER_SIZE);
+        
+    if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
+    handle_error("[!] socket() failed\n");
+    printf("[*] Host socket created \n");
+
+    printf("[*] Extracting hostname\n");
+    destination_host = get_final_host(init_message);
+
+    if((final_host = gethostbyname(destination_host)) == NULL)
+      handle_error("[!] Unknown host\n");
+    printf("[*] Host found \n");
+    //MUDAR
+    // o programa fecha se nao encontrar o host --> inconveniente
+    //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
+    //necessario usar goto?
+    
+    bzero((char *) &server_addr,sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+
+    bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
+
+    server_addr.sin_port = htons((unsigned short) host_port);
+
+    alarm(TIMEOUT);
+    if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
+      handle_error("[!] connect() error \n");
+    printf("[*] Connection successful\n");
+
+    /*END - OPENING CONNECTION WITH FINAL HOST*/
 }
