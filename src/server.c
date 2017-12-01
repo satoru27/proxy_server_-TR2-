@@ -2,18 +2,17 @@
 #include "../include/blacklist.h"
 
 bool stop_receiving_denied_pages;
+char buffer[BUFFER_SIZE];
 
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
-  struct sockaddr_in echoClientAddress; //client address
-  unsigned int clientLen; //length of client address data structure
-  char buffer[BUFFER_SIZE];
-  char init_message[BUFFER_SIZE];
-  int rw_flag = 0;
   bool close_flag = false;
   int remaining_data = 0;
   bool first_message = true;
   int header_size = 0;
+  int rw_flag = 0;
+  char init_message[BUFFER_SIZE];
+
 
   //messages to be sent if there was some problem with the connection
   //char* forbidden = "HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<body>\n<div class=\"cover\"><h1>Access Denied <small>- Error 403</small></h1><p class=\"lead\">The access to the requested resource was blocked by the proxy.</p></div>\n</body>\n</html>\n";
@@ -45,32 +44,17 @@ int run_tcp_server(long int port){
       alarm(TIMEOUT);//alarm is set for every possible blocking call
       printf("[*] Waiting for connection... \n");
       listen(listenSocket,100); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
-      clientLen = sizeof(echoClientAddress);
 
       //Accept new connection
-      alarm(TIMEOUT);
-      if((clientSocket = accept(listenSocket,(struct sockaddr *) &echoClientAddress,&clientLen)) < 0 )
-        handle_error("[!] accept() failed");
-      printf("[*] Connection accepted \n");
-      printf("[*] Client socket created \n");
-
-      printf("------------------------------------\n");
-      bzero(buffer,BUFFER_SIZE);//clears the message buffer
+      rw_flag = client_connect(buffer); //retorna buffer
       bzero(init_message,BUFFER_SIZE);
-      
-      alarm(TIMEOUT);
-      if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
-        handle_error("[!] read() failed");
-      printf("[S] Received the following message from client:\n %s", buffer);
       memcpy(init_message,buffer,BUFFER_SIZE);
-      //header_content(buffer);
-      //printf("[*] Sending to the final host\n");
-      
+
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       if(blacklistOK!=blacklisted){
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
-       
+
         if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
           handle_error("[!] socket() failed\n");
         printf("[*] Host socket created \n");
@@ -391,4 +375,30 @@ void connection_setup(long int port){
     if((bind(listenSocket, (struct sockaddr *) &echoServerAddress, sizeof(echoServerAddress))) < 0)
       handle_error("[!] bind() failed\n");
     printf("[*] Bind successful \n");
+}
+
+int client_connect(char* buffer){
+    int rw_flag = 0;
+    unsigned int clientLen; //length of client address data structure
+    struct sockaddr_in echoClientAddress; //client address
+
+    clientLen = sizeof(echoClientAddress);
+
+    alarm(TIMEOUT);
+    if((clientSocket = accept(listenSocket,(struct sockaddr *) &echoClientAddress,&clientLen)) < 0 )
+      handle_error("[!] accept() failed");
+    printf("[*] Connection accepted \n");
+    printf("[*] Client socket created \n");
+
+    printf("------------------------------------\n");
+    bzero(buffer,BUFFER_SIZE);//clears the message buffer
+    
+    alarm(TIMEOUT);
+    if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
+      handle_error("[!] read() failed");
+    printf("[S] Received the following message from client:\n %s", buffer);
+    //header_content(buffer);
+    //printf("[*] Sending to the final host\n");
+
+    return rw_flag;
 }
