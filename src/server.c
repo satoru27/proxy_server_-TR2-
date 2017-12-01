@@ -74,16 +74,9 @@ int run_tcp_server(long int port){
       }else{//->if(blacklistOK==not_blacklisted)
         send_denied_access_message(blacklisted);            
       }
-      printf("[*] Communication ended\n");
-      printf("[*] Cleaning buffer\n");
-      bzero(buffer,BUFFER_SIZE); 
-        
-      close(clientSocket);//close the client socket
-      printf("[*] Client socket closed\n");
 
-      close(hostSocket);//close the host socket
-      printf("[*] Host socket closed\n");
-      //system("clear");
+      close_client_and_host_sockets();
+      
       if(stop_receiving_denied_pages)
         break;
     }//for(;;) -> Set socket to listen
@@ -406,4 +399,17 @@ void host_connect(int rw_flag){
     printf("[*] Connection successful\n");
 
     /*END - OPENING CONNECTION WITH FINAL HOST*/
+}
+
+void close_client_and_host_sockets(){
+      printf("[*] Communication ended\n");
+      printf("[*] Cleaning buffer\n");
+      bzero(buffer,BUFFER_SIZE); 
+        
+      close(clientSocket);//close the client socket
+      printf("[*] Client socket closed\n");
+
+      close(hostSocket);//close the host socket
+      printf("[*] Host socket closed\n");
+      //system("clear");
 }

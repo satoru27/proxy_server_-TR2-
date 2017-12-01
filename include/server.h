@@ -39,3 +39,5 @@ void connection_setup(long int port);
 int client_connect();
 
 void host_connect(int rw_flag);
+
+void close_client_and_host_sockets();
