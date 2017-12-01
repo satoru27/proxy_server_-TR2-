@@ -1,34 +1,24 @@
 #include "../include/server.h"
 #include "../include/blacklist.h"
 
+bool stop_receiving_denied_pages;
+char buffer[BUFFER_SIZE];
+
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
-  struct sockaddr_in echoServerAddress; //local adress
-  struct sockaddr_in echoClientAddress; //client address
-  unsigned int clientLen; //length of client address data structure
-  char buffer[BUFFER_SIZE];
-  char init_message[BUFFER_SIZE];
-  int rw_flag = 0;
   bool close_flag = false;
   int remaining_data = 0;
   bool first_message = true;
-  int rw_flag_c_h = 0;
-  int rw_flag_h_c = 0;
   int header_size = 0;
-
+  int rw_flag = 0;
   //messages to be sent if there was some problem with the connection
   //char* forbidden = "HTTP/1.1 403 Forbidden\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: 310\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<body>\n<div class=\"cover\"><h1>Access Denied <small>- Error 403</small></h1><p class=\"lead\">The access to the requested resource was blocked by the proxy.</p></div>\n</body>\n</html>\n";
   //proxy-finalhost communication structures
-  char* destination_host = NULL;
   char* urlSent = NULL;
-  struct hostent *final_host;
-  struct sockaddr_in server_addr;
-  long int host_port = 80;
-  bool  stop_receiving_denied_pages;//pages that have denied terms
+  //bool  stop_receiving_denied_pages;//pages that have denied terms
   char *deny_terms_log_content=NULL;
   signal(SIGALRM,&timeout_error);//setting a signal for a possible timeout event
   signal(SIGALRM,&gtfo);
-
   //BEGIN TEST
   signal(SIGPIPE,SIG_IGN);//se existir uma tetativa de escrever no socket do cliente o SIGPIPE geralmente fecha o programa, esse comando implica em ignorar esse tipo de situacao
   //fazer um tratamento melhor, pegando esse signal e etc
@@ -36,25 +26,8 @@ int run_tcp_server(long int port){
   printf("[.] RUNNING TCP SERVER\n");
   
   for(;;){
-    /*BEGIN - CONNECTIONS SETUP*/
-    //creating a TCP socket
-    if((listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 )
-        handle_error("[!] socket() failed");
-    printf("[*] Listening socket created \n");
 
-    /*codigo de teste para tentar resolver o bind na mesma porta depois de rodar uma vez*/
-    if (setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int)) < 0)
-      handle_error("[!] setsockopt(SO_REUSEADDR) failed");
-    
-    //construct local address structure
-    memset(&echoServerAddress, 0, sizeof(echoServerAddress));
-    echoServerAddress.sin_family = AF_INET;
-    echoServerAddress.sin_addr.s_addr = htonl(INADDR_ANY);
-    echoServerAddress.sin_port = htons((unsigned short) port);
-    //Assign a port to a socket
-    if((bind(listenSocket, (struct sockaddr *) &echoServerAddress, sizeof(echoServerAddress))) < 0)
-      handle_error("[!] bind() failed\n");
-    printf("[*] Bind successful \n");
+    connection_setup(port);
 
     stop_receiving_denied_pages=false;
 
@@ -63,60 +36,18 @@ int run_tcp_server(long int port){
       alarm(TIMEOUT);//alarm is set for every possible blocking call
       printf("[*] Waiting for connection... \n");
       listen(listenSocket,100); //set to 1 the maximum length to which the queue of pending connections for sockfd may grow
-      clientLen = sizeof(echoClientAddress);
 
       //Accept new connection
-      alarm(TIMEOUT);
-      if((clientSocket = accept(listenSocket,(struct sockaddr *) &echoClientAddress,&clientLen)) < 0 )
-        handle_error("[!] accept() failed");
-      printf("[*] Connection accepted \n");
-      printf("[*] Client socket created \n");
+      rw_flag = client_connect(); //conecta com o cliente e retorna flag que vai ser usada na escrita
 
-      printf("------------------------------------\n");
-      bzero(buffer,BUFFER_SIZE);//clears the message buffer
-      bzero(init_message,BUFFER_SIZE);
-      
-      alarm(TIMEOUT);
-      if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
-        handle_error("[!] read() failed");
-      printf("[S] Received the following message from client:\n %s", buffer);
-      memcpy(init_message,buffer,BUFFER_SIZE);
-      //header_content(buffer);
-      //printf("[*] Sending to the final host\n");
-      
+
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       if(blacklistOK!=blacklisted){
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
-       
-        if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
-          handle_error("[!] socket() failed\n");
-        printf("[*] Host socket created \n");
 
-        printf("[*] Extracting hostname\n");
-        destination_host = get_final_host(init_message);
+        host_connect(rw_flag);
 
-        if((final_host = gethostbyname(destination_host)) == NULL)
-          handle_error("[!] Unknown host\n");
-        printf("[*] Host found \n");
-        //MUDAR
-        // o programa fecha se nao encontrar o host --> inconveniente
-        //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
-        //necessario usar goto?
-        
-        bzero((char *) &server_addr,sizeof(server_addr));
-        server_addr.sin_family = AF_INET;
-
-        bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
-
-        server_addr.sin_port = htons((unsigned short) host_port);
-
-        alarm(TIMEOUT);
-        if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
-          handle_error("[!] connect() error \n");
-        printf("[*] Connection successful\n");
-
-        /*END - OPENING CONNECTION WITH FINAL HOST*/
         /*END - CONNECTIONS SETUP*/
         deny_terms_log_content = save_deny_term_log(buffer);
         
@@ -126,73 +57,26 @@ int run_tcp_server(long int port){
           handle_error("[!] write() failed");
         printf("\n[C] Wrote: %s\n",buffer);
 
+        client_host_communication(buffer,deny_terms_log_content,blacklistOK);
+
         //header_content(buffer);
         //first_message = true;
-        gtfo_flag = false;
-        /*BEGIN - CLIENT-HOST COMMUNICATION*/
-        printf("********************************************\n");
 
-        int total = 0;
-        int packet = 0;
-        alarm(10);
-        do{         
-          do{
-            //printf("before bzero\n");
-            bzero(buffer,BUFFER_SIZE);
-            //printf("after bzero\n");
-            //printf("before recv\n");
-            rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
-            //printf("after recv\n");
-            //printf("outside if\n");
-            //printf("LOOP: %d \r", rw_flag_h_c);
-            if(!(rw_flag_h_c <=0)) {
-              //printf("inside if\n");
-              //if(buffer==NULL)
-              //    printf("buffer null\n");
-              printf("[H] Wrote: %s\n",buffer);
-              /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
-              if(blacklistOK!=whitelisted)
-                blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
-
-              if(blacklistOK != denied_term){ //DenyTerm not found
-                send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-                packet ++; 
-                total += rw_flag_h_c;
-                if(packet == 1)
-                  printf("[H] First packet content:\"\n%s\"\n", buffer);
-                printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
-                alarm(2); 
-              }else { //DenyTerm found
-                rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
-                gtfo_flag=true;
-                stop_receiving_denied_pages=true;
-              }
-            }
-          } while((rw_flag_h_c > 0));
-        } while(!(gtfo_flag));
         if(deny_terms_log_content!=NULL){
           //printf("before free deny log\n");
           //printf("deny log: %s\n",deny_terms_log_content);
-//it seems that the double free or corruption bug was caused because deny_terms_log_content did not have the
-//space to receive strcpy's last '\0'
+          //it seems that the double free or corruption bug was caused because deny_terms_log_content did not have the
+          //space to receive strcpy's last '\0'
           free(deny_terms_log_content);
           //printf("after\n");
         }
-        /*END - CLIENT-HOST COMMUNICATION*/
-        printf("----TOTAL = %d ----\n\n",total);
+
       }else{//->if(blacklistOK==not_blacklisted)
         send_denied_access_message(blacklisted);            
       }
-      printf("[*] Communication ended\n");
-      printf("[*] Cleaning buffer\n");
-      bzero(buffer,BUFFER_SIZE); 
-        
-      close(clientSocket);//close the client socket
-      printf("[*] Client socket closed\n");
 
-      close(hostSocket);//close the host socket
-      printf("[*] Host socket closed\n");
-      //system("clear");
+      close_client_and_host_sockets();
+      
       if(stop_receiving_denied_pages)
         break;
     }//for(;;) -> Set socket to listen
@@ -378,4 +262,154 @@ bool has_denied_terms(char* buffer){
 
 void log_entry(char* buffer){
   return;
+}
+void client_host_communication(char * buffer, char* deny_terms_log_content, int blacklistOK){
+  gtfo_flag = false;
+        /*BEGIN - CLIENT-HOST COMMUNICATION*/
+        printf("********************************************\n");
+
+        int total = 0;
+        int packet = 0;
+        int rw_flag_c_h = 0;
+        int rw_flag_h_c = 0;
+        alarm(10);
+        do{         
+          do{
+            //printf("before bzero\n");
+            bzero(buffer,BUFFER_SIZE);
+            //printf("after bzero\n");
+            //printf("before recv\n");
+            rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+            //printf("after recv\n");
+            //printf("outside if\n");
+            //printf("LOOP: %d \r", rw_flag_h_c);
+            if(!(rw_flag_h_c <=0)) {
+              //printf("inside if\n");
+              //if(buffer==NULL)
+              //    printf("buffer null\n");
+              printf("[H] Wrote: %s\n",buffer);
+              /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
+              if(blacklistOK!=whitelisted)
+                blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
+
+              if(blacklistOK != denied_term){ //DenyTerm not found
+                send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
+                packet ++; 
+                total += rw_flag_h_c;
+                if(packet == 1)
+                  printf("[H] First packet content:\"\n%s\"\n", buffer);
+                printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
+                alarm(2); 
+              }else { //DenyTerm found
+                rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
+                gtfo_flag=true;
+                stop_receiving_denied_pages=true;
+              }
+            }
+          } while((rw_flag_h_c > 0));
+        } while(!(gtfo_flag));
+        printf("----TOTAL = %d ----\n\n",total);
+}
+
+void connection_setup(long int port){
+    /*BEGIN - CONNECTIONS SETUP*/
+    struct sockaddr_in echoServerAddress; //local adress
+
+    //creating a TCP socket
+    if((listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 )
+        handle_error("[!] socket() failed");
+    printf("[*] Listening socket created \n");
+
+    /*codigo de teste para tentar resolver o bind na mesma porta depois de rodar uma vez*/
+    if (setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int)) < 0)
+      handle_error("[!] setsockopt(SO_REUSEADDR) failed");
+    
+    //construct local address structure
+    memset(&echoServerAddress, 0, sizeof(echoServerAddress));
+    echoServerAddress.sin_family = AF_INET;
+    echoServerAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+    echoServerAddress.sin_port = htons((unsigned short) port);
+    //Assign a port to a socket
+    if((bind(listenSocket, (struct sockaddr *) &echoServerAddress, sizeof(echoServerAddress))) < 0)
+      handle_error("[!] bind() failed\n");
+    printf("[*] Bind successful \n");
+}
+
+int client_connect(){
+    int rw_flag = 0;
+    unsigned int clientLen; //length of client address data structure
+    struct sockaddr_in echoClientAddress; //client address
+
+    clientLen = sizeof(echoClientAddress);
+
+    alarm(TIMEOUT);
+    if((clientSocket = accept(listenSocket,(struct sockaddr *) &echoClientAddress,&clientLen)) < 0 )
+      handle_error("[!] accept() failed");
+    printf("[*] Connection accepted \n");
+    printf("[*] Client socket created \n");
+
+    printf("------------------------------------\n");
+    bzero(buffer,BUFFER_SIZE);//clears the message buffer
+    
+    alarm(TIMEOUT);
+    if((rw_flag = read(clientSocket,buffer,BUFFER_SIZE))<0)//read message sent from the client
+      handle_error("[!] read() failed");
+    printf("[S] Received the following message from client:\n %s", buffer);
+    //header_content(buffer);
+    //printf("[*] Sending to the final host\n");
+
+    return rw_flag;
+}
+
+void host_connect(int rw_flag){
+    char* destination_host = NULL;
+    char init_message[BUFFER_SIZE];
+    struct hostent *final_host;
+    struct sockaddr_in server_addr;
+    long int host_port = 80;
+        
+    bzero(init_message,BUFFER_SIZE);
+    memcpy(init_message,buffer,BUFFER_SIZE);
+        
+    if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
+    handle_error("[!] socket() failed\n");
+    printf("[*] Host socket created \n");
+
+    printf("[*] Extracting hostname\n");
+    destination_host = get_final_host(init_message);
+
+    if((final_host = gethostbyname(destination_host)) == NULL)
+      handle_error("[!] Unknown host\n");
+    printf("[*] Host found \n");
+    //MUDAR
+    // o programa fecha se nao encontrar o host --> inconveniente
+    //solucao? -- tratar com uma mensagem padrao, ou ignorar e depois voltar para o listen
+    //necessario usar goto?
+    
+    bzero((char *) &server_addr,sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+
+    bcopy((char *) final_host->h_addr,(char *)&server_addr.sin_addr.s_addr,final_host->h_length);
+
+    server_addr.sin_port = htons((unsigned short) host_port);
+
+    alarm(TIMEOUT);
+    if((connect(hostSocket,&server_addr,sizeof(server_addr))) < 0)
+      handle_error("[!] connect() error \n");
+    printf("[*] Connection successful\n");
+
+    /*END - OPENING CONNECTION WITH FINAL HOST*/
+}
+
+void close_client_and_host_sockets(){
+      printf("[*] Communication ended\n");
+      printf("[*] Cleaning buffer\n");
+      bzero(buffer,BUFFER_SIZE); 
+        
+      close(clientSocket);//close the client socket
+      printf("[*] Client socket closed\n");
+
+      close(hostSocket);//close the host socket
+      printf("[*] Host socket closed\n");
+      //system("clear");
 }
