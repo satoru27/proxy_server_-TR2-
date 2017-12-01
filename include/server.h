@@ -33,3 +33,5 @@ bool has_denied_terms(char* buffer);
 void log_entry(char* buffer);
 
 void client_host_communication(char * buffer, char* deny_terms_log_content, int blacklistOK);
+
+void connection_setup(long int port);

@@ -5,7 +5,6 @@ bool stop_receiving_denied_pages;
 
 int run_tcp_server(long int port){
   //clientSocket and listenSocket are defined globally on common.h
-  struct sockaddr_in echoServerAddress; //local adress
   struct sockaddr_in echoClientAddress; //client address
   unsigned int clientLen; //length of client address data structure
   char buffer[BUFFER_SIZE];
@@ -36,25 +35,8 @@ int run_tcp_server(long int port){
   printf("[.] RUNNING TCP SERVER\n");
   
   for(;;){
-    /*BEGIN - CONNECTIONS SETUP*/
-    //creating a TCP socket
-    if((listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 )
-        handle_error("[!] socket() failed");
-    printf("[*] Listening socket created \n");
 
-    /*codigo de teste para tentar resolver o bind na mesma porta depois de rodar uma vez*/
-    if (setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int)) < 0)
-      handle_error("[!] setsockopt(SO_REUSEADDR) failed");
-    
-    //construct local address structure
-    memset(&echoServerAddress, 0, sizeof(echoServerAddress));
-    echoServerAddress.sin_family = AF_INET;
-    echoServerAddress.sin_addr.s_addr = htonl(INADDR_ANY);
-    echoServerAddress.sin_port = htons((unsigned short) port);
-    //Assign a port to a socket
-    if((bind(listenSocket, (struct sockaddr *) &echoServerAddress, sizeof(echoServerAddress))) < 0)
-      handle_error("[!] bind() failed\n");
-    printf("[*] Bind successful \n");
+    connection_setup(port);
 
     stop_receiving_denied_pages=false;
 
@@ -130,7 +112,6 @@ int run_tcp_server(long int port){
 
         //header_content(buffer);
         //first_message = true;
-        
 
         if(deny_terms_log_content!=NULL){
           //printf("before free deny log\n");
@@ -140,7 +121,7 @@ int run_tcp_server(long int port){
           free(deny_terms_log_content);
           //printf("after\n");
         }
-        /*END - CLIENT-HOST COMMUNICATION*/
+
       }else{//->if(blacklistOK==not_blacklisted)
         send_denied_access_message(blacklisted);            
       }
@@ -386,4 +367,28 @@ void client_host_communication(char * buffer, char* deny_terms_log_content, int 
           } while((rw_flag_h_c > 0));
         } while(!(gtfo_flag));
         printf("----TOTAL = %d ----\n\n",total);
+}
+
+void connection_setup(long int port){
+    /*BEGIN - CONNECTIONS SETUP*/
+    struct sockaddr_in echoServerAddress; //local adress
+
+    //creating a TCP socket
+    if((listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 )
+        handle_error("[!] socket() failed");
+    printf("[*] Listening socket created \n");
+
+    /*codigo de teste para tentar resolver o bind na mesma porta depois de rodar uma vez*/
+    if (setsockopt(listenSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int)) < 0)
+      handle_error("[!] setsockopt(SO_REUSEADDR) failed");
+    
+    //construct local address structure
+    memset(&echoServerAddress, 0, sizeof(echoServerAddress));
+    echoServerAddress.sin_family = AF_INET;
+    echoServerAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+    echoServerAddress.sin_port = htons((unsigned short) port);
+    //Assign a port to a socket
+    if((bind(listenSocket, (struct sockaddr *) &echoServerAddress, sizeof(echoServerAddress))) < 0)
+      handle_error("[!] bind() failed\n");
+    printf("[*] Bind successful \n");
 }
