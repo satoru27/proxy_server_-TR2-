@@ -1,13 +1,15 @@
 #include "common.h"
 #include "caching.h"
 
+//test
+
 int run_tcp_server(long int port, bool inspection_neeeded);
 
 bool check_end(char* buffer);
 
 int get_length(char* buffer);
 
-char* get_final_host(char* buffer);
+void get_final_host();
 
 bool close_connection(char* buffer);
 

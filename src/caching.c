@@ -1,6 +1,5 @@
 #include "../include/caching.h"
 
-
 /*Codigo da funcao a seguir foi desenvolvido por Paul Hsieh como softaware livre e é utilizado dentro dos termos da sua licensa LGPL 2.1
 	Disponivel em http://www.azillionmonkeys.com/qed/hash.html
 */
@@ -63,6 +62,20 @@
 // }
 /*END*/
 
+struct cr{ //cache_reg
+    char* index; //nome da pagina requisitada
+    struct cd* data; // aponta para os dados carregados em memória
+};
+
+struct cd{ //cached_data
+    char* content; //basicamente o buffer recebido
+    struct cd* next; //caso haja fragmentacao aponta para o proximo, assim mantem
+                             //da mesma forma que foi enviado pelo servidor de origem (simplificacao)
+};
+
+//cr cache[CACHE_LIMIT];
+cr cache[CACHE_LIMIT];
+
 char* get_page_name(char* buffer, char* hostname){
     //pegar pagina
     char* beginning = strstr(buffer,"GET ");
@@ -73,7 +86,7 @@ char* get_page_name(char* buffer, char* hostname){
     beginning += strlen("GET ");
     char* end = strstr(buffer," HTTP");
     int size = end - beginning;
-    char* temp = (char*)malloc(sizeof(char)*(size+1));
+    char* temp = (char*)malloc(sizeof(char)*(size+2));
     strncpy(temp,beginning,size);
     temp[size] = '\0';
 
@@ -103,39 +116,49 @@ void init_cache_data(cd* cache){
 
 
 //itens da cache podem ser guardados em um vetor cr cache[n];
-void new_cr_entry(cr* reg, char* index_name){
-    reg->index = index_name;
-    reg->data = (cd*) malloc(sizeof(cd));
-    init_cache_data(reg->data);
+void new_cr_entry(int i, char* index_name){
+    cache[i].index = (char *)malloc(sizeof(char)*strlen(index_name) + 1); 
+    //cache[i].index = index_name;
+    strcpy(cache[i].index,index_name);
+    cache[i].data = (cd*) malloc(sizeof(cd));
+    init_cache_data(cache[i].data);
+    //printf("\n****TEST*****\n");
+    //char* test = cache[i].data->content;
     return;
 }
 
-void add_data_to_cd(cr* reg, char* content_pointer){
-    cd* position = reg->data;
+void add_data_to_cd(int i, char* content_pointer,int size){
+    cd* position = cache[i].data;
+    //printf("[%s]",position->content);
     while(position->content != NULL){//encontra a ultima posicao sem dados
         position = position->next;
+        printf("ENTROU_3\n");
     }
-    position->content = content_pointer;
+    position->content = (char*)malloc(size);
+    strcpy(position->content,content_pointer);
+    
     position->next = (cd*) malloc(sizeof(cd));
     init_cache_data(position->next);
+    printf("Cache string [%s]\n",position->content);
+    sleep(5);
     return;
 }
 
 void write_cache(){
     FILE *fp = NULL;
     
-    // if((fp = fopen("proxy_server_-TR2-/cache.txt","r+")) == NULL){
-    //     printf("[!] Error opening the cache file\n");
-    //     return; 
-    // }
+    if((fp = fopen("proxy_server_-TR2-/cache.txt","r+")) == NULL){
+        printf("[!] Error opening the cache file\n");
+        return; 
+    }
 
     //utilizando o modo w+ os dados da cache antiga sao sobrescritos
     //isso é util no caso de que, caso a cache sempre seja carregada no inicio da execucao
     //nao haverao dados duplicados
-  if((fp = fopen("proxy_server_-TR2-/cache.txt","w+")) == NULL){
-        printf("[!] Error opening the cache file\n");
-        return; 
-    }   
+  // if((fp = fopen("proxy_server_-TR2-/cache.txt","w+")) == NULL){
+  //       printf("[!] Error opening the cache file\n");
+  //       return; 
+  //   }   
 
     if(fseek(fp,0L,SEEK_END) != 0){
         printf("[!] File seek error");
@@ -222,8 +245,8 @@ void load_cache(){
         buffer_pointer += SIZE_OF_INDEX;
         temp_end = strstr(buffer_pointer,"<PACKET>");
         field_size = (long int)temp_end - (long int)buffer_pointer - 2;
-        cache[i].index = (char *)malloc(sizeof(char)*field_size);
-        strncpy(cache[i].index,buffer_pointer, field_size);
+        cache[i].index = (char *)malloc(sizeof(char)*(field_size+2));
+        strncpy(cache[i].index,buffer_pointer, field_size+1);
         
         //printf("[%s]\n", cache[i].index);
         
@@ -245,8 +268,8 @@ void load_cache(){
             //printf("buffer_pointer = %ld\n", (long int)buffer_pointer);
             field_size = (long int)packet_pointer_2 - (long int)packet_pointer -2;
             //printf("[[%d]]\n",field_size);
-            cache_pointer->content = (char *)malloc(sizeof(char)*field_size);
-            strncpy(cache_pointer->content,packet_pointer,field_size);
+            cache_pointer->content = (char *)malloc(sizeof(char)*(field_size+2));
+            strncpy(cache_pointer->content,packet_pointer,field_size+1);
 
             //printf("[%s]\n",cache_pointer->content);
 
@@ -263,10 +286,14 @@ void load_cache(){
 }
 
 void show_cache(){
+    printf("[*] Showing cache contents\n");
     cd *pointer = NULL;
     for(int i = 0; i < CACHE_LIMIT; i++){
-        if(cache[i].index == NULL)
+        if(cache[i].index == NULL){
+            printf("[*] No more cache contents");
             break;
+        }
+        printf("Index: %s\n",cache[i].index);
         pointer = cache[i].data;
         do{
             printf("%s\n",pointer->content);
@@ -289,11 +316,24 @@ int find_empty_cr_index(){
 
 bool is_in_cache(char* name){
     for(int i = 0; i < CACHE_LIMIT; i++){
-        if(cache[i].index == name)
-            return true;
-        if(cache[i].index == NULL)
-            break;
+        if((cache[i].index != NULL)){
+            printf("[DB] CACHED: %d\n",strlen(cache[i].index));
+            printf("[DB] STRING: %d\n",strlen(name));
+            if((strcmp(cache[i].index,name) == 0))
+                return true;
+        }
     }
-
     return false;
+}
+
+void show_cached_index(){
+    for(int i = 0; i< CACHE_LIMIT; i++){
+        if(cache[i].index == NULL){
+            printf("[Cache] NULL\n");
+            break;
+        }
+        else{
+            printf("[Cache] %s\n", cache[i].index);
+        }
+    }
 }

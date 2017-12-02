@@ -1,8 +1,11 @@
 #include "../include/server.h"
 #include "../include/blacklist.h"
 #include "../include/inspecao.h"
+#include "../include/caching.h"
+
 bool stop_receiving_denied_pages;
 char buffer[BUFFER_SIZE];
+char* destination_host = NULL;
 
 int run_tcp_server(long int port, bool inspection_neeeded){
   //clientSocket and listenSocket are defined globally on common.h
@@ -24,7 +27,13 @@ int run_tcp_server(long int port, bool inspection_neeeded){
   //fazer um tratamento melhor, pegando esse signal e etc
   //END TEST
   printf("[.] RUNNING TCP SERVER\n");
+
+  init_cache_reg();
+  load_cache();
+  show_cache();
   
+  getchar();
+
   for(;;){
 
     connection_setup(port);
@@ -79,14 +88,16 @@ int run_tcp_server(long int port, bool inspection_neeeded){
       }
 
       close_client_and_host_sockets();
-      
+      write_cache();
+
       if(stop_receiving_denied_pages)
         break;
     }//for(;;) -> Set socket to listen
     close(listenSocket);//close the server socket
     printf("[*] Listening socket closed... Sleeping\n");
     if(stop_receiving_denied_pages)
-      sleep(2);//to prevent pages from receiving the remaining pices of content 
+      sleep(2);//to prevent pages from receiving the remaining pices of content
+
   }//for(;;)->CONNECTIONS SETUP
   return 0;
 }
@@ -214,13 +225,18 @@ int get_length(char* buffer){
   return size;
 }
 
-char* get_final_host(char* buffer){
-  char* hostname = strstr(buffer, "Host: ");
-  hostname += sizeof("Host: ") - 1;
-  char* end = strstr(hostname,"\r\n");
-  hostname[end-hostname] = '\0'; //parece que as vezes escreve onde nao deve, arrumar 
-  printf("[*] Destination host: %s\n",hostname);
-  return hostname;
+void get_final_host(){
+  char* start = strstr(buffer,"Host: ");
+  start += sizeof("Host: ") -1;
+  char* end = strstr(start, "\r\n");
+  int size = end - start;
+
+  destination_host = (char *)malloc(sizeof(char)*size + 1);
+
+  strncpy(destination_host,start,size);
+  destination_host[size] = '\0';
+  
+  printf("[*] Destination host: [%s]\n",destination_host);
 }
 
 bool close_connection(char* buffer){
@@ -271,11 +287,21 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
   /*BEGIN - CLIENT-HOST COMMUNICATION*/
   printf("********************************************\n");
   int total = 0;
-  int packet = 0;
+  int packet = 1;
   int rw_flag_c_h = 0;
   int rw_flag_h_c = 0;
   bool send_response=true;
+  char* pagename = NULL; //pode dar problema de seg fault
+  bool is_cached = false;
+  int available_cache_index = 0;
   alarm(10);
+
+  available_cache_index = find_empty_cr_index();
+  
+  printf("[*] Hostname: %s\n",destination_host);
+  pagename = get_page_name(buffer,destination_host);
+  printf("[*] Pagename %s\n", pagename);
+
   do{         
     do{
       //printf("before bzero\n");
@@ -294,15 +320,41 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
         /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
         if(blacklistOK!=whitelisted)
           blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
+        
         if(inspection_neeeded && !want_to_send_response() && packet==0)
           send_response=false;
+        
         if(send_response){
+          
           if(blacklistOK != denied_term){ //DenyTerm not found
+            if(packet == 1 && pagename != NULL){
+              //printf("[H] First packet content:\"\n%s\"\n", buffer);
+              is_cached = is_in_cache(pagename);
+              printf("[*] Cached: %d\n",is_cached);
+              if(is_cached == false){
+                //printf("\n******ENTROU AQUI\n");
+                printf("[*] Writing data to cache\n");
+                new_cr_entry(available_cache_index,pagename);
+                add_data_to_cd(available_cache_index,buffer,rw_flag_h_c);
+              }
+              else{
+                printf("[*] Data is cached\n");
+              }
+
+            }
+            else{
+              if(is_cached == false && pagename != NULL){ 
+                printf("[*] Writing data to cache\n");
+                add_data_to_cd(available_cache_index,buffer,rw_flag_h_c);
+              }
+              else{
+                printf("[*] Data is cached\n");
+              }
+            }
+            
             send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
             packet ++; 
             total += rw_flag_h_c;
-            if(packet == 1)
-              printf("[H] First packet content:\"\n%s\"\n", buffer);
             printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
             alarm(2); 
           }else { //DenyTerm found
@@ -318,6 +370,13 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
     } while((rw_flag_h_c > 0));
   } while(!(gtfo_flag));
   printf("----TOTAL = %d ----\n\n",total);
+
+  //show_cache();
+  write_cache();
+  show_cached_index();
+  getchar();
+
+  sleep(8);
 }
 
 void connection_setup(long int port){
@@ -371,7 +430,7 @@ int client_connect(){
 }
 
 void host_connect(int rw_flag){
-    char* destination_host = NULL;
+    //char* destination_host = NULL;
     char init_message[BUFFER_SIZE];
     struct hostent *final_host;
     struct sockaddr_in server_addr;
@@ -385,7 +444,7 @@ void host_connect(int rw_flag){
     printf("[*] Host socket created \n");
 
     printf("[*] Extracting hostname\n");
-    destination_host = get_final_host(init_message);
+    get_final_host();
 
     if((final_host = gethostbyname(destination_host)) == NULL)
       handle_error("[!] Unknown host\n");
