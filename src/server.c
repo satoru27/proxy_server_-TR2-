@@ -44,12 +44,16 @@ int run_tcp_server(long int port, bool inspection_neeeded){
           if( recoverHeader(buffer) )//if the inspection was successfully written on a file, recover that file
             printf("[*] Buffer successfully inspected. New buffer is:\n%s\n",buffer);
 
+      if (buffer[0] == '\0') {
+      	printf ("BUFFER VAZIO - NAO REALIZAR TRANSMISSAO");
+      }
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       if(blacklistOK!=blacklisted){
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
 
-        host_connect(rw_flag);
+      	//TODO: VERIFICAR SITUACOES ONDE O BUFFER ESTÁ VAZIO (não realiar conexão)
+        host_connect(rw_flag); //Existem situacoes onde o buffer está vazio: Seg fault dentro dessa funcao
 
         /*END - CONNECTIONS SETUP*/
         deny_terms_log_content = save_deny_term_log(buffer);
@@ -294,7 +298,7 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
         /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
         if(blacklistOK!=whitelisted)
           blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
-        if(inspection_neeeded && !want_to_send_response() && packet==0)
+        if(inspection_neeeded && !want_to_send_response() && packet==0) //cancelar envio se usuario do proxy decidir por isso
           send_response=false;
         if(send_response){
           if(blacklistOK != denied_term){ //DenyTerm not found
@@ -381,10 +385,11 @@ void host_connect(int rw_flag){
     memcpy(init_message,buffer,BUFFER_SIZE);
         
     if((hostSocket = socket(AF_INET,SOCK_STREAM,0)) < 0)
-    handle_error("[!] socket() failed\n");
+    	handle_error("[!] socket() failed\n");
     printf("[*] Host socket created \n");
 
     printf("[*] Extracting hostname\n");
+    
     destination_host = get_final_host(init_message);
 
     if((final_host = gethostbyname(destination_host)) == NULL)

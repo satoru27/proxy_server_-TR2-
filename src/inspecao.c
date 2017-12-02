@@ -36,7 +36,7 @@ bool recoverHeader(char* buffer) { //updates buffer with the file content
 	pFile = fopen ("proxy_server_-TR2-/packet.txt", "rb");
 	if(pFile!=NULL){
 		/*File exists*/
-		printf("BUFFER VELHO: %s/ACABOU\n", buffer);
+		//printf("BUFFER VELHO: %s/ACABOU\n", buffer);
 		printf("Iniciar atualizacao do buffer\n");
 		bzero(buffer,BUFFER_SIZE); //zerar buffer
 		//SEEK_END may not  have real standard portability
@@ -52,7 +52,7 @@ bool recoverHeader(char* buffer) { //updates buffer with the file content
 	  	/*copy to buffer*/
 	  	result = fread (buffer,sizeof(char),(unsigned int)BUFFER_SIZE,pFile); //copy from the file to buffer
 
-		printf("BUFFER NOVO: %s/ACABOU\n", buffer);
+		//printf("BUFFER NOVO: %s/ACABOU\n", buffer);
 		fclose(pFile);
 		system("rm -f packet.txt"); //removes the file to later iterations
 		return true;
