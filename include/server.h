@@ -1,7 +1,7 @@
 #include "common.h"
 #include "caching.h"
 
-int run_tcp_server(long int port);
+int run_tcp_server(long int port, bool inspection_neeeded);
 
 bool check_end(char* buffer);
 

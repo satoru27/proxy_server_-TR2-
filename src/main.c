@@ -17,19 +17,23 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]){
-
+  bool inspection_needed=false;
   long int temp,port = 33333;
   int return_flag;
-
+//examples of calling: ./proxy_server port_number -i
+//                     ./proxy_server port_number 
   if(argc < 2){
     printf("[!] More arguments are needed, exiting...\n");
     return -1;
   }
   
-  if(argc > 2){
-    printf("[!] Too many arguments (max = 1), exceeding arguments were ignored\n");
+  if(argc > 3){
+    printf("[!] Too many arguments (max = 2), exceeding arguments were ignored\n");
   }
-
+  if(argc==3 && (strcmp(argv[2],"-i")==0) ){
+    printf("[!] Inspection mode activated\n");
+    inspection_needed=true;
+  }
   temp = strtol(argv[1],NULL,0);
 
   if(temp < 1025){
@@ -43,7 +47,7 @@ int main(int argc, char *argv[]){
   printf("[.] Port: %li\n",port);
   printf("[.] Protocol: TCP\n");
   printf("------------------------------------\n");
-  return_flag = run_tcp_server(port);
+  return_flag = run_tcp_server(port,inspection_needed);
 
   printf("[*] Program exited with flag: %d\n",return_flag);
   return return_flag;

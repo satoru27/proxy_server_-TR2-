@@ -1,10 +1,10 @@
 #include "../include/server.h"
 #include "../include/blacklist.h"
-
+#include "../include/inspecao.h"
 bool stop_receiving_denied_pages;
 char buffer[BUFFER_SIZE];
 
-int run_tcp_server(long int port){
+int run_tcp_server(long int port, bool inspection_neeeded){
   //clientSocket and listenSocket are defined globally on common.h
   bool close_flag = false;
   int remaining_data = 0;
@@ -39,7 +39,10 @@ int run_tcp_server(long int port){
 
       //Accept new connection
       rw_flag = client_connect(); //conecta com o cliente e retorna flag que vai ser usada na escrita
-
+      if(inspection_neeeded)
+        if(inspectsHeader(buffer) )//tries to inspect the buffer
+          if( recoverHeader(buffer) )//if the inspection was successfully written on a file, recover that file
+            printf("[*] Buffer successfully inspected. New buffer is:\n%s\n",buffer);
 
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       if(blacklistOK!=blacklisted){
@@ -282,7 +285,7 @@ void client_host_communication(char * buffer, char* deny_terms_log_content, int 
             rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
             //printf("after recv\n");
             //printf("outside if\n");
-            //printf("LOOP: %d \r", rw_flag_h_c);
+            //printf("LOOP: %d \r\n", rw_flag_h_c);
             if(!(rw_flag_h_c <=0)) {
               //printf("inside if\n");
               //if(buffer==NULL)
