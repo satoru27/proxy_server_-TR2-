@@ -68,3 +68,7 @@ Checklist:
 	
 	[X] Modularização
 
+
+Lembretes:
+
+	-Colocar na documentação que é necessario instalar o ncurses.
