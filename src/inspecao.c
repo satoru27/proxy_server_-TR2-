@@ -3,18 +3,18 @@
 
 bool inspectsHeader(const char* buffer) {
 	FILE* fpointer;
-	char opcao;
+	char opcao[2];
 
 	printf("%s\n[!!!] Deseja inspecionar cabeçalho? (S/N): ", buffer);
 	
-	scanf ("%c", &opcao);
-	getchar();
-	while(!valid_option(opcao)){
-		printf("Please insert a valid option (S/N)\n");
-		scanf ("%c", &opcao);
+	scanf ("%s",opcao);
+	//getchar();
+	while(!valid_option(opcao[0])){
 		getchar();
+		printf("Please insert a valid option (S/N)\n");
+		scanf ("%s",opcao);
 	}
-	if (opcao == 's' || opcao == 'S') {
+	if (opcao[0] == 's' || opcao[0] == 'S') {
 		fpointer = fopen ("proxy_server_-TR2-/packet.txt", "w+");//creates the file if it doesn't exist
 		if (fpointer == NULL)
 			return false;
