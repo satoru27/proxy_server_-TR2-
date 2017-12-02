@@ -53,17 +53,18 @@ Checklist:
 
 	[X] Repasse - funcionando mas não é otimizado.
 	
-	[ ] Trocar o endereço de origem do header repassado para o endereço do proxy.
+	[?] Trocar o endereço de origem do header repassado para o endereço do proxy - que endereço ?
 	
-	[~] Blacklist, whitelist, termos banidos - em desenvolvimento.
+	[X] Blacklist, whitelist, termos banidos - funcionando.
 	
-	[~] Mensagens de resposta do servidor em caso de erro - em desenvolvimento.
+	[~] Mensagens de resposta do servidor em caso de erro - verificar se mais mensagens, além daquelas 
+	    já feitas, são necessárias.
 	
-	[ ] Cache
+	[~] Cache - funções prontas, implementar no server.c
 	
-	[ ] Interface para a inspeção e modificação dos campos do cabeçalho HTTP
+	[~] Interface para a inspeção e modificação dos campos do cabeçalho HTTP - em desenvolvimento
 	
 	[ ] Retirada de funções que não estão sendo utilizadas
 	
-	[ ] Modularização
+	[X] Modularização
 
