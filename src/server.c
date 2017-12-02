@@ -60,7 +60,7 @@ int run_tcp_server(long int port, bool inspection_neeeded){
           handle_error("[!] write() failed");
         printf("\n[C] Wrote: %s\n",buffer);
 
-        client_host_communication(buffer,deny_terms_log_content,blacklistOK);
+        client_host_communication(deny_terms_log_content,blacklistOK,inspection_neeeded);
 
         //header_content(buffer);
         //first_message = true;
@@ -266,52 +266,58 @@ bool has_denied_terms(char* buffer){
 void log_entry(char* buffer){
   return;
 }
-void client_host_communication(char * buffer, char* deny_terms_log_content, int blacklistOK){
+void client_host_communication(char* deny_terms_log_content, int blacklistOK, bool inspection_neeeded){
   gtfo_flag = false;
-        /*BEGIN - CLIENT-HOST COMMUNICATION*/
-        printf("********************************************\n");
-
-        int total = 0;
-        int packet = 0;
-        int rw_flag_c_h = 0;
-        int rw_flag_h_c = 0;
-        alarm(10);
-        do{         
-          do{
-            //printf("before bzero\n");
-            bzero(buffer,BUFFER_SIZE);
-            //printf("after bzero\n");
-            //printf("before recv\n");
-            rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
-            //printf("after recv\n");
-            //printf("outside if\n");
-            //printf("LOOP: %d \r\n", rw_flag_h_c);
-            if(!(rw_flag_h_c <=0)) {
-              //printf("inside if\n");
-              //if(buffer==NULL)
-              //    printf("buffer null\n");
-              printf("[H] Wrote: %s\n",buffer);
-              /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
-              if(blacklistOK!=whitelisted)
-                blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
-
-              if(blacklistOK != denied_term){ //DenyTerm not found
-                send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-                packet ++; 
-                total += rw_flag_h_c;
-                if(packet == 1)
-                  printf("[H] First packet content:\"\n%s\"\n", buffer);
-                printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
-                alarm(2); 
-              }else { //DenyTerm found
-                rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
-                gtfo_flag=true;
-                stop_receiving_denied_pages=true;
-              }
-            }
-          } while((rw_flag_h_c > 0));
-        } while(!(gtfo_flag));
-        printf("----TOTAL = %d ----\n\n",total);
+  /*BEGIN - CLIENT-HOST COMMUNICATION*/
+  printf("********************************************\n");
+  int total = 0;
+  int packet = 0;
+  int rw_flag_c_h = 0;
+  int rw_flag_h_c = 0;
+  bool send_response=true;
+  alarm(10);
+  do{         
+    do{
+      //printf("before bzero\n");
+      bzero(buffer,BUFFER_SIZE);
+      //printf("after bzero\n");
+      //printf("before recv\n");
+      rw_flag_h_c = recv(hostSocket,buffer,BUFFER_SIZE,MSG_DONTWAIT);
+      //printf("after recv\n");
+      //printf("outside if\n");
+      //printf("LOOP: %d \r\n", rw_flag_h_c);
+      if(!(rw_flag_h_c <=0)) {
+        //printf("inside if\n");
+        //if(buffer==NULL)
+        //    printf("buffer null\n");
+        printf("[H] Wrote: %s\n",buffer);
+        /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
+        if(blacklistOK!=whitelisted)
+          blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
+        if(inspection_neeeded && !want_to_send_response() && packet==0)
+          send_response=false;
+        if(send_response){
+          if(blacklistOK != denied_term){ //DenyTerm not found
+            send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
+            packet ++; 
+            total += rw_flag_h_c;
+            if(packet == 1)
+              printf("[H] First packet content:\"\n%s\"\n", buffer);
+            printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
+            alarm(2); 
+          }else { //DenyTerm found
+            rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
+            gtfo_flag=true;
+            stop_receiving_denied_pages=true;
+          }
+        }else{
+          rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
+          gtfo_flag=true;
+        }
+      }
+    } while((rw_flag_h_c > 0));
+  } while(!(gtfo_flag));
+  printf("----TOTAL = %d ----\n\n",total);
 }
 
 void connection_setup(long int port){

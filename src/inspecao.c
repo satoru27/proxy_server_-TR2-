@@ -65,3 +65,14 @@ bool valid_option(char option){
 	return (option=='s'|| option=='S' || 
 			option=='n' || option=='N');
 }
+bool want_to_send_response(){
+	char opcao[2];
+	printf("Would you like to send the received message to the client?(S/N):");
+	scanf ("%s",opcao);
+	while(!valid_option(opcao[0])){
+		getchar();
+		printf("Please insert a valid option (S/N)\n");
+		scanf ("%s",opcao);
+	}
+	return (opcao[0]=='s' || opcao[0]=='S');
+}
