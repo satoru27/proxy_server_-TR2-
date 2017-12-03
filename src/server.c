@@ -4,7 +4,7 @@
 bool stop_receiving_denied_pages;
 char buffer[BUFFER_SIZE];
 
-int run_tcp_server(long int port, bool inspection_neeeded){
+int run_tcp_server(long int port, bool inspection_needed){
   //clientSocket and listenSocket are defined globally on common.h
   bool close_flag = false;
   int remaining_data = 0;
@@ -39,20 +39,19 @@ int run_tcp_server(long int port, bool inspection_neeeded){
 
       //Accept new connection
       rw_flag = client_connect(); //conecta com o cliente e retorna flag que vai ser usada na escrita
-      if(inspection_neeeded)
+      if(inspection_needed)
         if(inspectsHeader(buffer) )//tries to inspect the buffer
           if( recoverHeader(buffer) )//if the inspection was successfully written on a file, recover that file
             printf("[*] Buffer successfully inspected. New buffer is:\n%s\n",buffer);
 
       if (buffer[0] == '\0') {
-      	printf ("BUFFER VAZIO - NAO REALIZAR TRANSMISSAO");
+      	printf ("BUFFER VAZIO - NAO REALIZAR TRANSMISSAO\n");
       }
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       if(blacklistOK!=blacklisted){
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
 
-      	//TODO: VERIFICAR SITUACOES ONDE O BUFFER ESTÁ VAZIO (não realiar conexão)
         host_connect(rw_flag); //Existem situacoes onde o buffer está vazio: Seg fault dentro dessa funcao
 
         /*END - CONNECTIONS SETUP*/
@@ -64,7 +63,7 @@ int run_tcp_server(long int port, bool inspection_neeeded){
           handle_error("[!] write() failed");
         printf("\n[C] Wrote: %s\n",buffer);
 
-        client_host_communication(deny_terms_log_content,blacklistOK,inspection_neeeded);
+        client_host_communication(deny_terms_log_content,blacklistOK,inspection_needed);
 
         //header_content(buffer);
         //first_message = true;
@@ -270,7 +269,7 @@ bool has_denied_terms(char* buffer){
 void log_entry(char* buffer){
   return;
 }
-void client_host_communication(char* deny_terms_log_content, int blacklistOK, bool inspection_neeeded){
+void client_host_communication(char* deny_terms_log_content, int blacklistOK, bool inspection_needed){
   gtfo_flag = false;
   /*BEGIN - CLIENT-HOST COMMUNICATION*/
   printf("********************************************\n");
@@ -298,7 +297,7 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
         /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
         if(blacklistOK!=whitelisted)
           blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
-        if(inspection_neeeded && !want_to_send_response() && packet==0) //cancelar envio se usuario do proxy decidir por isso
+        if(inspection_needed && !want_to_send_response() && packet==0) //cancelar envio se usuario do proxy decidir por isso
           send_response=false;
         if(send_response){
           if(blacklistOK != denied_term){ //DenyTerm not found
