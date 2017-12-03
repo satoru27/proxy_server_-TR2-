@@ -132,7 +132,7 @@ void add_data_to_cd(int i, char* content_pointer,int size){
     //printf("[%s]",position->content);
     while(position->content != NULL){//encontra a ultima posicao sem dados
         position = position->next;
-        printf("ENTROU_3\n");
+        //printf("ENTROU_3\n");
     }
     position->content = (char*)malloc(size);
     strcpy(position->content,content_pointer);
@@ -147,18 +147,18 @@ void add_data_to_cd(int i, char* content_pointer,int size){
 void write_cache(){
     FILE *fp = NULL;
     
-    if((fp = fopen("proxy_server_-TR2-/cache.txt","r+")) == NULL){
+    /*if((fp = fopen("proxy_server_-TR2-/cache.txt","r+")) == NULL){
         printf("[!] Error opening the cache file\n");
         return; 
-    }
+    }*/
 
     //utilizando o modo w+ os dados da cache antiga sao sobrescritos
     //isso é util no caso de que, caso a cache sempre seja carregada no inicio da execucao
     //nao haverao dados duplicados
-  // if((fp = fopen("proxy_server_-TR2-/cache.txt","w+")) == NULL){
-  //       printf("[!] Error opening the cache file\n");
-  //       return; 
-  //   }   
+	if((fp = fopen("proxy_server_-TR2-/cache.txt","w+")) == NULL){
+		printf("[!] Error opening the cache file\n");
+		return; 
+    }   
 
     if(fseek(fp,0L,SEEK_END) != 0){
         printf("[!] File seek error");

@@ -374,9 +374,8 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
   //show_cache();
   write_cache();
   show_cached_index();
-  getchar();
-
-  sleep(8);
+  //getchar();
+  //sleep(8);
 }
 
 void connection_setup(long int port){
