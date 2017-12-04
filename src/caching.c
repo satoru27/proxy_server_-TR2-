@@ -164,7 +164,7 @@ void new_cr_entry(int i, char* index_name){
     to access a forbidden memory area  at get_page_name() (which was detected by calling malloc in line 165)
     */
     int nameSize = strlen(index_name) + 1;
-    cache[i].index = (char*) malloc(sizeof(char) * nameSize); //ENCRENCA
+    cache[i].index = (char*) malloc(sizeof(char) * nameSize);
     /*
     if(cache[i].index==NULL){
         printf("NULL\n");
@@ -196,8 +196,8 @@ void add_data_to_cd(int i, char* content_pointer,int size){
     
     position->next = (cd*) malloc(sizeof(cd));
     init_cache_data(position->next);
-    printf("Cache string [%s]\n",position->content);
-    sleep(5);
+    printf("Caching string [%s]\n",position->content);
+    //sleep(5); //sleep for debug
     return;
 }
 
@@ -422,7 +422,7 @@ void send_from_cache(int socket, char* name){
 
     int size = 0;
     while(position->content != NULL){
-        printf("[DB] Enviado pela cache\n");
+        printf("[DB] Conteudo de %s enviado a partir da cache\n", cache[index_n].index);
         int size = strlen(position->content) + 1;
         send(socket,position->content,size,0); //blocante
         position = position->next;
