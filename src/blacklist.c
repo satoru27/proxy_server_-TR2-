@@ -127,14 +127,14 @@ void loadDenyTerms() {
 			tempTerm->content = (char*) malloc(sizeof(char)*(size+1));
 
 			strncpy(tempTerm->content,line, size); //copia line para o termo
-			printf("\nDENY TERM %s LOADED", tempTerm->content);
+			printf("\nDeny term %s loaded", tempTerm->content);
 			tempTerm->next = (deniedTerm*) malloc(sizeof(deniedTerm)); //cria o termo da proxima iteracao
 			init_deniedTerm(tempTerm->next);
 			tempTerm = tempTerm->next;
 		}
 	}
 
-	printf("\n\nDenied terms loaded\n");
+	printf("\n\nDenied terms fully loaded\n");
 	fclose (fterms);
 }
 
@@ -150,9 +150,9 @@ int verifyDenyTerms(const char* buffer, char* log_content) {
 		printf("\n\n\n\nDeny Term found: %s\n\n\n", tempTerm->content);
 		writeLogDeniedTerms(log_content,tempTerm->content);
 		return denied_term;
-		} else {
+		} /*else {
 			printf("Deny Term %s not found\n", tempTerm->content);
-		}
+		}*/
 		tempTerm = tempTerm->next;
 	}
 
@@ -167,8 +167,8 @@ void writeLogDeniedTerms(char* log_content,char* term){
 		printf("Error in logBlack file\n");
 	}else{
 		timestamp(logDenied);
-		fprintf(logDenied, "[C] The following request: %s", log_content);
-		fprintf(logDenied, "Contains denied term: %s\n\n",term );
+		fprintf(logDenied, "[C] The following request: %s ", log_content);
+		fprintf(logDenied, "contains denied term: %s\n\n", term);
 		fclose(logDenied);
 	}
 }
@@ -194,7 +194,6 @@ void writeLogWhitelist(const char* buffer) {
 		fprintf(logWhite, "[C] Client tried to request whitelisted URL: %s", buffer);
 		fclose(logWhite);	
 	}
-	
 }
 
 void init_deniedTerm(deniedTerm* dterm){

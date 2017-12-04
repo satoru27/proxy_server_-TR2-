@@ -5,14 +5,14 @@ bool inspectsHeader(const char* buffer) {
 	FILE* fpointer;
 	char opcao[2];
 
-	printf("%s\n[!!!] Deseja inspecionar cabeçalho? (S/N): ", buffer);
+	printf("%s\n[!!!] Edit client request? (S/N): ", buffer);
 	
 	scanf ("%s",opcao);
 	//getchar();
 	while(!valid_option(opcao[0])){
 		getchar();
-		printf("Please insert a valid option (S/N)\n");
-		scanf ("%s",opcao);
+		printf("Please, insert a valid option (S/N)\n");
+		scanf ("%s", opcao);
 	}
 	if (opcao[0] == 's' || opcao[0] == 'S') {
 		fpointer = fopen ("proxy_server_-TR2-/packet.txt", "w+");//creates the file if it doesn't exist
@@ -36,10 +36,9 @@ bool recoverHeader(char* buffer) { //updates buffer with the file content
 	pFile = fopen ("proxy_server_-TR2-/packet.txt", "rb");
 	if(pFile!=NULL){
 		/*File exists*/
-		printf("BUFFER VELHO: %s/ACABOU\n", buffer);
-		printf("Iniciar atualizacao do buffer\n");
+		printf("Starting buffer update\n");
 		bzero(buffer,BUFFER_SIZE); //zerar buffer
-		//SEEK_END may not  have real standard portability
+		//SEEK_END may not have real standard portability
 		//as we have a constant size buffer, we will read the max size 
 		//of buffer. It may be a good ideia to use while(!feof(pFile))
 		//to read all the chars until end of file
@@ -52,12 +51,11 @@ bool recoverHeader(char* buffer) { //updates buffer with the file content
 	  	/*copy to buffer*/
 	  	result = fread (buffer,sizeof(char),(unsigned int)BUFFER_SIZE,pFile); //copy from the file to buffer
 
-		printf("BUFFER NOVO: %s/ACABOU\n", buffer);
 		fclose(pFile);
 		system("rm -f packet.txt"); //removes the file to later iterations
 		return true;
 	}else{
-		printf("File packet.txt not found. It's impossible to update buffer\n");
+		printf("File packet.txt not found: impossible to update buffer\n");
 		return false;
 	}
 }
@@ -67,11 +65,12 @@ bool valid_option(char option){
 }
 bool want_to_send_response(){
 	char opcao[2];
-	printf("Would you like to send the received message to the client?(S/N):");
+	
+	printf("Would you like to send the received message to the client? (S/N):");
 	scanf ("%s",opcao);
 	while(!valid_option(opcao[0])){
 		getchar();
-		printf("Please insert a valid option (S/N)\n");
+		printf("Please, insert a valid option (S/N)\n");
 		scanf ("%s",opcao);
 	}
 	return (opcao[0]=='s' || opcao[0]=='S');

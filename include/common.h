@@ -18,7 +18,7 @@
 #define not_listed 0
 #define whitelisted 1
 #define blacklisted -1
-#define denied_term -1
+#define denied_term -2
 
 int handle_error(char *message);
 void timeout_error();

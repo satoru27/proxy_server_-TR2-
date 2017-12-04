@@ -23,7 +23,8 @@ int main(int argc, char *argv[]){
 //examples of calling: ./proxy_server port_number -i
 //                     ./proxy_server port_number 
   if(argc < 2){
-    printf("[!] More arguments are needed, exiting...\n");
+    printf("[!] Use ./proxy_server <port_number>    to normal mode execution\n");
+    printf("[!] Use ./proxy_server <port_number> -i to inspection mode execution\n");
     return -1;
   }
   
@@ -31,7 +32,7 @@ int main(int argc, char *argv[]){
     printf("[!] Too many arguments (max = 2), exceeding arguments were ignored\n");
   }
   if(argc==3 && (strcmp(argv[2],"-i")==0) ){
-    printf("[!] Inspection mode activated\n");
+    printf("[!] Inspection mode activated\n\n");
     inspection_needed=true;
   }
   temp = strtol(argv[1],NULL,0);

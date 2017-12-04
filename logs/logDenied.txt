@@ -73,3 +73,125 @@ Accept-Encoding: gzip, deflate
 Referer: http://www.mangahere.co/
 Cookie: KTPCACOOKIE=YES; PUBMDCID=2; pp=155495; KADUSERCOOKIE=02A9977A-FE7F-4EA4-A042-C129FD09465D; DPSync2=1513036800%3A191_192_158_190%7C1514419200%3A102%7C1512432000%3A164%7C1511913600%3A173_174; SyncRTB2=1517011200%3A69_13%7C1513123200%3A188_35_100%7C1514419200%3A40_93_48_55_54%7C1512691200%3A63%7C1512086400%3A175_160%7C1513036800%3A92_60_5_78_86_101_74_7_64_21_8_46_36_66_178_91_52_22_165_98_168_187_185_189_96_71_180_166_56_80_99_170_195_79_176_3_57_104%7C151243200Contains denied term: aktrack
 
+Mon Dec  4 18:48:58 2017
+[C] The following request: GET http://pudim.com.br/ HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Contains denied term: pudim.com
+
+Mon Dec  4 18:49:26 2017
+[C] The following request: GET http://pudim.com.br/ HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Contains denied term: pudim.com
+
+Mon Dec  4 18:50:39 2017
+[C] The following request: GET http://pudim.com.br/ HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Contains denied term: pudim.com
+
+Mon Dec  4 18:54:39 2017
+[C] The following request: GET http://aktrack.pubmatic.com/AdServer/AdDisplayTrackerServlet?operId=1&pubId=155949&siteId=199718&adId=1095359&adType=3&adServerId=165&kefact=0.010000&kaxefact=0.010000&kadNetFrequecy=0&kadwidth=300&kadheight=250&kadsizeid=225&kltstamp=1512428057&indirectAdId=888740&adServerOptimizerId=1&ranreq=0.6936002644482587&kpbmtpfact=0.000000&dcId=2&tldId=0&passback=25&svr=MOB44314&ekefact=GdIlWr8DAABmIwz6Zkz0Vm3TR_QE9tEoCtk8HTIdz_dNrpgf&ekaxefact=GdIlWtUDAACtqoCKoYzT6cmdgU_BjKj_BAZIohaHJy693bOk&ekpbmtpfact=GdIlWuYDAAAGbVQUywtVPBBPQkR0YjqtGbcTxSzB1Wjvc0cN&imprId=73877946-5564-48B0-820D-AC08D37D08BE&oid=73877946-5564-48B0-820D-AC08D37D08BE&crID=0&cntryId=33&campaignId=0&isRTB=0&pageURL=http%3A%2F%2Fwww.mangahere.co%2F HTTP/1.1
+Host: aktrack.pubmatic.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://www.mangahere.co/
+Cookie: KTPCACOOKIE=YES; PUBMDCID=2; pp=155949; KADUSERCOOKIE=02A9977A-FE7F-4EA4-A042-C129FD09465D; DPSync2=1514419200%3A102%7C1512432000%3A164_173_174%7C1513036800%3A191_192_158_190; SyncRTB2=1512604800%3A175_160%7C1514419200%3A54_93_48_55_40%7C1517011200%3A13_69%7C1512691200%3A63%7C1513123200%3A35_100_188%7C1513036800%3A64_46_3_66_165_185_91_96_180_170_7_36_21_178_57_98_166_99_8_22_71_56_176_104_86_52_168_80_195_5_78_79_92_74_189_101_187_60%7C1512432000%3A67_38_6_182_177_2Contains denied term: aktrack
+
+Mon Dec  4 18:54:46 2017
+[C] The following request: GET http://aktrack.pubmatic.com/AdServer/AdDisplayTrackerServlet?operId=1&pubId=155495&siteId=178742&adId=1048297&adType=3&adServerId=165&kefact=0.100000&kaxefact=0.100000&kadNetFrequecy=0&kadwidth=160&kadheight=600&kadsizeid=10&kltstamp=1512428041&indirectAdId=839702&adServerOptimizerId=1&ranreq=0.5285661072964104&kpbmtpfact=0.000000&dcId=2&tldId=25226895&passback=3&svr=ADS88455&ekefact=CdIlWjlMCACVqtAz5wb-4whw24UjRaxcwzvKK2t060NyGoBg&ekaxefact=CdIlWkhMCAAPWwIbEQ-JvutYm16Vh6QecEBgGmzSUY5TdJns&ekpbmtpfact=CdIlWlRMCAAhNT3TZFnk5my9ALEXTx1_BXk2Lbni7XRtFBZq&imprId=7A3F4D49-A0D4-4F9B-89D9-28381994BAE1&oid=7A3F4D49-A0D4-4F9B-89D9-28381994BAE1&crID=0&cntryId=33&campaignId=0&isRTB=0&domain=mangahere.co&pageURL=mangahere.co HTTP/1.1
+Host: aktrack.pubmatic.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://www.mangahere.co/
+Cookie: KTPCACOOKIE=YES; PUBMDCID=2; pp=155949; KADUSERCOOKIE=02A9977A-FE7F-4EA4-A042-C129FD09465D; DPSync2=1514419200%3A102%7C1512432000%3A164_173_174%7C1513036800%3A191_192_158_190; SyncRTB2=1512604800%3A175_160%7C1514419200%3A54_93_48_55_40%7C1517011200%3A13_69%7C1512691200%3A63%7C1513123200%3A35_100_188%7C1513036800%3A64_46_3_66_165_185_91_96_180_170_7_36_21_178_57_98_166_99_8_22_71_56_176_104_86_52_168_80_195_5_78_79_92_74_189_101_187_60%7C1512432000%3A67_38_6_182_Contains denied term: aktrack
+
+Mon Dec  4 20:31:31 2017
+[C] The following request: GET http://pudim.com.br/ HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+ contains denied term: pudim.com
+
+Mon Dec  4 20:31:31 2017
+[C] The following request: GET http://pudim.com.br/favicon.ico HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+
+ contains denied term: pudim.com
+
+Mon Dec  4 20:31:31 2017
+[C] The following request: GET http://pudim.com.br/favicon.ico HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+
+ contains denied term: pudim.com
+
+Mon Dec  4 20:31:43 2017
+[C] The following request: GET http://pudim.com.br/ HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+ contains denied term: pudim.com
+
+Mon Dec  4 20:34:01 2017
+[C] The following request: GET http://pudim.com.br/ HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.3.977780833.1511553287; _gid=GA1.3.2025969603.1512350903
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+ contains denied term: pudim.com
+

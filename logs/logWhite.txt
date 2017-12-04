@@ -5425,3 +5425,1476 @@ Accept-Encoding: gzip, deflate
 Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
 Connection: keep-alive
 
+Mon Dec  4 18:49:44 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/ HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Mon Dec  4 18:49:50 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/custom.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:49:52 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/menu.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:49:54 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/plugins/system/vembed/vembed.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:49:56 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jfontsize/css/jfontsize.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:49:58 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:00 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery-noconflict.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:03 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery-migrate.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:05 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/system/js/caption.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:07 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/bootstrap.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:09 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/system/js/core.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:11 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/extrawatch.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:13 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/jdownloadurl.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:15 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/js/template.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:17 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jfontsize/js/jquery.jfontsize-1.0.min.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:34 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/template.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:39 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/banners/banner_professor_visitante-15.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:41 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Imagens/logo_unb.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:43 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/facebook_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:46 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/instagran_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:48 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/twitter_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:50 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/rss_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:52 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/flick.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:54 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/banners/expo_55_anos_banner-02.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:50:56 2017
+[C] Client tried to request whitelisted URL: GET http://noticias.unb.br/images/Noticias/2017/12-Dez/01DEZ17_CONSUNI_AmaliaGoncalves-8.jpg HTTP/1.1
+Host: noticias.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 18:50:58 2017
+[C] Client tried to request whitelisted URL: GET http://noticias.unb.br/images/Noticias/Fotos_frequentes/Reitoria/G-0005-90-RF.JPG HTTP/1.1
+Host: noticias.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 18:51:00 2017
+[C] Client tried to request whitelisted URL: GET http://www.unbciencia.unb.br/images/Noticias/2017/11-Nov/TextoCarlos.jpg HTTP/1.1
+Host: www.unbciencia.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 18:51:03 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/11052017_Cotidiano_aSeparar44_BetoMonteiro-20-2.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:05 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/Laboratrio---Marcelo-Brandt-11-470x309px.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:28 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/fonts/LiberationSans-Regular-webfont.woff HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: identity
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:32 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/fonts/LiberationSans-Bold-webfont.woff HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: identity
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:35 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logoUnBAlerta.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:37 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/sei/logoSei_new.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:39 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_unbciencia.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:41 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_darcy.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:43 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_unbnoticia.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:45 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/02062017_CorosItalianos_470x309px.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:51:47 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/icoContraste.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:53:03 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/bnMais.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:53:05 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/setas.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:53:13 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/agent.js?env=ExtraWatchJoomlaEnv&rand=0.6585100141473874 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 18:53:32 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/?option=com_ajax&module=extrawatch_agent&format=raw&origin=frontend&ewToken=a3efa98547e6ced3778f9893e6de7bbfddc2b0a9&task=ajax&action=heatmap.include.js&env=ExtraWatchJoomlaEnv&amp;id=0&amp;extraWatchHeatmap=&amp;extraWatchDay=&amp;params=getParams%3D&title=UnB%20-%20Universidade%20de%20Bras%C3%ADlia%20-%20In%C3%ADcio&uri=/ HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 18:53:34 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/jdownloadurl.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 18:53:36 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/?option=com_ajax&module=extrawatch_agent&format=raw&origin=frontend&ewToken=a3efa98547e6ced3778f9893e6de7bbfddc2b0a9&task=ajax&action=img&rand=0.9806955763177819&env=ExtraWatchJoomlaEnv&ref=&title=UnB%20-%20Universidade%20de%20Bras%C3%ADlia%20-%20In%C3%ADcio&uri=_SLASH_&referringQuery=&getParams= HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 18:53:45 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/favicon.ico HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 19:11:16 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/ HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0
+
+Mon Dec  4 20:34:16 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/ HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Mon Dec  4 20:34:22 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/custom.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:24 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/menu.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:26 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/plugins/system/vembed/vembed.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:28 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jfontsize/css/jfontsize.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:30 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:32 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery-noconflict.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:34 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery-migrate.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:36 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/system/js/caption.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:38 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/bootstrap.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:40 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/system/js/core.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:43 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/js/template.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:45 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/jdownloadurl.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:47 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/extrawatch.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:34:49 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jfontsize/js/jquery.jfontsize-1.0.min.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:06 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/template.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:08 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/banners/banner_professor_visitante-15.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:10 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Imagens/logo_unb.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:12 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/facebook_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:15 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/instagran_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:17 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/twitter_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:19 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/rss_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:21 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/flick.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:23 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/banners/expo_55_anos_banner-02.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:25 2017
+[C] Client tried to request whitelisted URL: GET http://noticias.unb.br/images/Noticias/2017/12-Dez/01DEZ17_CONSUNI_AmaliaGoncalves-8.jpg HTTP/1.1
+Host: noticias.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 20:35:27 2017
+[C] Client tried to request whitelisted URL: GET http://noticias.unb.br/images/Noticias/Fotos_frequentes/Reitoria/G-0005-90-RF.JPG HTTP/1.1
+Host: noticias.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 20:35:30 2017
+[C] Client tried to request whitelisted URL: GET http://www.unbciencia.unb.br/images/Noticias/2017/11-Nov/TextoCarlos.jpg HTTP/1.1
+Host: www.unbciencia.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 20:35:34 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/icoContraste.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:36 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/11052017_Cotidiano_aSeparar44_BetoMonteiro-20-2.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:38 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/Laboratrio---Marcelo-Brandt-11-470x309px.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:41 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/02062017_CorosItalianos_470x309px.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:43 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_unbnoticia.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:45 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_darcy.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:47 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_unbciencia.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:49 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/sei/logoSei_new.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:51 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logoUnBAlerta.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:53 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/fonts/LiberationSans-Regular-webfont.woff HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: identity
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:35:55 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/fonts/LiberationSans-Bold-webfont.woff HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: identity
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:36:02 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/setas.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:36:04 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/bnMais.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:36:15 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/agent.js?env=ExtraWatchJoomlaEnv&rand=0.012796711867322341 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:36:22 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/?option=com_ajax&module=extrawatch_agent&format=raw&origin=frontend&ewToken=6183a30cb5a00edc4e62e7fbf30ca3c24ae6179b&task=ajax&action=heatmap.include.js&env=ExtraWatchJoomlaEnv&amp;id=0&amp;extraWatchHeatmap=&amp;extraWatchDay=&amp;params=getParams%3D&title=UnB%20-%20Universidade%20de%20Bras%C3%ADlia%20-%20In%C3%ADcio&uri=/ HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 20:36:24 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/jdownloadurl.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 20:36:26 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/?option=com_ajax&module=extrawatch_agent&format=raw&origin=frontend&ewToken=6183a30cb5a00edc4e62e7fbf30ca3c24ae6179b&task=ajax&action=img&rand=0.18071469840942678&env=ExtraWatchJoomlaEnv&ref=&title=UnB%20-%20Universidade%20de%20Bras%C3%ADlia%20-%20In%C3%ADcio&uri=_SLASH_&referringQuery=&getParams= HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 20:36:29 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/favicon.ico HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 20:37:19 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/ HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0
+
+Mon Dec  4 20:37:25 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/custom.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:27 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/menu.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:29 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/plugins/system/vembed/vembed.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:31 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jfontsize/css/jfontsize.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:33 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:36 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery-noconflict.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:38 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/jquery-migrate.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:40 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/system/js/caption.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:42 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jui/js/bootstrap.min.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:44 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/system/js/core.js?e81784d44600d7f901b9fbf1ee36a313 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:46 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/js/template.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:48 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/jdownloadurl.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:50 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/extrawatch.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:52 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/media/jfontsize/js/jquery.jfontsize-1.0.min.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:37:59 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/css/template.css HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:05 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/icoContraste.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:07 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/facebook_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:09 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/instagran_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:11 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/twitter_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:14 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/rss_01.fw.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:16 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/icones/flick.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:18 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/banners/expo_55_anos_banner-02.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:20 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/banners/banner_professor_visitante-15.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:24 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Imagens/logo_unb.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:26 2017
+[C] Client tried to request whitelisted URL: GET http://www.unbciencia.unb.br/images/Noticias/2017/11-Nov/TextoCarlos.jpg HTTP/1.1
+Host: www.unbciencia.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 20:38:29 2017
+[C] Client tried to request whitelisted URL: GET http://noticias.unb.br/images/Noticias/Fotos_frequentes/Reitoria/G-0005-90-RF.JPG HTTP/1.1
+Host: noticias.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 20:38:33 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/setas.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:35 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/images/bnMais.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/templates/unb/css/custom.css
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:37 2017
+[C] Client tried to request whitelisted URL: GET http://noticias.unb.br/images/Noticias/2017/12-Dez/01DEZ17_CONSUNI_AmaliaGoncalves-8.jpg HTTP/1.1
+Host: noticias.unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617
+Connection: keep-alive
+
+Mon Dec  4 20:38:39 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/Laboratrio---Marcelo-Brandt-11-470x309px.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:42 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_darcy.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:44 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_unbnoticia.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:46 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/02062017_CorosItalianos_470x309px.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:48 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logo_unbciencia.png HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:50 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/sei/logoSei_new.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:52 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Logotipos/logoUnBAlerta.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:54 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/agent.js?env=ExtraWatchJoomlaEnv&rand=0.3236966257937707 HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:56 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/images/Destaque/E-P-Ext/11052017_Cotidiano_aSeparar44_BetoMonteiro-20-2.jpg HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr
+Connection: keep-alive
+
+Mon Dec  4 20:38:58 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/components/com_extrawatch/js/jdownloadurl.js HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 20:39:00 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/?option=com_ajax&module=extrawatch_agent&format=raw&origin=frontend&ewToken=6183a30cb5a00edc4e62e7fbf30ca3c24ae6179b&task=ajax&action=heatmap.include.js&env=ExtraWatchJoomlaEnv&amp;id=0&amp;extraWatchHeatmap=&amp;extraWatchDay=&amp;params=getParams%3D&title=UnB%20-%20Universidade%20de%20Bras%C3%ADlia%20-%20In%C3%ADcio&uri=/ HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 20:39:03 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/?option=com_ajax&module=extrawatch_agent&format=raw&origin=frontend&ewToken=6183a30cb5a00edc4e62e7fbf30ca3c24ae6179b&task=ajax&action=img&rand=0.5738541372392484&env=ExtraWatchJoomlaEnv&ref=&title=UnB%20-%20Universidade%20de%20Bras%C3%ADlia%20-%20In%C3%ADcio&uri=_SLASH_&referringQuery=&getParams= HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://unb.br/
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+
+Mon Dec  4 20:39:05 2017
+[C] Client tried to request whitelisted URL: GET http://unb.br/templates/unb/favicon.ico HTTP/1.1
+Host: unb.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Cookie: _ga=GA1.2.1847677061.1511868600; _gid=GA1.2.982442022.1512217617; 3ec986f4f850e1d0bdcd00fd24b0c473=pb4e7bj7sl1csjvpj55f4sqanr; _gat=1
+Connection: keep-alive
+

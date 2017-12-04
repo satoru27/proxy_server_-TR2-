@@ -6,7 +6,7 @@ bool stop_receiving_denied_pages;
 char buffer[BUFFER_SIZE];
 char* destination_host = NULL;
 
-int run_tcp_server(long int port, bool inspection_neeeded){
+int run_tcp_server(long int port, bool inspection_needed ){
   //clientSocket and listenSocket are defined globally on common.h
   bool close_flag = false;
   int remaining_data = 0;
@@ -29,7 +29,7 @@ int run_tcp_server(long int port, bool inspection_neeeded){
 
   loadDenyTerms();
   
-  printf("\nTecle enter para iniciar o proxy");
+  printf("\nPress enter to start the proxy in %d port", port);
   getchar();
 
   for(;;){
@@ -46,7 +46,7 @@ int run_tcp_server(long int port, bool inspection_neeeded){
 
       //Accept new connection
       rw_flag = client_connect(); //conecta com o cliente e retorna flag que vai ser usada na escrita
-      if(inspection_neeeded)
+      if(inspection_needed)
         if(inspectsHeader(buffer) )//tries to inspect the buffer
           if( recoverHeader(buffer) )//if the inspection was successfully written on a file, recover that file
             printf("[*] Buffer successfully inspected. New buffer is:\n%s\n",buffer);
@@ -74,7 +74,7 @@ int run_tcp_server(long int port, bool inspection_neeeded){
           handle_error("[!] write() failed");
         printf("\n[C] Wrote: %s\n",buffer);
 
-        client_host_communication(deny_terms_log_content,blacklistOK,inspection_neeeded);
+        client_host_communication(deny_terms_log_content,blacklistOK,inspection_needed);
 
         //header_content(buffer);
         //first_message = true;
@@ -263,32 +263,7 @@ bool have_content(char* buffer){
     return false;
 }
 
-//int get_header_size(char* buffer){
-
-//}
-
-bool is_blacklisted(char* hostname){
-  if((strstr(hostname,blacklistPointer)) != NULL)
-    return true;
-  else
-    return false;
-}
-
-bool is_whitelisted(char* hostname){
-  if((strstr(hostname,whitelistPointer)) != NULL)
-    return true;
-  else
-    return false;
-}
-
-bool has_denied_terms(char* buffer){
-  return false;
-}
-
-void log_entry(char* buffer){
-  return;
-}
-void client_host_communication(char* deny_terms_log_content, int blacklistOK, bool inspection_neeeded){
+void client_host_communication(char* deny_terms_log_content, int blacklistOK, bool inspection_needed){
   gtfo_flag = false;
   /*BEGIN - CLIENT-HOST COMMUNICATION*/
   printf("********************************************\n");
@@ -314,22 +289,16 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
       if(!(rw_flag_h_c <=0)) {
         //printf("inside if\n");
         //if(buffer==NULL)
-        //    printf("buffer null\n");
-        //printf("[H] Wrote: %s\n",buffer);
-        //printf("[H] Wrote\n",buffer);
+        printf("[H] Wrote: %s\n",buffer);
         
         int denyTermOK;
         if(blacklistOK != whitelisted)
-          denyTermOK = verifyDenyTerms(buffer,deny_terms_log_content);
-        if(inspection_neeeded && !want_to_send_response() && packet==0)
+          denyTermOK = verifyDenyTerms(buffer,deny_terms_log_content); //não verifica whitelisted
+        if(inspection_needed && !want_to_send_response() && packet==0)
           send_response=false;
         if(send_response){
           
           if(denyTermOK != denied_term){ //DenyTerm not found
-            if(packet == 1){
-              //printf("[H] First packet content:\"\n%s\"\n", buffer);
-                printf("[*] Writing data to cache\n");
-            }
             send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
             packet ++; 
             total += rw_flag_h_c;
