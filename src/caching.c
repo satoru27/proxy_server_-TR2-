@@ -317,8 +317,8 @@ int find_empty_cr_index(){
 bool is_in_cache(char* name){
     for(int i = 0; i < CACHE_LIMIT; i++){
         if((cache[i].index != NULL)){
-            printf("[DB] CACHED: %d\n",strlen(cache[i].index));
-            printf("[DB] STRING: %d\n",strlen(name));
+            printf("[DB] CACHED: %zu\n",strlen(cache[i].index)); //%zu pois strlen retorna tipo size_t
+            printf("[DB] STRING: %zu\n",strlen(name));
             if((strcmp(cache[i].index,name) == 0))
                 return true;
         }

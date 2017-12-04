@@ -441,7 +441,7 @@ void host_connect(int rw_flag){
     //char* destination_host = NULL;
     char init_message[BUFFER_SIZE];
     struct hostent *final_host;
-    struct sockaddr_in server_addr;
+    struct sockaddr_in server_addr; //sock_addr não possui sin_family, sin_addr ou sin_port
     long int host_port = 80;
         
     bzero(init_message,BUFFER_SIZE);
