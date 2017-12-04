@@ -40,7 +40,7 @@ int verifyGET(const char* buffer){
 			printf("newbuffer null!\n");
 
 		printf("url==NULL and newbuffer=%s\n",newbuffer );
-		return something_else;
+		return not_listed;
 	}
 
 	FILE* fwhite;
@@ -54,15 +54,18 @@ int verifyGET(const char* buffer){
 	}
 	else { //verifying whitelist
 		while (fgets(line, sizeof(line), fwhite) && strlen(line) > 1) {
-				int size = strlen (line);
-				line[size-1] = '\0'; //apagar o \n do fgets
-				//printf("%s\n", line);
-				if (strstr(url,line) && size > 0) { //TERM FOUND AND VALID
-					printf("Term in whitelist: %s\n", line);
-					writeLogWhitelist(buffer);
-					free(newbuffer);
-					return whitelisted;
-				}
+
+			//printf("Verificando o whiteterm %s", line);
+			int size = strlen (line);
+			line[size-1] = '\0'; //apagar o \n do fgets
+			//printf("%s\n", line);
+			if (strstr(url,line) && size > 0) { //TERM FOUND AND VALID
+				printf("Term in whitelist: %s\n", line);
+				writeLogWhitelist(buffer);
+				free(newbuffer);
+				fclose (fwhite);
+				return whitelisted;
+			}
 		}
 		fclose (fwhite);
 	}
@@ -72,6 +75,8 @@ int verifyGET(const char* buffer){
 	}
 	else {
 		while (fgets(line, sizeof(line), fblack) && strlen(line) > 1) {
+
+			//printf("Verificando o black %s", line);
 			int size = strlen(line);
 			//printf("Initial blackterm #%s#\n", line);
 			while (line[size]=='\0' || line[size]=='\n') { //enquanto houver finalizador invalido
@@ -83,6 +88,7 @@ int verifyGET(const char* buffer){
 				printf ("Term in blacklist: %s\n", line);
 				writeLogBlacklist(buffer);
 				free(newbuffer);
+				fclose (fblack);
 				return blacklisted;
 			}
 		}
@@ -90,7 +96,7 @@ int verifyGET(const char* buffer){
 	}
 
 	free(newbuffer);
-	return something_else;
+	return not_listed;
 }
 char* save_deny_term_log(char* buffer){
 //It looks like strcpy REALLY NEEDS to put the final '\0', so let's allocate space for that
@@ -144,15 +150,14 @@ int verifyDenyTerms(const char* buffer, char* log_content) {
 		printf("\n\n\n\nDeny Term found: %s\n\n\n", tempTerm->content);
 		writeLogDeniedTerms(log_content,tempTerm->content);
 		return denied_term;
-		}
-		else {
+		} else {
 			printf("Deny Term %s not found\n", tempTerm->content);
 		}
 		tempTerm = tempTerm->next;
 	}
 
 	printf("Clean buffer: No deny terms\n\n");
-	return something_else;
+	return not_listed;
 }
 
 void writeLogDeniedTerms(char* log_content,char* term){
