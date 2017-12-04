@@ -186,18 +186,24 @@ void new_cr_entry(int i, char* index_name){
 
 void add_data_to_cd(int i, char* content_pointer,int size){
     cd* position = cache[i].data;
+    char* content_pointer_extended = (char*)calloc(1501,sizeof(char));
+    int copy_helper;
+    for(copy_helper;copy_helper<1500;copy_helper++){
+        content_pointer_extended[copy_helper]=content_pointer[copy_helper];
+    }
     //printf("[%s]",position->content);
     while(position->content != NULL){//encontra a ultima posicao sem dados
         position = position->next;
         //printf("ENTROU_3\n");
     }
-    position->content = (char*)malloc(size);
+    //(size+1) to hold '\0' at end of string
+    position->content = (char*)calloc( (size+1),sizeof(char));
     strcpy(position->content,content_pointer);
     
     position->next = (cd*) malloc(sizeof(cd));
     init_cache_data(position->next);
     printf("Cache string [%s]\n",position->content);
-    sleep(5);
+    //sleep(5);
     return;
 }
 
