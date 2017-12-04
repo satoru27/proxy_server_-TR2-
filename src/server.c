@@ -1,7 +1,6 @@
 #include "../include/server.h"
 #include "../include/blacklist.h"
 #include "../include/inspecao.h"
-#include "../include/caching.h"
 
 bool stop_receiving_denied_pages;
 char buffer[BUFFER_SIZE];
@@ -28,9 +27,6 @@ int run_tcp_server(long int port, bool inspection_neeeded){
   //END TEST
   printf("[.] RUNNING TCP SERVER\n");
 
-  init_cache_reg();
-  load_cache();
-  show_cache();
   loadDenyTerms();
   
   printf("\nTecle enter para iniciar o proxy");
@@ -56,7 +52,6 @@ int run_tcp_server(long int port, bool inspection_neeeded){
             printf("[*] Buffer successfully inspected. New buffer is:\n%s\n",buffer);
 
       if (buffer[0] == '\0') {
-        printf ("BUFFER VAZIO - NAO REALIZAR TRANSMISSAO\n");
         close(clientSocket);
         break;
       }
@@ -100,7 +95,6 @@ int run_tcp_server(long int port, bool inspection_neeeded){
       }
 
       close_client_and_host_sockets();
-      write_cache();
 
       if(stop_receiving_denied_pages)
         break;
@@ -303,16 +297,9 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
   int rw_flag_c_h = 0;
   int rw_flag_h_c = 0;
   bool send_response=true;
-  char* pagename = NULL;
-  bool is_cached = false;
-  int available_cache_index = 0;
   alarm(10);
-
-  available_cache_index = find_empty_cr_index();
   
   printf("[*] Hostname: %s\n",destination_host);
-  pagename = get_page_name(buffer,destination_host);
-  printf("[*] Pagename %s\n", pagename);
 
   do{         
     do{
@@ -339,42 +326,17 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
         if(send_response){
           
           if(denyTermOK != denied_term){ //DenyTerm not found
-            if(packet == 1 && pagename != NULL){
+            if(packet == 1){
               //printf("[H] First packet content:\"\n%s\"\n", buffer);
-              is_cached = is_in_cache(pagename);
-              printf("[*] Cached: %d\n",is_cached);
-              if(is_cached == false){
-                //printf("\n******ENTROU AQUI\n");
                 printf("[*] Writing data to cache\n");
-                new_cr_entry(available_cache_index,pagename);
-             //   getchar();
-             //   getchar();
-             //   printf("there\n");
-                add_data_to_cd(available_cache_index,buffer,rw_flag_h_c);
-             //   printf("here\n");
-              }
-              else{
-                printf("[*] Data is cached\n");
-              }
-
-            }else{
-              if(is_cached == false && pagename != NULL){ 
-                printf("[*] Writing data to cache\n");
-                add_data_to_cd(available_cache_index,buffer,rw_flag_h_c);
-              }else{
-                printf("[*] Data is cached\n");
-              }
             }
-            if(is_cached == false){ 
-              send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
-              packet ++; 
-              total += rw_flag_h_c;
-              printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
-              alarm(2); 
-            } else{
-              send_from_cache(clientSocket, pagename);
-            }
-          }else { //DenyTerm found
+            send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
+            packet ++; 
+            total += rw_flag_h_c;
+            printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
+            alarm(2); 
+            
+          } else { //DenyTerm found
             rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
             gtfo_flag=true;
             stop_receiving_denied_pages=true;
@@ -389,8 +351,6 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
   printf("----TOTAL = %d ----\n\n",total);
 
   //show_cache();
-  write_cache();
-  show_cached_index();
   //getchar();
   //sleep(8);
 }

@@ -63,3 +63,13 @@ Connection: keep-alive
 
 Contains denied term: jpeg
 
+Mon Dec  4 16:15:39 2017
+[C] The following request: GET http://aktrack.pubmatic.com/AdServer/AdDisplayTrackerServlet?operId=1&pubId=155495&siteId=178742&adId=1048295&adType=3&adServerId=165&kefact=0.100000&kaxefact=0.100000&kadNetFrequecy=0&kadwidth=300&kadheight=250&kadsizeid=225&kltstamp=1512418498&indirectAdId=839701&adServerOptimizerId=1&ranreq=0.0692237678088291&kpbmtpfact=0.000000&dcId=2&tldId=25226895&passback=3&svr=ADS44097&ekefact=wqwlWqBsAAB45C-bq76cd7243nhODd5mLOEL3JbJ--pzj8Q8&ekaxefact=wqwlWrdsAACawySJwqn_nimCVQ9lBxNWPL8Bwot6XBgPuCXR&ekpbmtpfact=wqwlWslsAADxkiLE4CaQ3T4p6dG9CrHEQ7UDZTavF7P9MqcC&imprId=DBBAB03F-6255-4046-9278-D1479D687861&oid=DBBAB03F-6255-4046-9278-D1479D687861&crID=0&cntryId=33&campaignId=0&isRTB=0&domain=mangahere.co&pageURL=mangahere.co HTTP/1.1
+Host: aktrack.pubmatic.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://www.mangahere.co/
+Cookie: KTPCACOOKIE=YES; PUBMDCID=2; pp=155495; KADUSERCOOKIE=02A9977A-FE7F-4EA4-A042-C129FD09465D; DPSync2=1513036800%3A191_192_158_190%7C1514419200%3A102%7C1512432000%3A164%7C1511913600%3A173_174; SyncRTB2=1517011200%3A69_13%7C1513123200%3A188_35_100%7C1514419200%3A40_93_48_55_54%7C1512691200%3A63%7C1512086400%3A175_160%7C1513036800%3A92_60_5_78_86_101_74_7_64_21_8_46_36_66_178_91_52_22_165_98_168_187_185_189_96_71_180_166_56_80_99_170_195_79_176_3_57_104%7C151243200Contains denied term: aktrack
+

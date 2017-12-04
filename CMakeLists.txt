@@ -10,7 +10,6 @@ add_executable(proxy_server
     src/common.c
     src/server.c
     src/blacklist.c
-    src/caching.c
     src/inspecao.c
 )
 set_property(TARGET proxy_server PROPERTY C_STANDARD 11)
