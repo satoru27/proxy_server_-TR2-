@@ -43,6 +43,10 @@ bool is_in_cache(char* name);
 
 void show_cached_index();
 
+int find_cache_index(char* name);
+
+void send_from_cache(int socket, char* name);
+
 /*Codigo da funcao a seguir foi desenvolvido por Paul Hsieh como softaware livre e é utilizado dentro dos termos da sua licensa LGPL 2.1
 	Disponivel em http://www.azillionmonkeys.com/qed/hash.html
 */

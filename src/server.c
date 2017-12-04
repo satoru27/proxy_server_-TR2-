@@ -360,12 +360,16 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
                 printf("[*] Data is cached\n");
               }
             }
-            
+            if(is_cached == false){ 
             send(clientSocket,buffer,rw_flag_h_c,MSG_DONTWAIT);
             packet ++; 
             total += rw_flag_h_c;
             printf("[H] Packet #%d . Wrote %d bytes on client socket so far\n", packet, total);
             alarm(2); 
+          }
+          else{
+            send_from_cache(clientSocket, pagename);
+          }
           }else { //DenyTerm found
             rw_flag_h_c = 0; //sair do loop de packets dessa requisição pois um denyterm foi encontrado
             gtfo_flag=true;
