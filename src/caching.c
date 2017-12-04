@@ -78,23 +78,40 @@ cr cache[CACHE_LIMIT];
 
 char* get_page_name(char* buffer, char* hostname){
     //pegar pagina
+  //  printf("hostname:%s\n\n",hostname );
+  //  printf("buffer:%s\n",buffer );
     char* beginning = strstr(buffer,"GET ");
     if(beginning == NULL){
         printf("[!] Not a GET request\n");
         return NULL;
     }
+ //   printf("beginning:%s\n",beginning );
     beginning += strlen("GET ");
     char* end = strstr(buffer," HTTP");
     int size = end - beginning;
     char* temp = (char*)malloc(sizeof(char)*(size+2));
+   // if(temp!=NULL)
+   //     printf("temp not null\n");
     strncpy(temp,beginning,size);
+  //      printf("temp:%s\n",temp );
+  //  printf("temp[size]:%c\n",temp[size] );
     temp[size] = '\0';
 
     //considerando que o hostname ja foi extraido pela funcao get_final_host
 
     char* fullpagename = (char *)malloc(sizeof(char)*(size + strlen(hostname) + 1));
+   // printf("fullpagename:%s\n\n",fullpagename );
     strncpy(fullpagename,hostname,strlen(hostname));
+    /*according to http://www.cplusplus.com/reference/cstring/strncpy/ (12/04/2017), 
+    char * strncpy ( char * destination, const char * source, size_t num );
+    "No null-character is implicitly appended at the end of destination if source is longer than num."
+    Since the total size of hostname is strlen(hostname) +1 ('\0'), then fullpagename does not have a null-terminating
+    character. Therefore, a null-terminating character has to be added.  
+    */
+    fullpagename[strlen(hostname)]='\0';
+   // printf("fullpagename1:%s\n\n",fullpagename );
     strcat(fullpagename,temp);
+   // printf("fullpagename2:%s\n\n",fullpagename );
 
     return fullpagename;
 }
@@ -117,7 +134,44 @@ void init_cache_data(cd* cache){
 
 //itens da cache podem ser guardados em um vetor cr cache[n];
 void new_cr_entry(int i, char* index_name){
-    cache[i].index = (char *)malloc(sizeof(char)*strlen(index_name) + 1); 
+//    char* test;
+    //printf("test:%d\n",test );
+  //  printf("I am myself\n");
+   // if(cache[i-1].index!=NULL){
+       // printf("previous cache not null\n");
+  //      printf("size of cache[i-1].index:%d\n",sizeof(cache[i-1].index) );   
+   // }
+    /*
+    if(cache[i].index==NULL){
+        printf("i:%d\n",i);
+        printf("CACHE_LIMIT:%d\n",CACHE_LIMIT );
+        printf("NULL\n");
+    }else{
+        printf("not null\n");
+    }
+    if(index_name==NULL){
+        printf("index null\n");
+    }else{
+        printf("index name len: %d\n",(strlen(index_name) + 1) );
+        printf("index_name:%s\n",index_name );
+        printf("index not null\n");
+    }
+    */
+    /*It looks like a previous call to get_page_name(char* buffer, char* hostname) (which generated 
+    char* index_name) was not adding a null-terminating char at the end of the string. This caused undefined 
+    behauviour of many C functions (including strlen() calls ). This undefined behaviour could force the programm
+    to access a forbidden memory area  at get_page_name() (which was detected by calling malloc in line 165)
+    */
+    cache[i].index = (char*)malloc(sizeof(char)*(strlen(index_name) + 1) );
+    /*
+    if(cache[i].index==NULL){
+        printf("NULL\n");
+    }else{
+        printf("\n\ncache[i].index:%d\n\n",cache[i].index);
+        //cache[i].index = test;
+        
+        printf("not null\n");
+    }*/
     //cache[i].index = index_name;
     strcpy(cache[i].index,index_name);
     cache[i].data = (cd*) malloc(sizeof(cd));
