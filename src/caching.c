@@ -94,6 +94,7 @@ char* get_page_name(char* buffer, char* hostname){
 
     char* fullpagename = (char *)malloc(sizeof(char)*(size + strlen(hostname) + 1));
     strncpy(fullpagename,hostname,strlen(hostname));
+    fullpagename[strlen(hostname)] = '\0';
     strcat(fullpagename,temp);
 
     return fullpagename;
@@ -117,7 +118,12 @@ void init_cache_data(cd* cache){
 
 //itens da cache podem ser guardados em um vetor cr cache[n];
 void new_cr_entry(int i, char* index_name){
-    cache[i].index = (char *)malloc(sizeof(char)*strlen(index_name) + 1); 
+    printf("ENTROU0\n");
+    int nameSize = strlen(index_name) + 1;
+    printf("ENTROU1 - namesize %d\n", nameSize);
+    printf("ENTROU2 - cache_index %s\n", cache[i].index);
+    cache[i].index = (char*) malloc(sizeof(char) * nameSize); //ENCRENCA
+    printf("ENTROU3 - namesize %d\n", nameSize);
     //cache[i].index = index_name;
     strcpy(cache[i].index,index_name);
     cache[i].data = (cd*) malloc(sizeof(cd));
