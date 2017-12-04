@@ -290,7 +290,7 @@ void show_cache(){
     cd *pointer = NULL;
     for(int i = 0; i < CACHE_LIMIT; i++){
         if(cache[i].index == NULL){
-            printf("[*] No more cache contents");
+            printf("[*] No more cache contents\n");
             break;
         }
         printf("Index: %s\n",cache[i].index);

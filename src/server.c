@@ -31,7 +31,9 @@ int run_tcp_server(long int port, bool inspection_neeeded){
   init_cache_reg();
   load_cache();
   show_cache();
+  loadDenyTerms();
   
+  printf("\nTecle enter para iniciar o proxy");
   getchar();
 
   for(;;){
@@ -53,15 +55,22 @@ int run_tcp_server(long int port, bool inspection_neeeded){
           if( recoverHeader(buffer) )//if the inspection was successfully written on a file, recover that file
             printf("[*] Buffer successfully inspected. New buffer is:\n%s\n",buffer);
 
+      if (buffer[0] == '\0') {
+        printf ("BUFFER VAZIO - NAO REALIZAR TRANSMISSAO\n");
+        close(clientSocket);
+        break;
+      }
+
       int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
-      if(blacklistOK!=blacklisted){
+      deny_terms_log_content = save_deny_term_log(buffer); //prepares buffer in case of log request
+
+      if(blacklistOK == whitelisted || verifyDenyTerms(buffer, deny_terms_log_content) != denied_term){ //request is clear
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
 
         host_connect(rw_flag);
 
         /*END - CONNECTIONS SETUP*/
-        deny_terms_log_content = save_deny_term_log(buffer);
         
         //sending first message
         printf("[*] Writing request to the host\n");
@@ -83,8 +92,10 @@ int run_tcp_server(long int port, bool inspection_neeeded){
           //printf("after\n");
         }
 
-      }else{//->if(blacklistOK==not_blacklisted)
-        send_denied_access_message(blacklisted);            
+      } else if (blacklistOK == blacklisted) {
+        send_denied_access_message(blacklisted);
+      } else {
+        send_denied_access_message(denied_term);
       }
 
       close_client_and_host_sockets();
@@ -320,10 +331,8 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
         /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
         if(blacklistOK!=whitelisted)
           blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
-        
         if(inspection_neeeded && !want_to_send_response() && packet==0)
           send_response=false;
-        
         if(send_response){
           
           if(blacklistOK != denied_term){ //DenyTerm not found

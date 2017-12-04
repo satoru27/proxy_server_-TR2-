@@ -2,6 +2,13 @@
 #include "../include/common.h"
 #include <time.h>
 
+deniedTerm* firstTerm = NULL;
+
+struct deniedTerm{ //deny_term
+    char* content; //texto do denyTerm
+    struct deniedTerm* next; //proximo term, caso exista
+};
+
 void timestamp(FILE* fp)
 {
     time_t ltime; /* calendar time */
@@ -46,10 +53,10 @@ int verifyGET(const char* buffer){
 		printf("Whitelist not found\n");
 	}
 	else { //verifying whitelist
-		while (fgets(line, sizeof(line), fwhite)) {
+		while (fgets(line, sizeof(line), fwhite) && strlen(line) > 1) {
 				int size = strlen (line);
 				line[size-1] = '\0'; //apagar o \n do fgets
-				//printf("@%s@\n", line);
+				//printf("%s\n", line);
 				if (strstr(url,line) && size > 0) { //TERM FOUND AND VALID
 					printf("Term in whitelist: %s\n", line);
 					writeLogWhitelist(buffer);
@@ -64,7 +71,7 @@ int verifyGET(const char* buffer){
 		printf("Blacklist not found\n");
 	}
 	else {
-		while (fgets(line, sizeof(line), fblack)) {
+		while (fgets(line, sizeof(line), fblack) && strlen(line) > 1) {
 			int size = strlen(line);
 			//printf("Initial blackterm #%s#\n", line);
 			while (line[size]=='\0' || line[size]=='\n') { //enquanto houver finalizador invalido
@@ -93,33 +100,61 @@ char* save_deny_term_log(char* buffer){
 	}
 	return buffer_copy;
 }
+
+void loadDenyTerms() {
+	FILE* fterms;
+	fterms = fopen ("proxy_server_-TR2-/denyTerms.txt", "r");
+	char line[1500]; //variable to current denyterm
+	deniedTerm* tempTerm = NULL;
+	bool first = true;
+
+	if (fterms == NULL) { //arquivo nao existe
+		printf("Deny Terms file not found\n");
+	} else {
+		firstTerm = (deniedTerm*) malloc(sizeof(deniedTerm)); //cria o primeiro termo
+		init_deniedTerm(firstTerm);
+		tempTerm = firstTerm; //variavel auxiliar do iterador
+
+		while (fgets(line, sizeof(line), fterms) && strlen(line) > 1) {
+			int size = strlen (line);
+			line[size-1] = '\0'; //apagar o \n capturado pelo fgets
+			tempTerm->content = (char*) malloc(sizeof(char)*(size+1));
+
+			strncpy(tempTerm->content,line, size); //copia line para o termo
+			printf("\nDENY TERM %s LOADED", tempTerm->content);
+			tempTerm->next = (deniedTerm*) malloc(sizeof(deniedTerm)); //cria o termo da proxima iteracao
+			init_deniedTerm(tempTerm->next);
+			tempTerm = tempTerm->next;
+		}
+	}
+
+	printf("\n\nDenied terms loaded\n");
+	fclose (fterms);
+}
+
 int verifyDenyTerms(const char* buffer, char* log_content) {
 	/*returns -1 in case of deny term
 	  returns  1 otherwise*/
 	
-	FILE* fterms;
-	fterms = fopen ("proxy_server_-TR2-/denyTerms.txt", "r");
-	char term[256];
-	
-	if (fterms == NULL) { //arquivo nao existe
-		printf("Deny Terms file not found\n");
-	}
-	else { //verifying whitelist
-		while (fgets(term, sizeof(term), fterms)) {
-			int size = strlen (term);
-			term[size-1] = '\0'; //apagar o \n do fgets
-			//printf("@%s@\n", term);
-			if (strstr(buffer,term)) { //TERM FOUND IN BUFFER
-				printf("\n\n\n\nDeny Term found: %s\n\n\n", term);
-				writeLogDeniedTerms(log_content,term);				
-				return denied_term;
-			}
+	deniedTerm* tempTerm = firstTerm;
+
+	while (tempTerm->content != NULL) {
+
+		if (strstr(buffer,tempTerm->content)) { //TERM FOUND IN BUFFER
+		printf("\n\n\n\nDeny Term found: %s\n\n\n", tempTerm->content);
+		writeLogDeniedTerms(log_content,tempTerm->content);
+		return denied_term;
 		}
-		fclose (fterms);
+		else {
+			printf("Deny Term %s not found\n", tempTerm->content);
+		}
+		tempTerm = tempTerm->next;
 	}
-	printf("Clean buffer: No deny terms\n");
+
+	printf("Clean buffer: No deny terms\n\n");
 	return something_else;
 }
+
 void writeLogDeniedTerms(char* log_content,char* term){
 	FILE* logDenied;
 	logDenied = fopen ("proxy_server_-TR2-/logs/logDenied.txt", "a"); //Appends to a file. Writing operations append data at the end of the file. The file is created if it does not exist.
@@ -155,4 +190,10 @@ void writeLogWhitelist(const char* buffer) {
 		fclose(logWhite);	
 	}
 	
+}
+
+void init_deniedTerm(deniedTerm* dterm){
+    dterm->content = NULL;
+    dterm->next = NULL;
+    return;
 }
