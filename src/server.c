@@ -60,11 +60,12 @@ int run_tcp_server(long int port, bool inspection_neeeded){
         close(clientSocket);
         break;
       }
-
-      int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
       deny_terms_log_content = save_deny_term_log(buffer); //prepares buffer in case of log request
 
-      if(blacklistOK == whitelisted || verifyDenyTerms(buffer, deny_terms_log_content) != denied_term){ //request is clear
+      int blacklistOK = verifyGET(buffer); //returns 1 if whitelist; returns -1 if blacklist
+      int denyTermOK = verifyDenyTerms(buffer, deny_terms_log_content);
+
+      if(blacklistOK != blacklisted && denyTermOK != denied_term){ //request is clear
         //only contacts final host/client if website isn't blacklisted
         /*BEGIN - OPENING CONNECTION WITH FINAL HOST*/
 
@@ -302,7 +303,7 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
   int rw_flag_c_h = 0;
   int rw_flag_h_c = 0;
   bool send_response=true;
-  char* pagename = NULL; //pode dar problema de seg fault
+  char* pagename = NULL;
   bool is_cached = false;
   int available_cache_index = 0;
   alarm(10);
@@ -327,15 +328,17 @@ void client_host_communication(char* deny_terms_log_content, int blacklistOK, bo
         //printf("inside if\n");
         //if(buffer==NULL)
         //    printf("buffer null\n");
-        printf("[H] Wrote: %s\n",buffer);
-        /*VERIFICAR SE buffer CONTÉM DENY_TERMS*/
-        if(blacklistOK!=whitelisted)
-          blacklistOK = verifyDenyTerms(buffer,deny_terms_log_content);
+        //printf("[H] Wrote: %s\n",buffer);
+        //printf("[H] Wrote\n",buffer);
+        
+        int denyTermOK;
+        if(blacklistOK != whitelisted)
+          denyTermOK = verifyDenyTerms(buffer,deny_terms_log_content);
         if(inspection_neeeded && !want_to_send_response() && packet==0)
           send_response=false;
         if(send_response){
           
-          if(blacklistOK != denied_term){ //DenyTerm not found
+          if(denyTermOK != denied_term){ //DenyTerm not found
             if(packet == 1 && pagename != NULL){
               //printf("[H] First packet content:\"\n%s\"\n", buffer);
               is_cached = is_in_cache(pagename);
@@ -446,7 +449,7 @@ void host_connect(int rw_flag){
     //char* destination_host = NULL;
     char init_message[BUFFER_SIZE];
     struct hostent *final_host;
-    struct sockaddr_in server_addr;
+    struct sockaddr_in server_addr; //sock_addr não possui sin_family, sin_addr ou sin_port
     long int host_port = 80;
         
     bzero(init_message,BUFFER_SIZE);

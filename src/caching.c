@@ -134,6 +134,7 @@ void init_cache_data(cd* cache){
 
 //itens da cache podem ser guardados em um vetor cr cache[n];
 void new_cr_entry(int i, char* index_name){
+
 //    char* test;
     //printf("test:%d\n",test );
   //  printf("I am myself\n");
@@ -162,7 +163,8 @@ void new_cr_entry(int i, char* index_name){
     behauviour of many C functions (including strlen() calls ). This undefined behaviour could force the programm
     to access a forbidden memory area  at get_page_name() (which was detected by calling malloc in line 165)
     */
-    cache[i].index = (char*)malloc(sizeof(char)*(strlen(index_name) + 1) );
+    int nameSize = strlen(index_name) + 1;
+    cache[i].index = (char*) malloc(sizeof(char) * nameSize); //ENCRENCA
     /*
     if(cache[i].index==NULL){
         printf("NULL\n");
@@ -172,6 +174,7 @@ void new_cr_entry(int i, char* index_name){
         
         printf("not null\n");
     }*/
+  
     //cache[i].index = index_name;
     strcpy(cache[i].index,index_name);
     cache[i].data = (cd*) malloc(sizeof(cd));
@@ -371,8 +374,8 @@ int find_empty_cr_index(){
 bool is_in_cache(char* name){
     for(int i = 0; i < CACHE_LIMIT; i++){
         if((cache[i].index != NULL)){
-            printf("[DB] CACHED: %d\n",strlen(cache[i].index));
-            printf("[DB] STRING: %d\n",strlen(name));
+            printf("[DB] CACHED: %zu\n",strlen(cache[i].index)); //%zu pois strlen retorna tipo size_t
+            printf("[DB] STRING: %zu\n",strlen(name));
             if((strcmp(cache[i].index,name) == 0))
                 return true;
         }

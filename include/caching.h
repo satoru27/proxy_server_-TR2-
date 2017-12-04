@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <unistd.h> //sleep
 
 #define CACHE_LIMIT 100
 #define SIZE_OF_BEGIN_CACHE_ENTRY 20
