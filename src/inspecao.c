@@ -5,16 +5,16 @@ bool inspectsHeader(const char* buffer) {
 	FILE* fpointer;
 	char opcao[2];
 
-	printf("%s\n[!!!] Edit client request? (S/N): ", buffer);
+	printf("%s\n[!!!] Edit client request? (Y/N): ", buffer);
 	
 	scanf ("%s",opcao);
 	//getchar();
 	while(!valid_option(opcao[0])){
 		getchar();
-		printf("Please, insert a valid option (S/N)\n");
+		printf("Please, insert a valid option (Y/N)\n");
 		scanf ("%s", opcao);
 	}
-	if (opcao[0] == 's' || opcao[0] == 'S') {
+	if (opcao[0] == 'y' || opcao[0] == 'Y') {
 		fpointer = fopen ("proxy_server_-TR2-/packet.txt", "w+");//creates the file if it doesn't exist
 		if (fpointer == NULL)
 			return false;
@@ -60,18 +60,18 @@ bool recoverHeader(char* buffer) { //updates buffer with the file content
 	}
 }
 bool valid_option(char option){
-	return (option=='s'|| option=='S' || 
+	return (option=='y'|| option=='Y' || 
 			option=='n' || option=='N');
 }
 bool want_to_send_response(){
 	char opcao[2];
 	
-	printf("Would you like to send the received message to the client? (S/N):");
+	printf("Would you like to send the received message to the client? (Y/N):");
 	scanf ("%s",opcao);
 	while(!valid_option(opcao[0])){
 		getchar();
-		printf("Please, insert a valid option (S/N)\n");
+		printf("Please, insert a valid option (Y/N)\n");
 		scanf ("%s",opcao);
 	}
-	return (opcao[0]=='s' || opcao[0]=='S');
+	return (opcao[0]=='y' || opcao[0]=='Y');
 }
