@@ -337,3 +337,39 @@ void show_cached_index(){
         }
     }
 }
+int find_cache_index(char* name){
+    for(int i = 0; i < CACHE_LIMIT; i++){
+        if((cache[i].index != NULL)){
+            //printf("[DB] CACHED: %d\n",strlen(cache[i].index));
+            //printf("[DB] STRING: %d\n",strlen(name));
+            if((strcmp(cache[i].index,name) == 0))
+                return i;
+        }
+    }
+    return -1;
+}
+
+void send_from_cache(int socket, char* name){
+    int index_n = find_cache_index(name);
+    
+    if(index_n<0){
+        printf("Deu ruim producao,vazei\n");
+        return;
+    }
+
+    cd* position = cache[index_n].data;
+    if(position  == NULL){
+        printf("Deu ruim producao,vazei de novo\n");
+        return;
+    }
+
+    int size = 0;
+    while(position->content != NULL){
+        printf("[DB] Enviado pela cache\n");
+        int size = strlen(position->content) + 1;
+        send(socket,position->content,size,0); //blocante
+        position = position->next;
+    }
+    printf("[DB] Finalizado envio pela cache\n");
+
+}
