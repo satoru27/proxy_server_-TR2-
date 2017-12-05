@@ -427,12 +427,19 @@ void send_from_cache(int socket, char* name){
     }
 
     int size = 0;
+    int byte_sent;
+    int total_byte_sent=0;
     while(position->content != NULL){
-        printf("[DB] Enviado pela cache\n");
+        printf("[DB] Sent via cache\n");
         int size = strlen(position->content) + 1;
-        send(socket,position->content,size,0); //blocante
+        byte_sent=send(socket,position->content,size,0); //blocante
+        if(byte_sent>0){
+            printf("Cache sent %s: \n",position->content );
+           total_byte_sent+=byte_sent;     
+        }
         position = position->next;
     }
-    printf("[DB] Finalizado envio pela cache\n");
+
+    printf("[DB] Total bytes sent by cache:%d \n",total_byte_sent);
 
 }
